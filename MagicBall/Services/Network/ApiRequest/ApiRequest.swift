@@ -16,6 +16,12 @@ enum NetworkError: Error {
 }
 
 final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
+    /**
+     The request to send to the server
+     
+     - Parameter schema: The object which conform to ApiSchemaProtocol
+     - Parameter completion: Will be called on server response
+     */
     @discardableResult
     func request(_ schema: ApiSchema, completion: @escaping (Result<Data, NetworkError>) -> Void) -> URLSessionDataTask? {
         guard let urlRequest = configureRequest(schema) else {

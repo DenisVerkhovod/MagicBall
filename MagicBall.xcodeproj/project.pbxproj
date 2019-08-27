@@ -21,6 +21,8 @@
 		92376763231474CE0037F883 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376762231474CE0037F883 /* Constants.swift */; };
 		923767662315966A0037F883 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767652315966A0037F883 /* BaseViewController.swift */; };
 		923767682315AAE30037F883 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767672315AAE30037F883 /* MainViewController.swift */; };
+		9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767692315BB4D0037F883 /* SettingsViewController.swift */; };
+		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		92376762231474CE0037F883 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		923767652315966A0037F883 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		923767672315AAE30037F883 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		923767692315BB4D0037F883 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 				9237674C231471890037F883 /* Network */,
 				9237675F231473B20037F883 /* LocalStorage */,
 				92376760231474940037F883 /* OnDeviceMagicBall.swift */,
+				9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			children = (
 				923767652315966A0037F883 /* BaseViewController.swift */,
 				923767672315AAE30037F883 /* MainViewController.swift */,
+				923767692315BB4D0037F883 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,9 +256,11 @@
 				92376761231474940037F883 /* OnDeviceMagicBall.swift in Sources */,
 				92376763231474CE0037F883 /* Constants.swift in Sources */,
 				9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */,
+				9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */,
 				92376750231471B90037F883 /* ApiRequest.swift in Sources */,
 				92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */,
 				9237675E2314739D0037F883 /* LocalStorageManager.swift in Sources */,
+				9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +409,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YF5246P43U;
 				INFOPLIST_FILE = "$(SRCROOT)/MagicBall/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -419,6 +428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YF5246P43U;
 				INFOPLIST_FILE = "$(SRCROOT)/MagicBall/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

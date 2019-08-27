@@ -14,4 +14,12 @@ struct Constants {
     
     // User defaults constants
     static let answers: String = "answers"
+    static let isInitialConfigured: String = "isInitialConfigured"
+    static let presetAnswers: [String] =
+        [
+            "Great idea!",
+            "Let's do it!",
+            "Not now",
+            "Maybe next time"
+    ]
 }
