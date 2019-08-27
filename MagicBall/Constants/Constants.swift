@@ -10,6 +10,7 @@ import Foundation
 
 struct Constants {
     static let defaultAnswer: String = "Try again later!"
+    static let animationDuration: TimeInterval = 1.0
     
     // User defaults constants
     static let answers: String = "answers"

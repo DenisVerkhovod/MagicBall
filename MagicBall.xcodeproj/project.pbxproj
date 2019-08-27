@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237673923146EEA0037F883 /* AppDelegate.swift */; };
-		9237673C23146EEA0037F883 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237673B23146EEA0037F883 /* ViewController.swift */; };
 		9237673F23146EEA0037F883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237673D23146EEA0037F883 /* Main.storyboard */; };
 		9237674123146EEB0037F883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9237674023146EEB0037F883 /* Assets.xcassets */; };
 		9237674423146EEB0037F883 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237674223146EEB0037F883 /* LaunchScreen.storyboard */; };
@@ -20,12 +19,13 @@
 		9237675E2314739D0037F883 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675D2314739D0037F883 /* LocalStorageManager.swift */; };
 		92376761231474940037F883 /* OnDeviceMagicBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376760231474940037F883 /* OnDeviceMagicBall.swift */; };
 		92376763231474CE0037F883 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376762231474CE0037F883 /* Constants.swift */; };
+		923767662315966A0037F883 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767652315966A0037F883 /* BaseViewController.swift */; };
+		923767682315AAE30037F883 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767672315AAE30037F883 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9237673623146EEA0037F883 /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9237673923146EEA0037F883 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9237673B23146EEA0037F883 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9237673E23146EEA0037F883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9237674023146EEB0037F883 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9237674323146EEB0037F883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +38,8 @@
 		9237675D2314739D0037F883 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		92376760231474940037F883 /* OnDeviceMagicBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDeviceMagicBall.swift; sourceTree = "<group>"; };
 		92376762231474CE0037F883 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		923767652315966A0037F883 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		923767672315AAE30037F883 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +141,8 @@
 		92376759231472520037F883 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9237673B23146EEA0037F883 /* ViewController.swift */,
+				923767652315966A0037F883 /* BaseViewController.swift */,
+				923767672315AAE30037F883 /* MainViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -240,7 +243,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				92376756231472190037F883 /* NetworkManager.swift in Sources */,
-				9237673C23146EEA0037F883 /* ViewController.swift in Sources */,
+				923767682315AAE30037F883 /* MainViewController.swift in Sources */,
+				923767662315966A0037F883 /* BaseViewController.swift in Sources */,
 				9237675B2314727B0037F883 /* Decision.swift in Sources */,
 				92376754231471F90037F883 /* MagicBallApiSchema.swift in Sources */,
 				92376761231474940037F883 /* OnDeviceMagicBall.swift in Sources */,
