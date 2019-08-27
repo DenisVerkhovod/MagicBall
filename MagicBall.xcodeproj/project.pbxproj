@@ -12,6 +12,14 @@
 		9237673F23146EEA0037F883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237673D23146EEA0037F883 /* Main.storyboard */; };
 		9237674123146EEB0037F883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9237674023146EEB0037F883 /* Assets.xcassets */; };
 		9237674423146EEB0037F883 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237674223146EEB0037F883 /* LaunchScreen.storyboard */; };
+		92376750231471B90037F883 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237674F231471B90037F883 /* ApiRequest.swift */; };
+		92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376751231471E10037F883 /* ApiSchemaProtocol.swift */; };
+		92376754231471F90037F883 /* MagicBallApiSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376753231471F90037F883 /* MagicBallApiSchema.swift */; };
+		92376756231472190037F883 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376755231472190037F883 /* NetworkManager.swift */; };
+		9237675B2314727B0037F883 /* Decision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675A2314727B0037F883 /* Decision.swift */; };
+		9237675E2314739D0037F883 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675D2314739D0037F883 /* LocalStorageManager.swift */; };
+		92376761231474940037F883 /* OnDeviceMagicBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376760231474940037F883 /* OnDeviceMagicBall.swift */; };
+		92376763231474CE0037F883 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376762231474CE0037F883 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +30,14 @@
 		9237674023146EEB0037F883 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9237674323146EEB0037F883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9237674523146EEB0037F883 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9237674F231471B90037F883 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		92376751231471E10037F883 /* ApiSchemaProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSchemaProtocol.swift; sourceTree = "<group>"; };
+		92376753231471F90037F883 /* MagicBallApiSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallApiSchema.swift; sourceTree = "<group>"; };
+		92376755231472190037F883 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		9237675A2314727B0037F883 /* Decision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decision.swift; sourceTree = "<group>"; };
+		9237675D2314739D0037F883 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		92376760231474940037F883 /* OnDeviceMagicBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDeviceMagicBall.swift; sourceTree = "<group>"; };
+		92376762231474CE0037F883 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +71,101 @@
 			isa = PBXGroup;
 			children = (
 				9237673923146EEA0037F883 /* AppDelegate.swift */,
-				9237673B23146EEA0037F883 /* ViewController.swift */,
-				9237673D23146EEA0037F883 /* Main.storyboard */,
-				9237674023146EEB0037F883 /* Assets.xcassets */,
-				9237674223146EEB0037F883 /* LaunchScreen.storyboard */,
-				9237674523146EEB0037F883 /* Info.plist */,
+				92376764231474D70037F883 /* Constants */,
+				9237674B2314717A0037F883 /* Services */,
+				9237675C231472900037F883 /* Model */,
+				92376759231472520037F883 /* Controllers */,
+				92376757231472310037F883 /* Storyboards */,
+				92376758231472460037F883 /* Resources */,
 			);
 			path = MagicBall;
+			sourceTree = "<group>";
+		};
+		9237674B2314717A0037F883 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9237674C231471890037F883 /* Network */,
+				9237675F231473B20037F883 /* LocalStorage */,
+				92376760231474940037F883 /* OnDeviceMagicBall.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9237674C231471890037F883 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9237674D231471950037F883 /* ApiSchema */,
+				9237674E231471A00037F883 /* ApiRequest */,
+				92376755231472190037F883 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		9237674D231471950037F883 /* ApiSchema */ = {
+			isa = PBXGroup;
+			children = (
+				92376751231471E10037F883 /* ApiSchemaProtocol.swift */,
+				92376753231471F90037F883 /* MagicBallApiSchema.swift */,
+			);
+			path = ApiSchema;
+			sourceTree = "<group>";
+		};
+		9237674E231471A00037F883 /* ApiRequest */ = {
+			isa = PBXGroup;
+			children = (
+				9237674F231471B90037F883 /* ApiRequest.swift */,
+			);
+			path = ApiRequest;
+			sourceTree = "<group>";
+		};
+		92376757231472310037F883 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				9237673D23146EEA0037F883 /* Main.storyboard */,
+				9237674223146EEB0037F883 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		92376758231472460037F883 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9237674023146EEB0037F883 /* Assets.xcassets */,
+				9237674523146EEB0037F883 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		92376759231472520037F883 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9237673B23146EEA0037F883 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9237675C231472900037F883 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9237675A2314727B0037F883 /* Decision.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9237675F231473B20037F883 /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				9237675D2314739D0037F883 /* LocalStorageManager.swift */,
+			);
+			path = LocalStorage;
+			sourceTree = "<group>";
+		};
+		92376764231474D70037F883 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				92376762231474CE0037F883 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +239,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92376756231472190037F883 /* NetworkManager.swift in Sources */,
 				9237673C23146EEA0037F883 /* ViewController.swift in Sources */,
+				9237675B2314727B0037F883 /* Decision.swift in Sources */,
+				92376754231471F90037F883 /* MagicBallApiSchema.swift in Sources */,
+				92376761231474940037F883 /* OnDeviceMagicBall.swift in Sources */,
+				92376763231474CE0037F883 /* Constants.swift in Sources */,
 				9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */,
+				92376750231471B90037F883 /* ApiRequest.swift in Sources */,
+				92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */,
+				9237675E2314739D0037F883 /* LocalStorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +396,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YF5246P43U;
-				INFOPLIST_FILE = MagicBall/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MagicBall/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +414,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YF5246P43U;
-				INFOPLIST_FILE = MagicBall/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MagicBall/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
