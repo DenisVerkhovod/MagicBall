@@ -24,7 +24,10 @@ final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
      - Parameter completion: will be called on server response.
      - Returns: an instance of URLSessionDataTask.
      */
-    @discardableResult func request(_ schema: ApiSchema, completion: @escaping (Result<Data, NetworkError>) -> Void) -> URLSessionDataTask? {
+    @discardableResult func request(
+        _ schema: ApiSchema,
+        completion: @escaping (Result<Data, NetworkError>) -> Void
+        ) -> URLSessionDataTask? {
         guard let urlRequest = configureRequest(with: schema) else {
             completion(.failure(.invalidUrl))
             

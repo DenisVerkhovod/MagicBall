@@ -13,7 +13,9 @@ import Foundation
  */
 final class NetworkManager {
     
-    @discardableResult func getAnswer(completion: @escaping (Result<Decision, NetworkError>) -> Void) -> URLSessionDataTask? {
+    @discardableResult func getAnswer(
+        completion: @escaping (Result<Decision, NetworkError>) -> Void
+        ) -> URLSessionDataTask? {
         let mainQueue = DispatchQueue.main
         let task = ApiRequest<MagicBallApiSchema>().request(.jsonAnswer) { result in
             switch result {

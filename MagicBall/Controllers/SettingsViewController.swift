@@ -111,7 +111,10 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+        ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
             guard let strongSelf = self else {
                 completion(false)
@@ -123,7 +126,7 @@ extension SettingsViewController: UITableViewDelegate {
             completion(true)
         }
         
-        let trailingSwipeConfiguration: UISwipeActionsConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        let trailingSwipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         trailingSwipeConfiguration.performsFirstActionWithFullSwipe = true
         
         return trailingSwipeConfiguration

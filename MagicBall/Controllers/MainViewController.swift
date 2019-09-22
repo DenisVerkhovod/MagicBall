@@ -111,11 +111,10 @@ final class MainViewController: BaseViewController {
             self.answerLabel.alpha = 1.0
         }
     }
-    
+
     private func animateAnswerDismissing() {
         UIView.animate(withDuration: Constants.animationDuration) {
             self.answerLabel.alpha = 0.0
         }
     }
 }
-
