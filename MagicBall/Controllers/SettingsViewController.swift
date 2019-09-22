@@ -9,32 +9,40 @@
 import UIKit
 
 private extension SettingsViewController {
+    
     enum Defaults {
         // Cell
         static let cellIdentifier: String = "answerCell"
         // AddNewAnswer buttom
         static let addNewAnswerButtonCornerRadius: CGFloat = 5.0
     }
+    
 }
 
 final class SettingsViewController: BaseViewController {
     
     // MARK: - Outlets
-    @IBOutlet weak var newAnswerTextField: UITextField!
-    @IBOutlet weak var addNewAnswerButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet private weak var newAnswerTextField: UITextField!
+    @IBOutlet private weak var addNewAnswerButton: UIButton!
+    @IBOutlet private weak var tableView: UITableView!
     
     // MARK: - Private properties
+    
     private let localStorageManager: LocalStorageProtocol = LocalStorageManager()
     private var answers: [String] = []
     
+    // MARK: - Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configure()
         prepareDataSource()
     }
     
     // MARK: - Configure
+    
     private func configure() {
         configureTableView()
         configureNewAnswerTextField()
@@ -56,12 +64,13 @@ final class SettingsViewController: BaseViewController {
     }
     
     // MARK: - Actions
+    
     @IBAction func addNewAnswerTapped(_ sender: UIButton) {
         guard
-            let newAnswer = newAnswerTextField.text,
-            !newAnswer.isEmpty
+            let text = newAnswerTextField.text,
+            !text.isEmpty
             else { return }
-        localStorageManager.addAnswer(newAnswer)
+        localStorageManager.addAnswer(text)
         prepareDataSource()
         tableView.reloadData()
         newAnswerTextField.text = ""
@@ -73,13 +82,16 @@ final class SettingsViewController: BaseViewController {
     }
     
     // MARK: - Helpers
+    
     private func prepareDataSource() {
         answers = localStorageManager.answers
     }
 }
 
 // MARK: - UITableViewDataSource
+
 extension SettingsViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return answers.count
     }
@@ -89,16 +101,21 @@ extension SettingsViewController: UITableViewDataSource {
             fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
         cell.textLabel?.text = answers[indexPath.row]
+        
         return cell
     }
+    
 }
 
 // MARK: - UITableViewDelegate
+
 extension SettingsViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
             guard let strongSelf = self else {
                 completion(false)
+                
                 return
             }
             let answerToRemove = strongSelf.answers[indexPath.row]
@@ -111,12 +128,17 @@ extension SettingsViewController: UITableViewDelegate {
         
         return trailingSwipeConfiguration
     }
+    
 }
 
 // MARK: - UITextFieldDelegate
+
 extension SettingsViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         newAnswerTextField.resignFirstResponder()
+        
         return true
     }
+    
 }

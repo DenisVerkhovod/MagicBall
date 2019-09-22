@@ -9,6 +9,7 @@
 import Foundation
 
 struct Decision: Decodable {
+    
     let answer: String
     
     enum CodingKeys: String, CodingKey {

@@ -16,28 +16,32 @@ enum NetworkError: Error {
 }
 
 final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
+    
     /**
-     The request to send to the server
+     Performs the request to server.
      
-     - Parameter schema: The object which conform to ApiSchemaProtocol
-     - Parameter completion: Will be called on server response
+     - Parameter schema: the object which conform to ApiSchemaProtocol.
+     - Parameter completion: will be called on server response.
+     - Returns: an instance of URLSessionDataTask.
      */
-    @discardableResult
-    func request(_ schema: ApiSchema, completion: @escaping (Result<Data, NetworkError>) -> Void) -> URLSessionDataTask? {
-        guard let urlRequest = configureRequest(schema) else {
+    @discardableResult func request(_ schema: ApiSchema, completion: @escaping (Result<Data, NetworkError>) -> Void) -> URLSessionDataTask? {
+        guard let urlRequest = configureRequest(with: schema) else {
             completion(.failure(.invalidUrl))
+            
             return nil
         }
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) { data, response, error in
             if let requestError = error {
                 completion(.failure(.requestFailed(requestError)))
+                
                 return
             }
             if
                 let response = response as? HTTPURLResponse,
                 !(200...299).contains(response.statusCode) {
                 completion(.failure(.badResponse(response.statusCode)))
+                
                 return
             }
             if let responseData = data {
@@ -45,17 +49,19 @@ final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
             }
         }
         task.resume()
+        
         return task
     }
     
-    /// Configure a request according api schema
-    private func configureRequest(_ schema: ApiSchemaProtocol) -> URLRequest? {
+    /// Configure a request according api schema.
+    private func configureRequest(with schema: ApiSchemaProtocol) -> URLRequest? {
         guard
             let url = URL(string: schema.baseURL)?
                 .appendingPathComponent(schema.path)
             else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = schema.httpMethod.rawValue
+        
         return request
     }
 }

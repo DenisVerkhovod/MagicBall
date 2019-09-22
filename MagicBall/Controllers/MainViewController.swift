@@ -9,21 +9,25 @@
 import UIKit
 
 private extension MainViewController {
+    
     enum Defaults {
         // Answer container
         static let answerContainerCornerRadius: CGFloat = 10.0
         // Answer label
         static let answerLabelDefaultText: String = "Try me!"
     }
+    
 }
 
 final class MainViewController: BaseViewController {
     
     // MARK: - Outlets
+    
     @IBOutlet weak var answerLabel: UILabel!
     @IBOutlet weak var answerContainer: UIView!
     
     // MARK: - Private properties
+    
     private let networkManager: NetworkManager = NetworkManager()
     private let onDeviceMagicBall: OnDeviceMagicBall = OnDeviceMagicBall()
     private var dataTask: URLSessionDataTask?
@@ -31,6 +35,7 @@ final class MainViewController: BaseViewController {
     private var answer: String?
     
     // MARK: - Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +43,7 @@ final class MainViewController: BaseViewController {
     }
     
     // MARK: - Configure
+    
     private func configure() {
         configureAnswerContainer()
         configureAnswerLabel()
@@ -52,6 +58,7 @@ final class MainViewController: BaseViewController {
     }
     
     // MARK: - Shake handlers
+    
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         prepareToMotion()
@@ -64,10 +71,10 @@ final class MainViewController: BaseViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         if let answer = answer {
-            animateAnswerAppearance(with: answer)
+            animateAnswerAppearance(withText: answer)
         } else {
             onGettingAnswer = { [weak self] decision in
-                self?.animateAnswerAppearance(with: decision.answer)
+                self?.animateAnswerAppearance(withText: decision.answer)
             }
         }
     }
@@ -75,7 +82,7 @@ final class MainViewController: BaseViewController {
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         dataTask?.cancel()
-        animateAnswerAppearance(with: Defaults.answerLabelDefaultText)
+        animateAnswerAppearance(withText: Defaults.answerLabelDefaultText)
     }
     
     private func prepareToMotion() {
@@ -85,6 +92,7 @@ final class MainViewController: BaseViewController {
     }
     
     // MARK: - Helpers
+    
     private func getAnswer(completion: @escaping (Decision) -> Void) {
         dataTask = networkManager.getAnswer { [weak self] result in
             guard let strongSelf = self else { return }
@@ -97,7 +105,7 @@ final class MainViewController: BaseViewController {
         }
     }
     
-    private func animateAnswerAppearance(with text: String) {
+    private func animateAnswerAppearance(withText text: String) {
         answerLabel.text = text
         UIView.animate(withDuration: Constants.animationDuration) {
             self.answerLabel.alpha = 1.0

@@ -80,6 +80,10 @@
                     <navigationItem key="navigationItem" id="Eyr-7X-a8E">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="settings" id="oHw-TO-WOV">
                             <color key="tintColor" red="0.14068028330802917" green="0.21740072965621948" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Settings"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <segue destination="nKW-Ro-2ga" kind="presentation" id="6ss-AQ-ERR"/>
                             </connections>
@@ -120,6 +124,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-wu-tAc">
                                         <rect key="frame" x="325" y="0.0" width="30" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.98940259220000004" blue="0.85872805119999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" label="Add"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="iEJ-wu-tAc" secondAttribute="height" multiplier="1:1" id="3PE-Be-ku7"/>
                                             <constraint firstAttribute="width" constant="30" id="EOJ-Ss-kxj"/>
@@ -179,6 +184,10 @@
                     <navigationItem key="navigationItem" id="2NB-ql-2pk">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="V8s-Pc-yHQ">
                             <color key="tintColor" red="0.14068028330802917" green="0.21740072965621948" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Done"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="doneTapped:" destination="Dlj-K7-OHP" id="qyh-qh-6P6"/>
                             </connections>

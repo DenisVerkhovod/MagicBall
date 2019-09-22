@@ -12,16 +12,17 @@ import Foundation
  Abstraction for an object that will provide user's answers storing functionality.
  */
 protocol LocalStorageProtocol {
-    /// Saved custom user's answers
+    
+    /// Saved custom user's answers.
     var answers: [String] { get }
-    /// Add new user's answer to storage
+    /// Add new user's answer to storage.
     func addAnswer(_ newAnswer: String)
-    /// Remove answer from storage
+    /// Remove answer from storage.
     func removeAnswer(_ answer: String)
+    
 }
 
 final class LocalStorageManager: LocalStorageProtocol {
-    private let defaults: UserDefaults
     
     var answers: [String] {
         get {
@@ -31,6 +32,8 @@ final class LocalStorageManager: LocalStorageProtocol {
             defaults.set(newValue, forKey: Constants.answers)
         }
     }
+    
+    private let defaults: UserDefaults
     
     init(defaults: UserDefaults = UserDefaults.standard) {
         self.defaults = defaults

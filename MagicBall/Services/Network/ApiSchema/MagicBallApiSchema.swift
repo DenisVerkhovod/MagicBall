@@ -9,14 +9,17 @@
 import Foundation
 
 private extension MagicBallApiSchema {
+    
     enum Configuration {
         static let baseUrl: String = "https://8ball.delegator.com"
         static let defaultQuestion: String = "Some question"
     }
+    
     enum ResponseFormat: String {
         case json = "JSON"
         case xml = "XML"
     }
+    
 }
 
 enum MagicBallApiSchema {
@@ -24,6 +27,7 @@ enum MagicBallApiSchema {
 }
 
 extension MagicBallApiSchema: ApiSchemaProtocol {
+    
     var baseURL: String {
         return Configuration.baseUrl
     }
@@ -41,4 +45,5 @@ extension MagicBallApiSchema: ApiSchemaProtocol {
             return .get
         }
     }
+    
 }
