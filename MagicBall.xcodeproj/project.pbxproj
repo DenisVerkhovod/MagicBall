@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		922824592338EB37001DA874 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 922824582338EB37001DA874 /* Default-568h@2x.png */; };
 		9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237673923146EEA0037F883 /* AppDelegate.swift */; };
 		9237673F23146EEA0037F883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237673D23146EEA0037F883 /* Main.storyboard */; };
 		9237674123146EEB0037F883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9237674023146EEB0037F883 /* Assets.xcassets */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		7420581BE45D90B3FCCE03DF /* Pods_MagicBall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicBall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		922824582338EB37001DA874 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9237673623146EEA0037F883 /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9237673923146EEA0037F883 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9237673E23146EEA0037F883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 		9237672D23146EEA0037F883 = {
 			isa = PBXGroup;
 			children = (
-				922824582338EB37001DA874 /* Default-568h@2x.png */,
 				9237673823146EEA0037F883 /* MagicBall */,
 				9237673723146EEA0037F883 /* Products */,
 				24937B1B660E2B14BC237631 /* Pods */,
@@ -277,7 +274,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9237674423146EEB0037F883 /* LaunchScreen.storyboard in Resources */,
-				922824592338EB37001DA874 /* Default-568h@2x.png in Resources */,
 				9237674123146EEB0037F883 /* Assets.xcassets in Resources */,
 				9237673F23146EEA0037F883 /* Main.storyboard in Resources */,
 			);
