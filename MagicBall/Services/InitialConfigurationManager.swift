@@ -9,9 +9,10 @@
 import Foundation
 
 /**
- An object which preset default answers on initial launch
+ An object which preset default answers on initial launch.
  */
 final class InitialConfigurationManager {
+
     static func presetAnswers() {
         let defaults = UserDefaults.standard
         guard !defaults.bool(forKey: Constants.isInitialConfigured) else { return }

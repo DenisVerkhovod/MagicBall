@@ -12,10 +12,10 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureNavigationBar()
     }
-    
+
     private func configureNavigationBar() {
         let navigationBar = navigationController?.navigationBar
         navigationBar?.setBackgroundImage(UIImage(), for: .default)

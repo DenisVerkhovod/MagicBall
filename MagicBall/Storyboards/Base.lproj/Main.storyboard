@@ -27,7 +27,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvP-9x-zI6" userLabel="Ball Container">
                                 <rect key="frame" x="20" y="238.66666666666663" width="335" height="335"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball" translatesAutoresizingMaskIntoConstraints="NO" id="jUM-0y-Xhj">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jUM-0y-Xhj">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="335"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="jUM-0y-Xhj" secondAttribute="height" multiplier="1:1" id="cyN-AN-9iC"/>
@@ -78,8 +78,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Eyr-7X-a8E">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="settings" id="oHw-TO-WOV">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="oHw-TO-WOV">
                             <color key="tintColor" red="0.14068028330802917" green="0.21740072965621948" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Settings"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <segue destination="nKW-Ro-2ga" kind="presentation" id="6ss-AQ-ERR"/>
                             </connections>
@@ -88,6 +92,8 @@
                     <connections>
                         <outlet property="answerContainer" destination="Cur-xM-E4a" id="UqK-OR-SII"/>
                         <outlet property="answerLabel" destination="jSO-bz-bai" id="3Rb-DG-u49"/>
+                        <outlet property="ballImageView" destination="jUM-0y-Xhj" id="Mmt-f2-UoK"/>
+                        <outlet property="settingsButton" destination="oHw-TO-WOV" id="4cz-hD-SoW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -120,6 +126,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-wu-tAc">
                                         <rect key="frame" x="325" y="0.0" width="30" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.98940259220000004" blue="0.85872805119999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" label="Add"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="iEJ-wu-tAc" secondAttribute="height" multiplier="1:1" id="3PE-Be-ku7"/>
                                             <constraint firstAttribute="width" constant="30" id="EOJ-Ss-kxj"/>
@@ -179,6 +186,10 @@
                     <navigationItem key="navigationItem" id="2NB-ql-2pk">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="V8s-Pc-yHQ">
                             <color key="tintColor" red="0.14068028330802917" green="0.21740072965621948" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Done"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="doneTapped:" destination="Dlj-K7-OHP" id="qyh-qh-6P6"/>
                             </connections>
@@ -231,8 +242,4 @@
             <point key="canvasLocation" x="1765" y="117"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="ball" width="340" height="302"/>
-        <image name="settings" width="26" height="26"/>
-    </resources>
 </document>
