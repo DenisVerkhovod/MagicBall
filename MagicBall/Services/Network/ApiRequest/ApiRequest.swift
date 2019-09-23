@@ -16,7 +16,7 @@ enum NetworkError: Error {
 }
 
 final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
-    
+
     /**
      Performs the request to server.
      
@@ -30,21 +30,21 @@ final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
         ) -> URLSessionDataTask? {
         guard let urlRequest = configureRequest(with: schema) else {
             completion(.failure(.invalidUrl))
-            
+
             return nil
         }
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) { data, response, error in
             if let requestError = error {
                 completion(.failure(.requestFailed(requestError)))
-                
+
                 return
             }
             if
                 let response = response as? HTTPURLResponse,
                 !(200...299).contains(response.statusCode) {
                 completion(.failure(.badResponse(response.statusCode)))
-                
+
                 return
             }
             if let responseData = data {
@@ -52,10 +52,10 @@ final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
             }
         }
         task.resume()
-        
+
         return task
     }
-    
+
     /// Configure a request according api schema.
     private func configureRequest(with schema: ApiSchemaProtocol) -> URLRequest? {
         guard
@@ -64,7 +64,7 @@ final class ApiRequest<ApiSchema: ApiSchemaProtocol> {
             else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = schema.httpMethod.rawValue
-        
+
         return request
     }
 }

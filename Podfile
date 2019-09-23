@@ -6,6 +6,6 @@ target 'MagicBall' do
   use_frameworks!
 
   # Pods for MagicBall
-  pod 'SwiftLint'
+  pod 'SwiftLint', '~> 0.34' 
   pod 'SwiftGen', '~> 6.0' 
 end

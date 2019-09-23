@@ -4,7 +4,7 @@ PODS:
 
 DEPENDENCIES:
   - SwiftGen (~> 6.0)
-  - SwiftLint
+  - SwiftLint (~> 0.34)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -15,6 +15,6 @@ SPEC CHECKSUMS:
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: dd7ef40e65f845a23de5cdd5f21f2175b77a8a2e
+PODFILE CHECKSUM: a36befe3a9103687e4f564dc03f994ab225cd8af
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.7.5

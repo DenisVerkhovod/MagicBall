@@ -12,7 +12,7 @@ import Foundation
  Network manager handles all network calls. All requests must be sent through this manager.
  */
 final class NetworkManager {
-    
+
     @discardableResult func getAnswer(
         completion: @escaping (Result<Decision, NetworkError>) -> Void
         ) -> URLSessionDataTask? {
@@ -30,14 +30,14 @@ final class NetworkManager {
                         completion(.failure(.decodeError(error)))
                     }
                 }
-                
+
             case let .failure(error):
                 mainQueue.async {
                     completion(.failure(error))
                 }
             }
         }
-        
+
         return task
     }
 }
