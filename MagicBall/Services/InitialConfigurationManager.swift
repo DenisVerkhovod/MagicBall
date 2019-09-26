@@ -9,14 +9,28 @@
 import Foundation
 
 /**
- An object which preset default answers on initial launch.
+ An object which responsible for initial configuration.
  */
-final class InitialConfigurationManager {
+protocol InitialConfigurator {
 
-    static func presetAnswers() {
-        let defaults = UserDefaults.standard
-        guard !defaults.bool(forKey: Constants.isInitialConfigured) else { return }
-        defaults.set(Constants.presetAnswers, forKey: Constants.answers)
-        defaults.set(true, forKey: Constants.isInitialConfigured)
+    /**
+     Preset default answers on initial launch.
+     */
+    func presetAnswers()
+
+}
+
+final class InitialConfigurationManager: InitialConfigurator {
+
+    private var answerStorage: AnswerStorage
+
+    init(answerStorage: AnswerStorage = UserDefaults.standard) {
+        self.answerStorage = answerStorage
+    }
+
+    func presetAnswers() {
+        guard !answerStorage.isInititalConfigured else { return }
+        answerStorage.addAnswers(Constants.presetAnswers)
+        answerStorage.isInititalConfigured = true
     }
 }

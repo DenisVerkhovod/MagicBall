@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
-        InitialConfigurationManager.presetAnswers()
+        let initialConfigurator: InitialConfigurator = InitialConfigurationManager()
+        initialConfigurator.presetAnswers()
 
         return true
     }

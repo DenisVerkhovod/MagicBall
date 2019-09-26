@@ -16,7 +16,7 @@
 		92376754231471F90037F883 /* MagicBallApiSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376753231471F90037F883 /* MagicBallApiSchema.swift */; };
 		92376756231472190037F883 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376755231472190037F883 /* NetworkManager.swift */; };
 		9237675B2314727B0037F883 /* Decision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675A2314727B0037F883 /* Decision.swift */; };
-		9237675E2314739D0037F883 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675D2314739D0037F883 /* LocalStorageManager.swift */; };
+		9237675E2314739D0037F883 /* AnswerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675D2314739D0037F883 /* AnswerStorage.swift */; };
 		92376761231474940037F883 /* OnDeviceMagicBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376760231474940037F883 /* OnDeviceMagicBall.swift */; };
 		92376763231474CE0037F883 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376762231474CE0037F883 /* Constants.swift */; };
 		923767662315966A0037F883 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767652315966A0037F883 /* BaseViewController.swift */; };
@@ -40,7 +40,7 @@
 		92376753231471F90037F883 /* MagicBallApiSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallApiSchema.swift; sourceTree = "<group>"; };
 		92376755231472190037F883 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9237675A2314727B0037F883 /* Decision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decision.swift; sourceTree = "<group>"; };
-		9237675D2314739D0037F883 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		9237675D2314739D0037F883 /* AnswerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerStorage.swift; sourceTree = "<group>"; };
 		92376760231474940037F883 /* OnDeviceMagicBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDeviceMagicBall.swift; sourceTree = "<group>"; };
 		92376762231474CE0037F883 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		923767652315966A0037F883 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		9237675F231473B20037F883 /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
-				9237675D2314739D0037F883 /* LocalStorageManager.swift */,
+				9237675D2314739D0037F883 /* AnswerStorage.swift */,
 			);
 			path = LocalStorage;
 			sourceTree = "<group>";
@@ -359,7 +359,7 @@
 				9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */,
 				92376750231471B90037F883 /* ApiRequest.swift in Sources */,
 				92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */,
-				9237675E2314739D0037F883 /* LocalStorageManager.swift in Sources */,
+				9237675E2314739D0037F883 /* AnswerStorage.swift in Sources */,
 				9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

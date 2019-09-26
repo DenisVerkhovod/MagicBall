@@ -9,23 +9,29 @@
 import Foundation
 
 /**
- An object that generate random answers.
+ An object which responsible for generating random answer.
  */
-final class OnDeviceMagicBall {
-
-    private let localStorage: LocalStorageProtocol
-
-    init(localStorage: LocalStorageProtocol = LocalStorageManager()) {
-        self.localStorage = localStorage
-    }
+protocol AnswerGenerator {
 
     /**
      Generate random answer.
-     
+
      - Returns: Decision with random answer.
      */
+    func generateAnswer() -> Decision
+
+}
+
+final class OnDeviceMagicBall: AnswerGenerator {
+
+    private let answerStorage: AnswerStorage
+
+    init(answerStorage: AnswerStorage = UserDefaults.standard) {
+        self.answerStorage = answerStorage
+    }
+
     func generateAnswer() -> Decision {
-        let generatedAnswer = localStorage.answers.randomElement() ?? Constants.defaultAnswer
+        let generatedAnswer = answerStorage.answers.randomElement() ?? Constants.defaultAnswer
 
         return Decision(answer: generatedAnswer)
     }

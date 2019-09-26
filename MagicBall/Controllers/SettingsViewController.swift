@@ -29,7 +29,7 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Private properties
 
-    private let localStorageManager: LocalStorageProtocol = LocalStorageManager()
+    private let localStorageManager: AnswerStorage = UserDefaults.standard
     private var answers: [String] = []
 
     // MARK: - Life cycle
@@ -70,7 +70,7 @@ final class SettingsViewController: BaseViewController {
             let text = newAnswerTextField.text,
             !text.isEmpty
             else { return }
-        localStorageManager.addAnswer(text)
+        localStorageManager.addAnswers([text])
         prepareDataSource()
         tableView.reloadData()
         newAnswerTextField.text = ""
@@ -116,13 +116,13 @@ extension SettingsViewController: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
         ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            guard let strongSelf = self else {
+            guard let self = self else {
                 completion(false)
 
                 return
             }
-            let answerToRemove = strongSelf.answers[indexPath.row]
-            strongSelf.localStorageManager.removeAnswer(answerToRemove)
+            let answerToRemove = self.answers[indexPath.row]
+            self.localStorageManager.removeAnswer(answerToRemove)
             completion(true)
         }
 
