@@ -24,9 +24,9 @@ protocol AnswerGenerator {
 
 final class OnDeviceMagicBall: AnswerGenerator {
 
-    private let answerStorage: AnswerStorage
+    private let answerStorage: DecisionStorage
 
-    init(answerStorage: AnswerStorage = UserDefaults.standard) {
+    init(answerStorage: DecisionStorage = UserDefaults.standard) {
         self.answerStorage = answerStorage
     }
 

@@ -22,9 +22,9 @@ protocol InitialConfigurator {
 
 final class InitialConfigurationManager: InitialConfigurator {
 
-    private var answerStorage: AnswerStorage
+    private var answerStorage: DecisionStorage
 
-    init(answerStorage: AnswerStorage = UserDefaults.standard) {
+    init(answerStorage: DecisionStorage = UserDefaults.standard) {
         self.answerStorage = answerStorage
     }
 
