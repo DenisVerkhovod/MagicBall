@@ -29,7 +29,7 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Private properties
 
-    private let localStorageManager: AnswerStorage = UserDefaults.standard
+    private var answerStorage: AnswerStorage!
     private var answers: [String] = []
 
     // MARK: - Life cycle
@@ -39,6 +39,12 @@ final class SettingsViewController: BaseViewController {
 
         configure()
         prepareDataSource()
+    }
+
+    // MARK: - Dependency injection
+
+    func setDependencies(answerStorage: AnswerStorage) {
+        self.answerStorage = answerStorage
     }
 
     // MARK: - Configure
@@ -70,7 +76,7 @@ final class SettingsViewController: BaseViewController {
             let text = newAnswerTextField.text,
             !text.isEmpty
             else { return }
-        localStorageManager.addAnswers([text])
+        answerStorage.addAnswers([text])
         prepareDataSource()
         tableView.reloadData()
         newAnswerTextField.text = ""
@@ -84,7 +90,7 @@ final class SettingsViewController: BaseViewController {
     // MARK: - Helpers
 
     private func prepareDataSource() {
-        answers = localStorageManager.answers
+        answers = answerStorage.answers
     }
 }
 
@@ -122,7 +128,9 @@ extension SettingsViewController: UITableViewDelegate {
                 return
             }
             let answerToRemove = self.answers[indexPath.row]
-            self.localStorageManager.removeAnswer(answerToRemove)
+            self.answerStorage.removeAnswer(answerToRemove)
+            self.prepareDataSource()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
             completion(true)
         }
 

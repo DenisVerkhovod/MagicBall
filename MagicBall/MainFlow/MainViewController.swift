@@ -30,11 +30,7 @@ final class MainViewController: BaseViewController {
 
     // MARK: - Private properties
 
-    private let networkManager: NetworkManager = NetworkManager()
-    private let onDeviceMagicBall: OnDeviceMagicBall = OnDeviceMagicBall()
-    private var dataTask: URLSessionDataTask?
-    private var onGettingAnswer: ((Decision) -> Void)?
-    private var answer: String?
+    private var viewModel: MainViewModel!
 
     // MARK: - Life cycle
 
@@ -42,6 +38,12 @@ final class MainViewController: BaseViewController {
         super.viewDidLoad()
 
         configure()
+    }
+
+    // MARK: - Dependency injection
+
+    func setViewModel(_ viewModel: MainViewModel) {
+        self.viewModel = viewModel
     }
 
     // MARK: - Configure
@@ -74,49 +76,37 @@ final class MainViewController: BaseViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        prepareToMotion()
-        getAnswer { decision in
-            self.answer = decision.answer
-            self.onGettingAnswer?(decision)
-        }
+
+        animateAnswerDismissing()
+        viewModel.shakeWasOccured()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        if let answer = answer {
-            animateAnswerAppearance(with: answer)
-        } else {
-            onGettingAnswer = { [weak self] decision in
-                self?.animateAnswerAppearance(with: decision.answer)
-            }
+
+        viewModel.getAnswer { [weak self] presentableDecision in
+            self?.animateAnswerAppearance(with: presentableDecision.answer)
         }
     }
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        dataTask?.cancel()
+        viewModel.shakeWasCancelled()
         animateAnswerAppearance(with: Defaults.answerLabelDefaultText)
     }
 
-    private func prepareToMotion() {
-        onGettingAnswer = nil
-        answer = nil
-        animateAnswerDismissing()
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if
+            let settingsNavigationController = segue.destination as? UINavigationController,
+            let settingsViewController = settingsNavigationController.topViewController as? SettingsViewController {
+            let answerStorage = UserDefaults.standard
+            settingsViewController.setDependencies(answerStorage: answerStorage)
+        }
     }
 
     // MARK: - Helpers
-
-    private func getAnswer(completion: @escaping (Decision) -> Void) {
-        dataTask = networkManager.getAnswer { [weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case let .success(decision):
-                completion(decision)
-            case .failure:
-                completion(strongSelf.onDeviceMagicBall.generateAnswer())
-            }
-        }
-    }
 
     /**
      Animate answerLabel appearance with given text.
