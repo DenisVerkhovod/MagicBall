@@ -36,7 +36,7 @@ struct Decision: Decodable {
 extension Decision {
 
     func toPresentableDecision() -> PresentableDecision {
-        PresentableDecision(answer: self.answer.uppercased())
+        return PresentableDecision(answer: self.answer.uppercased())
     }
 
 }

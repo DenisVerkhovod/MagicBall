@@ -55,11 +55,13 @@ final class MainModel {
 
     func cancelLoading() {
         dataTask?.cancel()
+        dataTask = nil
     }
 
     // MARK: - Helpers
 
     private func invalidateDecision() {
+        cancelLoading()
         decision = nil
         onGettingDecision = nil
     }

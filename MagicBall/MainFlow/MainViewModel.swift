@@ -22,11 +22,11 @@ final class MainViewModel {
 
     // MARK: - Event handlers
 
-    func shakeWasOccured() {
+    func handleShake() {
         model.loadAnswer()
     }
 
-    func shakeWasCancelled() {
+    func handleShakeCancelling() {
         model.cancelLoading()
     }
 

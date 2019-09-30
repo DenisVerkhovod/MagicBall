@@ -18,7 +18,7 @@ struct StorableDecision {
 extension StorableDecision {
 
     func toDecision() -> Decision {
-        Decision(answer: self.answer)
+        return Decision(answer: self.answer)
     }
 
 }

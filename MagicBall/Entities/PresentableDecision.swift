@@ -11,4 +11,5 @@ import Foundation
 struct PresentableDecision {
 
     let answer: String
+    var removingHandler: (() -> Void)?
 }

@@ -31,8 +31,6 @@ final class OnDeviceMagicBall: AnswerGenerator {
     }
 
     func generateAnswer() -> Decision {
-        let generatedAnswer = answerStorage.answers.randomElement() ?? Constants.defaultAnswer
-
-        return Decision(answer: generatedAnswer)
+        return answerStorage.fetchDecisions().randomElement() ?? Decision(answer: Constants.defaultAnswer)
     }
 }

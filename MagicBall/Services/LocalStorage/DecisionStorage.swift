@@ -15,7 +15,7 @@ protocol DecisionStorage {
 
     /// Indicates whether initial answers were setted.
     var isInititalConfigured: Bool { get set }
-    
+
     /// Fetch saved custom user's decisions.
     func fetchDecisions() -> [Decision]
     /// Save decisions in storage.
@@ -37,9 +37,10 @@ extension UserDefaults: DecisionStorage {
     }
 
     func fetchDecisions() -> [Decision] {
-        stringArray(forKey: Constants.answers)?.map({ Decision(answer: $0) }) ?? []
+        let decisions = stringArray(forKey: Constants.answers)?.map({ StorableDecision(answer: $0) }) ?? []
+        return decisions.map({ $0.toDecision() })
     }
-    
+
     func saveDecisions(_ decisions: [Decision]) {
         var storedDecisions = fetchDecisions()
         storedDecisions.append(contentsOf: decisions)
@@ -49,6 +50,6 @@ extension UserDefaults: DecisionStorage {
 
     func removeDecision(_ decision: Decision) {
         let updatedDecisions = fetchDecisions().filter({ $0.answer != decision.answer })
-        saveDecisions(updatedDecisions)
+        set(updatedDecisions.map({ $0.answer }), forKey: Constants.answers)
     }
 }

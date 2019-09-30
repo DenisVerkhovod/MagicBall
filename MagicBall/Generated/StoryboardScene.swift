@@ -23,6 +23,8 @@ internal enum StoryboardScene {
     internal static let initialScene = InitialSceneType<UIKit.UINavigationController>(storyboard: Main.self)
 
     internal static let mainViewController = SceneType<MagicBall.MainViewController>(storyboard: Main.self, identifier: "MainViewController")
+
+    internal static let settingsViewController = SceneType<MagicBall.SettingsViewController>(storyboard: Main.self, identifier: "SettingsViewController")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name

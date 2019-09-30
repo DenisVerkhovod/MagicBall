@@ -78,7 +78,7 @@ final class MainViewController: BaseViewController {
         guard motion == .motionShake else { return }
 
         animateAnswerDismissing()
-        viewModel.shakeWasOccured()
+        viewModel.handleShake()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -91,18 +91,21 @@ final class MainViewController: BaseViewController {
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        viewModel.shakeWasCancelled()
+        viewModel.handleShakeCancelling()
         animateAnswerAppearance(with: Defaults.answerLabelDefaultText)
     }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if
-            let settingsNavigationController = segue.destination as? UINavigationController,
-            let settingsViewController = settingsNavigationController.topViewController as? SettingsViewController {
-            let answerStorage = UserDefaults.standard
-            settingsViewController.setDependencies(answerStorage: answerStorage)
+        switch StoryboardSegue.Main(segue) {
+        case .settingsSegue:
+            guard let settingsNavigationController = segue.destination as? UINavigationController else { return }
+            let settingsViewController = prepareSettingsViewController()
+            settingsNavigationController.setViewControllers([settingsViewController], animated: true)
+
+        default:
+            break
         }
     }
 
@@ -110,7 +113,7 @@ final class MainViewController: BaseViewController {
 
     /**
      Animate answerLabel appearance with given text.
-
+     
      - Parameter text: Text to assign to label.
      */
     private func animateAnswerAppearance(with text: String) {
@@ -128,4 +131,28 @@ final class MainViewController: BaseViewController {
             self.answerLabel.alpha = 0.0
         }
     }
+
+    // MARK: - Settings flow
+
+    private func prepareSettingsViewController() -> SettingsViewController {
+        let settingsViewController = StoryboardScene.Main.settingsViewController.instantiate()
+        let settingViewModel = prepareSettingsViewModel()
+        settingsViewController.setViewModel(settingViewModel)
+
+        return settingsViewController
+    }
+
+    private func prepareSettingsViewModel() -> SettingsViewModel {
+        let settingsModel = prepareSettingsModel()
+        let settingsViewModel = SettingsViewModel(model: settingsModel)
+
+        return settingsViewModel
+    }
+
+    private func prepareSettingsModel() -> SettingsModel {
+         let decisionStorage = UserDefaults.standard
+         let settingsModel = SettingsModel(decisionStorage: decisionStorage)
+
+         return settingsModel
+     }
 }

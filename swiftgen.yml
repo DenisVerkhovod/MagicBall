@@ -3,7 +3,6 @@ xcassets:
   outputs:
     templateName: swift4
     output: MagicBall/Generated/Assets.swift
-
 ib:
   inputs: MagicBall/Storyboards
   outputs:
@@ -11,3 +10,4 @@ ib:
       output: MagicBall/Generated/StoryboardScene.swift
     - templateName: segues-swift4
       output: MagicBall/Generated/StoryboardSegue.swift
+

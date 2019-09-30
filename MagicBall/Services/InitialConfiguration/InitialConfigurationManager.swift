@@ -30,7 +30,8 @@ final class InitialConfigurationManager: InitialConfigurator {
 
     func presetAnswers() {
         guard !answerStorage.isInititalConfigured else { return }
-        answerStorage.addAnswers(Constants.presetAnswers)
+        let initialDecisions = Constants.presetAnswers.map({ Decision(answer: $0) })
+        answerStorage.saveDecisions(initialDecisions)
         answerStorage.isInititalConfigured = true
     }
 }

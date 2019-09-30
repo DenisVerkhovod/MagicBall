@@ -29,8 +29,7 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Private properties
 
-    private var answerStorage: AnswerStorage!
-    private var answers: [String] = []
+    private var viewModel: SettingsViewModel!
 
     // MARK: - Life cycle
 
@@ -38,13 +37,13 @@ final class SettingsViewController: BaseViewController {
         super.viewDidLoad()
 
         configure()
-        prepareDataSource()
+        updateDataSource()
     }
 
     // MARK: - Dependency injection
 
-    func setDependencies(answerStorage: AnswerStorage) {
-        self.answerStorage = answerStorage
+    func setViewModel(_ viewModel: SettingsViewModel) {
+        self.viewModel = viewModel
     }
 
     // MARK: - Configure
@@ -71,26 +70,26 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Actions
 
-    @IBAction func addNewAnswerTapped(_ sender: UIButton) {
+    @IBAction private func addNewAnswerTapped(_ sender: UIButton) {
         guard
             let text = newAnswerTextField.text,
             !text.isEmpty
             else { return }
-        answerStorage.addAnswers([text])
-        prepareDataSource()
+
+        viewModel.saveDecision(with: text)
         tableView.reloadData()
         newAnswerTextField.text = ""
         newAnswerTextField.resignFirstResponder()
     }
 
-    @IBAction func doneTapped(_ sender: UIBarButtonItem) {
+    @IBAction private func doneTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Helpers
 
-    private func prepareDataSource() {
-        answers = answerStorage.answers
+    private func updateDataSource() {
+        viewModel.fetchDecisions()
     }
 }
 
@@ -99,14 +98,14 @@ final class SettingsViewController: BaseViewController {
 extension SettingsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return answers.count
+        return viewModel.numberOfDecisions
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
             fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
-        cell.textLabel?.text = answers[indexPath.row]
+        cell.textLabel?.text = viewModel.decision(at: indexPath.row).answer
 
         return cell
     }
@@ -122,15 +121,9 @@ extension SettingsViewController: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
         ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            guard let self = self else {
-                completion(false)
-
-                return
-            }
-            let answerToRemove = self.answers[indexPath.row]
-            self.answerStorage.removeAnswer(answerToRemove)
-            self.prepareDataSource()
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            let decision = self?.viewModel.decision(at: indexPath.row)
+            decision?.removingHandler?()
+            self?.tableView.reloadData()
             completion(true)
         }
 
