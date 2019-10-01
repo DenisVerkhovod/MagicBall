@@ -23,6 +23,8 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Outlets
 
+    @IBOutlet private weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var newAnswerTextField: UITextField!
     @IBOutlet private weak var addNewAnswerButton: UIButton!
     @IBOutlet private weak var tableView: UITableView!
@@ -49,9 +51,25 @@ final class SettingsViewController: BaseViewController {
     // MARK: - Configure
 
     private func configure() {
+        configureView()
+        configureDoneBarButton()
+        configureTitleLabel()
         configureTableView()
         configureNewAnswerTextField()
         configureAddNewAnswerButton()
+    }
+
+    private func configureView() {
+        view.backgroundColor = Asset.Colors.mainBlue.color
+    }
+
+    private func configureDoneBarButton() {
+        doneBarButton.tintColor = Asset.Colors.tintBlue.color
+    }
+
+    private func configureTitleLabel() {
+        titleLabel.text = L10n.Settings.title
+        titleLabel.textColor = Asset.Colors.biege.color
     }
 
     private func configureTableView() {
@@ -61,6 +79,7 @@ final class SettingsViewController: BaseViewController {
     }
 
     private func configureNewAnswerTextField() {
+        newAnswerTextField.placeholder = L10n.Settings.textFieldPlaceholderText
         newAnswerTextField.delegate = self
     }
 
@@ -105,6 +124,7 @@ extension SettingsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
             fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
+        cell.backgroundColor = Asset.Colors.darkBlue.color
         cell.textLabel?.text = viewModel.decision(at: indexPath.row).answer
 
         return cell
@@ -119,8 +139,12 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-        ) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+    ) -> UISwipeActionsConfiguration? {
+
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: L10n.Settings.deleteActionTitle
+        ) { [weak self] _, _, completion in
             let decision = self?.viewModel.decision(at: indexPath.row)
             decision?.removingHandler?()
             self?.tableView.reloadData()

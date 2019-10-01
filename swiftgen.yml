@@ -11,3 +11,9 @@ ib:
     - templateName: segues-swift4
       output: MagicBall/Generated/StoryboardSegue.swift
 
+strings:
+  inputs: MagicBall/Resources/Localizable.strings
+  filter: .+\.strings$
+  outputs:
+    templateName: structured-swift4
+    output: MagicBall/Generated/Strings.swift

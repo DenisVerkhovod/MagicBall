@@ -13,8 +13,6 @@ private extension MainViewController {
     enum Defaults {
         // Answer container
         static let answerContainerCornerRadius: CGFloat = 10.0
-        // Answer label
-        static let answerLabelDefaultText: String = "Try me!"
     }
 
 }
@@ -23,6 +21,7 @@ final class MainViewController: BaseViewController {
 
     // MARK: - Outlets
 
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var answerLabel: UILabel!
     @IBOutlet private weak var answerContainer: UIView!
     @IBOutlet private weak var ballImageView: UIImageView!
@@ -49,27 +48,41 @@ final class MainViewController: BaseViewController {
     // MARK: - Configure
 
     private func configure() {
+        configureView()
+        configureTitleLabel()
         configureAnswerContainer()
         configureAnswerLabel()
         configureBallImageView()
         configureSettingsButton()
     }
 
+    private func configureView() {
+        view.backgroundColor = Asset.Colors.mainBlue.color
+    }
+
+    private func configureTitleLabel() {
+        titleLabel.text = L10n.Main.title
+        titleLabel.textColor = Asset.Colors.biege.color
+    }
+
     private func configureAnswerContainer() {
         answerContainer.layer.cornerRadius = Defaults.answerContainerCornerRadius
+        answerContainer.backgroundColor = Asset.Colors.mainBlue.color
     }
 
     private func configureAnswerLabel() {
-        answerLabel.text = Defaults.answerLabelDefaultText
+        answerLabel.text = L10n.Main.answerLabelDefaultText
+        answerLabel.textColor = Asset.Colors.turquoise.color
     }
 
     private func configureBallImageView() {
-        ballImageView.image = Asset.ball.image
+        ballImageView.image = Asset.Images.ball.image
     }
 
     private func configureSettingsButton() {
-        let settingsImage = Asset.settings.image
+        let settingsImage = Asset.Images.settings.image
         settingsButton.image = settingsImage
+        settingsButton.tintColor = Asset.Colors.tintBlue.color
     }
 
     // MARK: - Shake handlers
@@ -92,7 +105,7 @@ final class MainViewController: BaseViewController {
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         viewModel.handleShakeCancelling()
-        animateAnswerAppearance(with: Defaults.answerLabelDefaultText)
+        animateAnswerAppearance(with: L10n.Main.answerLabelDefaultText)
     }
 
     // MARK: - Navigation

@@ -19,7 +19,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Ask the Ball and shake!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UY7-X0-QTn">
                                 <rect key="frame" x="20" y="98" width="335" height="86.666666666666686"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="36"/>
-                                <color key="textColor" red="1" green="0.98940259218215942" blue="0.85872805118560791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="0.9882352941176471" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvP-9x-zI6" userLabel="Ball Container">
@@ -37,7 +37,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try me!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jSO-bz-bai">
                                                 <rect key="frame" x="5" y="5" width="191" height="40"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="24"/>
-                                                <color key="textColor" red="0.6515343189239502" green="0.98084908723831177" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.65098039215686276" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -63,7 +63,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.35964858531951904" green="0.53758233785629272" blue="0.9961974024772644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.36078431372549019" green="0.53725490196078429" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fvP-9x-zI6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UY7-X0-QTn" secondAttribute="bottom" constant="10" id="15y-hG-Jqi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="UY7-X0-QTn" secondAttribute="trailing" constant="20" id="46U-Ek-rUS"/>
@@ -77,7 +77,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Eyr-7X-a8E">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="oHw-TO-WOV">
-                            <color key="tintColor" red="0.14068028330802917" green="0.21740072965621948" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.14117647058823529" green="0.21568627450980393" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Settings"/>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
@@ -92,6 +92,7 @@
                         <outlet property="answerLabel" destination="jSO-bz-bai" id="3Rb-DG-u49"/>
                         <outlet property="ballImageView" destination="jUM-0y-Xhj" id="Mmt-f2-UoK"/>
                         <outlet property="settingsButton" destination="oHw-TO-WOV" id="4cz-hD-SoW"/>
+                        <outlet property="titleLabel" destination="UY7-X0-QTn" id="7Vy-BY-Xfm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -156,7 +157,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.27164959907531738" green="0.40602397918701172" blue="0.75849419832229614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.27058823529411763" green="0.40784313725490196" blue="0.75686274509803919" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -194,8 +195,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addNewAnswerButton" destination="iEJ-wu-tAc" id="e4V-nQ-358"/>
+                        <outlet property="doneBarButton" destination="V8s-Pc-yHQ" id="RPm-Sr-6Dh"/>
                         <outlet property="newAnswerTextField" destination="uRs-Px-1KH" id="nZr-t3-ngx"/>
                         <outlet property="tableView" destination="uqh-ED-vlc" id="ZiB-kF-XsR"/>
+                        <outlet property="titleLabel" destination="7Z7-ZH-Ljf" id="Xbj-Hp-7Jn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFV-Qg-Tju" userLabel="First Responder" sceneMemberID="firstResponder"/>
