@@ -16,10 +16,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-        ) -> Bool {
-        InitialConfigurationManager.presetAnswers()
+    ) -> Bool {
+        let initialConfigurator: InitialConfigurator = InitialConfigurationManager()
+        initialConfigurator.presetAnswers()
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+
+        let mainViewController = prepareMainViewController()
+        let initialNavigationController = UINavigationController(rootViewController: mainViewController)
+
+        window?.rootViewController = initialNavigationController
+        window?.makeKeyAndVisible()
 
         return true
     }
 
+    // MARK: - Helpers
+
+    private func prepareMainViewController() -> MainViewController {
+        let mainViewController = StoryboardScene.Main.mainViewController.instantiate()
+        let mainViewModel = prepareMainViewModel()
+        mainViewController.setViewModel(mainViewModel)
+
+        return mainViewController
+    }
+
+    private func prepareMainViewModel() -> MainViewModel {
+        let mainModel = prepareMainModel()
+        let mainViewModel = MainViewModel(model: mainModel)
+
+        return mainViewModel
+    }
+
+    private func prepareMainModel() -> MainModel {
+        let networkManager = NetworkManager()
+        let onDeviceMagicBall = OnDeviceMagicBall()
+        let mainModel = MainModel(networkManager: networkManager, onDeviceMagicBall: onDeviceMagicBall)
+
+        return mainModel
+    }
 }

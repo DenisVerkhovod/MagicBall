@@ -9,9 +9,22 @@
 import Foundation
 
 /**
- Network manager handles all network calls. All requests must be sent through this manager.
+ An object which handles all network calls. All requests must be sent through this object.
  */
-final class NetworkManager {
+protocol NetworkManagerProtocol {
+
+    /**
+     Fetch an answer.
+     - Parameter completion: Will be called with Swift.Result as a parameter when the answer was fetched.
+     - Returns: instance of the URLSessionDataTask.
+     */
+    @discardableResult func getAnswer(
+        completion: @escaping (Result<Decision, NetworkError>
+        ) -> Void) -> URLSessionDataTask?
+
+}
+
+final class NetworkManager: NetworkManagerProtocol {
 
     @discardableResult func getAnswer(
         completion: @escaping (Result<Decision, NetworkError>) -> Void

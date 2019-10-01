@@ -23,14 +23,15 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Outlets
 
+    @IBOutlet private weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var newAnswerTextField: UITextField!
     @IBOutlet private weak var addNewAnswerButton: UIButton!
     @IBOutlet private weak var tableView: UITableView!
 
     // MARK: - Private properties
 
-    private let localStorageManager: LocalStorageProtocol = LocalStorageManager()
-    private var answers: [String] = []
+    private var viewModel: SettingsViewModel!
 
     // MARK: - Life cycle
 
@@ -38,15 +39,37 @@ final class SettingsViewController: BaseViewController {
         super.viewDidLoad()
 
         configure()
-        prepareDataSource()
+        updateDataSource()
+    }
+
+    // MARK: - Dependency injection
+
+    func setViewModel(_ viewModel: SettingsViewModel) {
+        self.viewModel = viewModel
     }
 
     // MARK: - Configure
 
     private func configure() {
+        configureView()
+        configureDoneBarButton()
+        configureTitleLabel()
         configureTableView()
         configureNewAnswerTextField()
         configureAddNewAnswerButton()
+    }
+
+    private func configureView() {
+        view.backgroundColor = Asset.Colors.mainBlue.color
+    }
+
+    private func configureDoneBarButton() {
+        doneBarButton.tintColor = Asset.Colors.tintBlue.color
+    }
+
+    private func configureTitleLabel() {
+        titleLabel.text = L10n.Settings.title
+        titleLabel.textColor = Asset.Colors.biege.color
     }
 
     private func configureTableView() {
@@ -56,6 +79,7 @@ final class SettingsViewController: BaseViewController {
     }
 
     private func configureNewAnswerTextField() {
+        newAnswerTextField.placeholder = L10n.Settings.textFieldPlaceholderText
         newAnswerTextField.delegate = self
     }
 
@@ -65,26 +89,26 @@ final class SettingsViewController: BaseViewController {
 
     // MARK: - Actions
 
-    @IBAction func addNewAnswerTapped(_ sender: UIButton) {
+    @IBAction private func addNewAnswerTapped(_ sender: UIButton) {
         guard
             let text = newAnswerTextField.text,
             !text.isEmpty
             else { return }
-        localStorageManager.addAnswer(text)
-        prepareDataSource()
+
+        viewModel.saveDecision(with: text)
         tableView.reloadData()
         newAnswerTextField.text = ""
         newAnswerTextField.resignFirstResponder()
     }
 
-    @IBAction func doneTapped(_ sender: UIBarButtonItem) {
+    @IBAction private func doneTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Helpers
 
-    private func prepareDataSource() {
-        answers = localStorageManager.answers
+    private func updateDataSource() {
+        viewModel.fetchDecisions()
     }
 }
 
@@ -93,14 +117,15 @@ final class SettingsViewController: BaseViewController {
 extension SettingsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return answers.count
+        return viewModel.numberOfDecisions
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
             fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
-        cell.textLabel?.text = answers[indexPath.row]
+        cell.backgroundColor = Asset.Colors.darkBlue.color
+        cell.textLabel?.text = viewModel.decision(at: indexPath.row).answer
 
         return cell
     }
@@ -114,15 +139,15 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-        ) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            guard let strongSelf = self else {
-                completion(false)
+    ) -> UISwipeActionsConfiguration? {
 
-                return
-            }
-            let answerToRemove = strongSelf.answers[indexPath.row]
-            strongSelf.localStorageManager.removeAnswer(answerToRemove)
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: L10n.Settings.deleteActionTitle
+        ) { [weak self] _, _, completion in
+            let decision = self?.viewModel.decision(at: indexPath.row)
+            decision?.removingHandler?()
+            self?.tableView.reloadData()
             completion(true)
         }
 

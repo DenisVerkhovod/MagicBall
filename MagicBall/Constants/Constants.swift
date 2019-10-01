@@ -9,7 +9,6 @@
 import Foundation
 
 struct Constants {
-    static let defaultAnswer: String = "Try again later!"
     static let animationDuration: TimeInterval = 1.0
 
     // User defaults constants
@@ -17,9 +16,9 @@ struct Constants {
     static let isInitialConfigured: String = "isInitialConfigured"
     static let presetAnswers: [String] =
         [
-            "Great idea!",
-            "Let's do it!",
-            "Not now",
-            "Maybe next time"
+            L10n.Answer.preset1,
+            L10n.Answer.preset2,
+            L10n.Answer.preset3,
+            L10n.Answer.preset4
     ]
 }

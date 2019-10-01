@@ -30,3 +30,13 @@ struct Decision: Decodable {
         self.answer = answer
     }
 }
+
+// MARK: - Extension
+
+extension Decision {
+
+    func toPresentableDecision() -> PresentableDecision {
+        return PresentableDecision(answer: self.answer.uppercased())
+    }
+
+}
