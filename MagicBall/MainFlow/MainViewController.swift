@@ -7,12 +7,23 @@
 //
 
 import UIKit
+import SnapKit
 
 private extension MainViewController {
 
     enum Defaults {
+        // Title label
+        static let titleLabelTopOffset: CGFloat = 10.0
+        static let titleLabelLeadingTrailingOffset: CGFloat = 20.0
+
+        // BallContainer
+        static let ballContainerTopOffset: CGFloat = 10.0
+
         // Answer container
         static let answerContainerCornerRadius: CGFloat = 10.0
+
+        // Answer label
+        static let answerLabelEdgeOffset: CGFloat = 5.0
     }
 
 }
@@ -22,9 +33,10 @@ final class MainViewController: BaseViewController {
     // MARK: - Outlets
 
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var answerLabel: UILabel!
-    @IBOutlet private weak var answerContainer: UIView!
+    @IBOutlet private weak var ballContainer: UIView!
     @IBOutlet private weak var ballImageView: UIImageView!
+    @IBOutlet private weak var answerContainer: UIView!
+    @IBOutlet private weak var answerLabel: UILabel!
     @IBOutlet private weak var settingsButton: UIBarButtonItem!
 
     // MARK: - Private properties
@@ -37,6 +49,7 @@ final class MainViewController: BaseViewController {
         super.viewDidLoad()
 
         configure()
+        setupViews()
     }
 
     // MARK: - Dependency injection
@@ -83,6 +96,52 @@ final class MainViewController: BaseViewController {
         let settingsImage = Asset.Images.settings.image
         settingsButton.image = settingsImage
         settingsButton.tintColor = Asset.Colors.tintBlue.color
+    }
+
+    // MARK: - Setup Views
+
+    private func setupViews() {
+        setupTitleLabel()
+        setupBallContainer()
+        setupBallImageView()
+        setupAnswerContainer()
+        setupAnswerLabel()
+    }
+
+    private func setupTitleLabel() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(Defaults.titleLabelTopOffset)
+            make.leading.trailing.equalToSuperview().inset(Defaults.titleLabelLeadingTrailingOffset)
+        }
+    }
+
+    private func setupBallContainer() {
+        ballContainer.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(titleLabel).offset(Defaults.ballContainerTopOffset)
+            make.leading.trailing.equalTo(titleLabel)
+            make.centerY.equalToSuperview().priority(.medium)
+        }
+    }
+
+    private func setupBallImageView() {
+        ballImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(ballImageView.snp.height).multipliedBy(1)
+        }
+    }
+
+    private func setupAnswerContainer() {
+        answerContainer.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.15)
+        }
+    }
+
+    private func setupAnswerLabel() {
+        answerLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(Defaults.answerLabelEdgeOffset)
+        }
     }
 
     // MARK: - Shake handlers

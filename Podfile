@@ -8,4 +8,5 @@ target 'MagicBall' do
   # Pods for MagicBall
   pod 'SwiftLint', '~> 0.34' 
   pod 'SwiftGen', '~> 6.0' 
+  pod 'SnapKit', '~> 5.0.0'
 end
