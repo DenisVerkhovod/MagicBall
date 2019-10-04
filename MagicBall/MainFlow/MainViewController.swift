@@ -98,7 +98,7 @@ final class MainViewController: BaseViewController {
         settingsButton.tintColor = Asset.Colors.tintBlue.color
     }
 
-    // MARK: - Setup Views
+    // MARK: - Setup views
 
     private func setupViews() {
         setupTitleLabel()
@@ -117,7 +117,7 @@ final class MainViewController: BaseViewController {
 
     private func setupBallContainer() {
         ballContainer.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(titleLabel).offset(Defaults.ballContainerTopOffset)
+            make.top.greaterThanOrEqualTo(titleLabel.snp.bottom).offset(Defaults.ballContainerTopOffset)
             make.leading.trailing.equalTo(titleLabel)
             make.centerY.equalToSuperview().priority(.medium)
         }
@@ -134,7 +134,7 @@ final class MainViewController: BaseViewController {
         answerContainer.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.6)
-            make.height.equalToSuperview().multipliedBy(0.15)
+            make.height.equalToSuperview().multipliedBy(0.2)
         }
     }
 

@@ -7,14 +7,27 @@
 //
 
 import UIKit
+import SnapKit
 
 private extension SettingsViewController {
 
     enum Defaults {
         // Cell
         static let cellIdentifier: String = "answerCell"
+
+        // Title label
+        static let titleLabelTopOffset: CGFloat = 10.0
+        static let titleLabelLeadingTrailingOffset: CGFloat = 20.0
+
+        // Input stack view
+        static let inputStackViewTopOffset: CGFloat = 20.0
+
         // AddNewAnswer buttom
         static let addNewAnswerButtonCornerRadius: CGFloat = 5.0
+        static let addNewAnswerButtonSize: CGFloat = 30.0
+
+        // TableView
+        static let tableViewTopOffset: CGFloat = 20.0
     }
 
 }
@@ -25,6 +38,7 @@ final class SettingsViewController: BaseViewController {
 
     @IBOutlet private weak var doneBarButton: UIBarButtonItem!
     @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var inputStackView: UIStackView!
     @IBOutlet private weak var newAnswerTextField: UITextField!
     @IBOutlet private weak var addNewAnswerButton: UIButton!
     @IBOutlet private weak var tableView: UITableView!
@@ -39,6 +53,7 @@ final class SettingsViewController: BaseViewController {
         super.viewDidLoad()
 
         configure()
+        setupViews()
         updateDataSource()
     }
 
@@ -85,6 +100,44 @@ final class SettingsViewController: BaseViewController {
 
     private func configureAddNewAnswerButton() {
         addNewAnswerButton.layer.cornerRadius = Defaults.addNewAnswerButtonCornerRadius
+    }
+
+    // MARK: - Setup views
+
+    private func setupViews() {
+        setupTitleLabel()
+        setupInputStackView()
+        setupAddNewAnswerButton()
+        setupTableView()
+    }
+
+    private func setupTitleLabel() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(Defaults.titleLabelTopOffset)
+            make.leading.trailing.equalToSuperview().inset(Defaults.titleLabelLeadingTrailingOffset)
+        }
+    }
+
+    private func setupInputStackView() {
+        inputStackView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(Defaults.inputStackViewTopOffset)
+            make.trailing.leading.equalTo(titleLabel)
+        }
+    }
+
+    private func setupAddNewAnswerButton() {
+        addNewAnswerButton.snp.makeConstraints { make in
+            make.size.greaterThanOrEqualTo(Defaults.addNewAnswerButtonSize)
+            make.width.equalTo(addNewAnswerButton.snp.height).multipliedBy(1)
+        }
+    }
+
+    private func setupTableView() {
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(inputStackView.snp.bottom).offset(Defaults.tableViewTopOffset)
+            make.trailing.leading.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 
     // MARK: - Actions
