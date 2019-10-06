@@ -16,11 +16,16 @@ private extension MainViewController {
         static let titleLabelTopOffset: CGFloat = 10.0
         static let titleLabelLeadingTrailingOffset: CGFloat = 20.0
 
-        // BallContainer
+        // Total shakes label
+        static let totalShakesLabelTopOffset: CGFloat = 10.0
+
+        // Ball container
         static let ballContainerTopOffset: CGFloat = 10.0
 
         // Answer container
         static let answerContainerCornerRadius: CGFloat = 10.0
+        static let answerContainerWidthMultiplier: CGFloat = 0.6
+        static let answerContainerHeightMultiplier: CGFloat = 0.2
 
         // Answer label
         static let answerLabelEdgeOffset: CGFloat = 5.0
@@ -38,6 +43,7 @@ final class MainViewController: BaseViewController {
     @IBOutlet private weak var answerContainer: UIView!
     @IBOutlet private weak var answerLabel: UILabel!
     @IBOutlet private weak var settingsButton: UIBarButtonItem!
+    @IBOutlet private weak var totalShakesLabel: UILabel!
 
     // MARK: - Private properties
 
@@ -67,6 +73,7 @@ final class MainViewController: BaseViewController {
         configureAnswerLabel()
         configureBallImageView()
         configureSettingsButton()
+        configureTotalShakesLabel()
     }
 
     private func configureView() {
@@ -98,10 +105,16 @@ final class MainViewController: BaseViewController {
         settingsButton.tintColor = Asset.Colors.tintBlue.color
     }
 
+    private func configureTotalShakesLabel() {
+        totalShakesLabel.textColor = Asset.Colors.biege.color
+        updateTotalShakesLabel()
+    }
+
     // MARK: - Setup views
 
     private func setupViews() {
         setupTitleLabel()
+        setupTotalShakesLabel()
         setupBallContainer()
         setupBallImageView()
         setupAnswerContainer()
@@ -115,9 +128,16 @@ final class MainViewController: BaseViewController {
         }
     }
 
+    private func setupTotalShakesLabel() {
+        totalShakesLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(Defaults.totalShakesLabelTopOffset)
+        }
+    }
+
     private func setupBallContainer() {
         ballContainer.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(titleLabel.snp.bottom).offset(Defaults.ballContainerTopOffset)
+            make.top.greaterThanOrEqualTo(totalShakesLabel.snp.bottom).offset(Defaults.ballContainerTopOffset)
             make.leading.trailing.equalTo(titleLabel)
             make.centerY.equalToSuperview().priority(.medium)
         }
@@ -133,8 +153,8 @@ final class MainViewController: BaseViewController {
     private func setupAnswerContainer() {
         answerContainer.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.6)
-            make.height.equalToSuperview().multipliedBy(0.2)
+            make.width.equalToSuperview().multipliedBy(Defaults.answerContainerWidthMultiplier)
+            make.height.equalToSuperview().multipliedBy(Defaults.answerContainerHeightMultiplier)
         }
     }
 
@@ -159,10 +179,13 @@ final class MainViewController: BaseViewController {
         viewModel.getAnswer { [weak self] presentableDecision in
             self?.animateAnswerAppearance(with: presentableDecision.answer)
         }
+        viewModel.increaseShakesCounter()
+        updateTotalShakesLabel()
     }
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
+
         viewModel.handleShakeCancelling()
         animateAnswerAppearance(with: L10n.Main.answerLabelDefaultText)
     }
@@ -202,6 +225,10 @@ final class MainViewController: BaseViewController {
         UIView.animate(withDuration: Constants.animationDuration) {
             self.answerLabel.alpha = 0.0
         }
+    }
+
+    private func updateTotalShakesLabel() {
+        totalShakesLabel.text = L10n.Main.totalShakes + "\(viewModel.totalShakes)"
     }
 
     // MARK: - Settings flow

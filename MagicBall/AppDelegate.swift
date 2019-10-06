@@ -51,7 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func prepareMainModel() -> MainModel {
         let networkManager = NetworkManager()
         let onDeviceMagicBall = OnDeviceMagicBall()
-        let mainModel = MainModel(networkManager: networkManager, onDeviceMagicBall: onDeviceMagicBall)
+        let shakeCounter = MagicBallShakeCounter()
+        let mainModel = MainModel(
+            networkManager: networkManager,
+            onDeviceMagicBall: onDeviceMagicBall,
+            shakeCounter: shakeCounter
+        )
 
         return mainModel
     }

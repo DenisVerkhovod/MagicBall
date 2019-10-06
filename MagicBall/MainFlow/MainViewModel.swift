@@ -10,6 +10,12 @@ import Foundation
 
 final class MainViewModel {
 
+    // MARK: - Public properties
+
+    var totalShakes: Int {
+        return model.totalShakes
+    }
+
     // MARK: - Private properties
 
     private let model: MainModel
@@ -34,5 +40,9 @@ final class MainViewModel {
         model.getAnswer { decision in
             completion(decision.toPresentableDecision())
         }
+    }
+
+    func increaseShakesCounter() {
+        model.increaseShakesCounter()
     }
 }

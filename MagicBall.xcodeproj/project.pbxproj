@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,8 @@
 		923767682315AAE30037F883 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767672315AAE30037F883 /* MainViewController.swift */; };
 		9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767692315BB4D0037F883 /* SettingsViewController.swift */; };
 		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
+		925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925317B8234A493800717E98 /* MagicBallShakeCounter.swift */; };
+		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
 		9261B98623382E72004A5F6D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261B98523382E1D004A5F6D /* Assets.swift */; };
 		92C8F71123417E6700026AF3 /* StoryboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8F70F23417E6700026AF3 /* StoryboardScene.swift */; };
 		92C8F71223417E6700026AF3 /* StoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8F71023417E6700026AF3 /* StoryboardSegue.swift */; };
@@ -63,6 +65,8 @@
 		923767672315AAE30037F883 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		923767692315BB4D0037F883 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
+		925317B8234A493800717E98 /* MagicBallShakeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallShakeCounter.swift; sourceTree = "<group>"; };
+		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		9261B98523382E1D004A5F6D /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		92C8F70F23417E6700026AF3 /* StoryboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardScene.swift; sourceTree = "<group>"; };
 		92C8F71023417E6700026AF3 /* StoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegue.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				9237675F231473B20037F883 /* LocalStorage */,
 				922FBA36233CD2A2007428A8 /* AnswerGeneration */,
 				922FBA35233CD28D007428A8 /* InitialConfiguration */,
+				925317BA234A4EBA00717E98 /* SecureStorage */,
+				925317BB234A4EC600717E98 /* ShakeCounter */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -261,6 +267,22 @@
 				92376762231474CE0037F883 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		925317BA234A4EBA00717E98 /* SecureStorage */ = {
+			isa = PBXGroup;
+			children = (
+				9253206F2347C3CD008DB960 /* SecureStorage.swift */,
+			);
+			path = SecureStorage;
+			sourceTree = "<group>";
+		};
+		925317BB234A4EC600717E98 /* ShakeCounter */ = {
+			isa = PBXGroup;
+			children = (
+				925317B8234A493800717E98 /* MagicBallShakeCounter.swift */,
+			);
+			path = ShakeCounter;
 			sourceTree = "<group>";
 		};
 		9261B9842338260C004A5F6D /* Generated */ = {
@@ -446,10 +468,12 @@
 				92376750231471B90037F883 /* ApiRequest.swift in Sources */,
 				92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */,
 				922FBA4123412A52007428A8 /* PresentableDecision.swift in Sources */,
+				925320702347C3CD008DB960 /* SecureStorage.swift in Sources */,
 				9237675E2314739D0037F883 /* DecisionStorage.swift in Sources */,
 				9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */,
 				922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */,
 				922FBA4A23415784007428A8 /* SettingsViewModel.swift in Sources */,
+				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,
 				92C8F716234351E200026AF3 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

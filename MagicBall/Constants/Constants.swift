@@ -11,6 +11,9 @@ import Foundation
 struct Constants {
     static let animationDuration: TimeInterval = 1.0
 
+    // Keychain constants
+    static let totalShakes: String = "totalShakes"
+
     // User defaults constants
     static let answers: String = "answers"
     static let isInitialConfigured: String = "isInitialConfigured"

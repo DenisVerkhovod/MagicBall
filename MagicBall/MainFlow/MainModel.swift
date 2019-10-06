@@ -10,10 +10,17 @@ import Foundation
 
 final class MainModel {
 
+    // MARK: - Public properties
+
+    var totalShakes: Int {
+        return shakeCounter.numberOfShakes
+    }
+
     // MARK: - Private properties
 
     private let networkManager: NetworkManagerProtocol
     private let onDeviceMagicBall: AnswerGenerator
+    private let shakeCounter: ShakeCounter
     private var decision: Decision? {
         didSet {
             guard let decision = decision else { return }
@@ -25,9 +32,14 @@ final class MainModel {
 
     // MARK: - Inititalization
 
-    init(networkManager: NetworkManagerProtocol, onDeviceMagicBall: AnswerGenerator) {
+    init(
+        networkManager: NetworkManagerProtocol,
+        onDeviceMagicBall: AnswerGenerator,
+        shakeCounter: ShakeCounter
+    ) {
         self.networkManager = networkManager
         self.onDeviceMagicBall = onDeviceMagicBall
+        self.shakeCounter = shakeCounter
     }
 
     // MARK: - Answer handlers
@@ -56,6 +68,12 @@ final class MainModel {
     func cancelLoading() {
         dataTask?.cancel()
         dataTask = nil
+    }
+
+    // MARK: - Shake count handlers
+
+    func increaseShakesCounter() {
+        shakeCounter.increaseCounter()
     }
 
     // MARK: - Helpers

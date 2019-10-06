@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,6 +49,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total shakes: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTu-oZ-ESV">
+                                <rect key="frame" x="140" y="246" width="98" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <color key="textColor" name="Colors/Biege"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.36078431372549019" green="0.53725490196078429" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -71,6 +79,7 @@
                         <outlet property="ballImageView" destination="jUM-0y-Xhj" id="Mmt-f2-UoK"/>
                         <outlet property="settingsButton" destination="oHw-TO-WOV" id="4cz-hD-SoW"/>
                         <outlet property="titleLabel" destination="UY7-X0-QTn" id="7Vy-BY-Xfm"/>
+                        <outlet property="totalShakesLabel" destination="PTu-oZ-ESV" id="NLV-EK-lsb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -207,4 +216,9 @@
             <point key="canvasLocation" x="1765" y="117"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="Colors/Biege">
+            <color red="1" green="0.98799997568130493" blue="0.85900002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
