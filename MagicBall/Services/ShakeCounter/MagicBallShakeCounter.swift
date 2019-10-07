@@ -14,7 +14,9 @@ import KeychainSwift
  */
 protocol ShakeCounter {
 
-    /// Total number of shakes.
+    /**
+     Total number of shakes.
+     */
     var numberOfShakes: Int { get }
 
     /**
