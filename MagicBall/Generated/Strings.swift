@@ -30,6 +30,8 @@ internal enum L10n {
     internal static let defaultAnswer = L10n.tr("Localizable", "main.defaultAnswer")
     /// Ask the Ball and shake!
     internal static let title = L10n.tr("Localizable", "main.title")
+    /// Total shakes: 
+    internal static let totalShakes = L10n.tr("Localizable", "main.totalShakes")
   }
 
   internal enum Settings {

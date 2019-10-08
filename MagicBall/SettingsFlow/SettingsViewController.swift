@@ -7,31 +7,122 @@
 //
 
 import UIKit
+import SnapKit
 
 private extension SettingsViewController {
 
     enum Defaults {
         // Cell
         static let cellIdentifier: String = "answerCell"
+
+        // Title label
+        static let titleLabelFontSize: CGFloat = 25.0
+        static let titleLabelTopOffset: CGFloat = 10.0
+        static let titleLabelLeadingTrailingOffset: CGFloat = 20.0
+
+        // Input stack view
+        static let inputStackViewSpacing: CGFloat = 10.0
+        static let inputStackViewTopOffset: CGFloat = 20.0
+
+        // NewAnswerTextField
+        static let newAnswerTextFieldFontSize: CGFloat = 17.0
+        static let newAnswerTextFieldMinimiumFontSize: CGFloat = 12.0
+
         // AddNewAnswer buttom
         static let addNewAnswerButtonCornerRadius: CGFloat = 5.0
+        static let addNewAnswerButtonSize: CGFloat = 30.0
+
+        // TableView
+        static let tableViewTopOffset: CGFloat = 20.0
     }
 
 }
 
 final class SettingsViewController: BaseViewController {
 
-    // MARK: - Outlets
-
-    @IBOutlet private weak var doneBarButton: UIBarButtonItem!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var newAnswerTextField: UITextField!
-    @IBOutlet private weak var addNewAnswerButton: UIButton!
-    @IBOutlet private weak var tableView: UITableView!
-
     // MARK: - Private properties
 
-    private var viewModel: SettingsViewModel!
+    private var viewModel: SettingsViewModel
+
+    // MARK: - Lazy properties
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
+        label.textColor = Asset.Colors.biege.color
+        label.text = L10n.Settings.title
+        label.minimumScaleFactor = 0.5
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        view.addSubview(label)
+
+        return label
+    }()
+
+    private lazy var newAnswerTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = .systemFont(ofSize: Defaults.newAnswerTextFieldFontSize)
+        textField.minimumFontSize = Defaults.newAnswerTextFieldMinimiumFontSize
+        textField.adjustsFontSizeToFitWidth = true
+        textField.borderStyle = .roundedRect
+        textField.placeholder = L10n.Settings.textFieldPlaceholderText
+        textField.backgroundColor = Asset.Colors.biege.color
+
+        return textField
+    }()
+
+    private lazy var addNewAnswerButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = Asset.Colors.biege.color
+        let titleColor = Asset.Colors.tintBlue.color
+        button.setTitleColor(titleColor, for: .normal)
+        let title = L10n.Settings.addButtonTitle
+        button.setTitle(title, for: .normal)
+        button.layer.cornerRadius = Defaults.addNewAnswerButtonCornerRadius
+        button.addTarget(self, action: #selector(addNewAnswerTapped(_:)), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var inputStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = Defaults.inputStackViewSpacing
+        stackView.addArrangedSubview(newAnswerTextField)
+        stackView.addArrangedSubview(addNewAnswerButton)
+        view.addSubview(stackView)
+
+        return stackView
+    }()
+
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Defaults.cellIdentifier)
+        tableView.backgroundColor = .clear
+        tableView.tableFooterView = UIView()
+        view.addSubview(tableView)
+
+        return tableView
+    }()
+
+    private lazy var doneBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped(_:)))
+        barButton.tintColor = Asset.Colors.tintBlue.color
+
+        return barButton
+    }()
+
+    // MARK: - Inititalization
+
+    init(viewModel: SettingsViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Life cycle
 
@@ -39,57 +130,78 @@ final class SettingsViewController: BaseViewController {
         super.viewDidLoad()
 
         configure()
+        setupViews()
         updateDataSource()
-    }
-
-    // MARK: - Dependency injection
-
-    func setViewModel(_ viewModel: SettingsViewModel) {
-        self.viewModel = viewModel
     }
 
     // MARK: - Configure
 
     private func configure() {
         configureView()
-        configureDoneBarButton()
-        configureTitleLabel()
         configureTableView()
-        configureNewAnswerTextField()
-        configureAddNewAnswerButton()
+        configureNavigationItem()
     }
 
     private func configureView() {
         view.backgroundColor = Asset.Colors.mainBlue.color
     }
 
-    private func configureDoneBarButton() {
-        doneBarButton.tintColor = Asset.Colors.tintBlue.color
-    }
-
-    private func configureTitleLabel() {
-        titleLabel.text = L10n.Settings.title
-        titleLabel.textColor = Asset.Colors.biege.color
-    }
-
     private func configureTableView() {
-        tableView.tableFooterView = UIView()
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
     }
 
     private func configureNewAnswerTextField() {
-        newAnswerTextField.placeholder = L10n.Settings.textFieldPlaceholderText
         newAnswerTextField.delegate = self
     }
 
-    private func configureAddNewAnswerButton() {
-        addNewAnswerButton.layer.cornerRadius = Defaults.addNewAnswerButtonCornerRadius
+    private func configureNavigationItem() {
+        navigationItem.rightBarButtonItem = doneBarButton
+    }
+
+    // MARK: - Setup views
+
+    private func setupViews() {
+        setupTitleLabel()
+        setupInputStackView()
+        setupAddNewAnswerButton()
+        setupTableView()
+    }
+
+    private func setupTitleLabel() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(Defaults.titleLabelTopOffset)
+            make.leading.trailing.equalToSuperview().inset(Defaults.titleLabelLeadingTrailingOffset)
+        }
+    }
+
+    private func setupInputStackView() {
+        inputStackView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(Defaults.inputStackViewTopOffset)
+            make.trailing.leading.equalTo(titleLabel)
+        }
+    }
+
+    private func setupAddNewAnswerButton() {
+        addNewAnswerButton.snp.makeConstraints { make in
+            make.size.greaterThanOrEqualTo(Defaults.addNewAnswerButtonSize)
+            make.width.equalTo(addNewAnswerButton.snp.height).multipliedBy(1)
+        }
+    }
+
+    private func setupTableView() {
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(inputStackView.snp.bottom).offset(Defaults.tableViewTopOffset)
+            make.trailing.leading.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 
     // MARK: - Actions
 
-    @IBAction private func addNewAnswerTapped(_ sender: UIButton) {
+    @objc private func addNewAnswerTapped(_ sender: UIButton) {
         guard
             let text = newAnswerTextField.text,
             !text.isEmpty
@@ -101,7 +213,7 @@ final class SettingsViewController: BaseViewController {
         newAnswerTextField.resignFirstResponder()
     }
 
-    @IBAction private func doneTapped(_ sender: UIBarButtonItem) {
+    @objc private func doneTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -125,6 +237,7 @@ extension SettingsViewController: UITableViewDataSource {
             fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
         cell.backgroundColor = Asset.Colors.darkBlue.color
+        cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = viewModel.decision(at: indexPath.row).answer
 
         return cell

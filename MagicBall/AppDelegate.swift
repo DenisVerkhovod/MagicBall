@@ -34,9 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Helpers
 
     private func prepareMainViewController() -> MainViewController {
-        let mainViewController = StoryboardScene.Main.mainViewController.instantiate()
         let mainViewModel = prepareMainViewModel()
-        mainViewController.setViewModel(mainViewModel)
+        let mainViewController = MainViewController(viewModel: mainViewModel)
 
         return mainViewController
     }
@@ -51,7 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func prepareMainModel() -> MainModel {
         let networkManager = NetworkManager()
         let onDeviceMagicBall = OnDeviceMagicBall()
-        let mainModel = MainModel(networkManager: networkManager, onDeviceMagicBall: onDeviceMagicBall)
+        let shakeCounter = MagicBallShakeCounter()
+        let mainModel = MainModel(
+            networkManager: networkManager,
+            onDeviceMagicBall: onDeviceMagicBall,
+            shakeCounter: shakeCounter
+        )
 
         return mainModel
     }

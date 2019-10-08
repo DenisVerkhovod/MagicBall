@@ -11,6 +11,7 @@
 "main.title" = "Ask the Ball and shake!";
 "main.answerLabelDefaultText" = "Try me!";
 "main.defaultAnswer" = "Try again later!";
+"main.totalShakes" = "Total shakes: ";
 
 // Settings
 

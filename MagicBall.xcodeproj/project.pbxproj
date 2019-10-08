@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		922FBA4A23415784007428A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4923415784007428A8 /* SettingsViewModel.swift */; };
 		922FBA4C2341579F007428A8 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4B2341579F007428A8 /* SettingsModel.swift */; };
 		9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237673923146EEA0037F883 /* AppDelegate.swift */; };
-		9237673F23146EEA0037F883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237673D23146EEA0037F883 /* Main.storyboard */; };
 		9237674123146EEB0037F883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9237674023146EEB0037F883 /* Assets.xcassets */; };
 		9237674423146EEB0037F883 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237674223146EEB0037F883 /* LaunchScreen.storyboard */; };
 		92376750231471B90037F883 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237674F231471B90037F883 /* ApiRequest.swift */; };
@@ -29,9 +28,9 @@
 		923767682315AAE30037F883 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767672315AAE30037F883 /* MainViewController.swift */; };
 		9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767692315BB4D0037F883 /* SettingsViewController.swift */; };
 		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
+		925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925317B8234A493800717E98 /* MagicBallShakeCounter.swift */; };
+		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
 		9261B98623382E72004A5F6D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261B98523382E1D004A5F6D /* Assets.swift */; };
-		92C8F71123417E6700026AF3 /* StoryboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8F70F23417E6700026AF3 /* StoryboardScene.swift */; };
-		92C8F71223417E6700026AF3 /* StoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8F71023417E6700026AF3 /* StoryboardSegue.swift */; };
 		92C8F71423434D8600026AF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92C8F71323434D8600026AF3 /* Localizable.strings */; };
 		92C8F716234351E200026AF3 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8F715234351E200026AF3 /* Strings.swift */; };
 		B40E5B30BF70B9D1477BC10A /* Pods_MagicBall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7420581BE45D90B3FCCE03DF /* Pods_MagicBall.framework */; };
@@ -48,7 +47,6 @@
 		922FBA4B2341579F007428A8 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		9237673623146EEA0037F883 /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9237673923146EEA0037F883 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9237673E23146EEA0037F883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9237674023146EEB0037F883 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9237674323146EEB0037F883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9237674523146EEB0037F883 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,9 +61,9 @@
 		923767672315AAE30037F883 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		923767692315BB4D0037F883 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
+		925317B8234A493800717E98 /* MagicBallShakeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallShakeCounter.swift; sourceTree = "<group>"; };
+		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		9261B98523382E1D004A5F6D /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
-		92C8F70F23417E6700026AF3 /* StoryboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardScene.swift; sourceTree = "<group>"; };
-		92C8F71023417E6700026AF3 /* StoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegue.swift; sourceTree = "<group>"; };
 		92C8F71323434D8600026AF3 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		92C8F715234351E200026AF3 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		CDF1EDC9BE0244B6800E8758 /* Pods-MagicBall.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.release.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.release.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +177,8 @@
 				9237675F231473B20037F883 /* LocalStorage */,
 				922FBA36233CD2A2007428A8 /* AnswerGeneration */,
 				922FBA35233CD28D007428A8 /* InitialConfiguration */,
+				925317BA234A4EBA00717E98 /* SecureStorage */,
+				925317BB234A4EC600717E98 /* ShakeCounter */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -213,7 +213,6 @@
 		92376757231472310037F883 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				9237673D23146EEA0037F883 /* Main.storyboard */,
 				9237674223146EEB0037F883 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -263,12 +262,26 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		925317BA234A4EBA00717E98 /* SecureStorage */ = {
+			isa = PBXGroup;
+			children = (
+				9253206F2347C3CD008DB960 /* SecureStorage.swift */,
+			);
+			path = SecureStorage;
+			sourceTree = "<group>";
+		};
+		925317BB234A4EC600717E98 /* ShakeCounter */ = {
+			isa = PBXGroup;
+			children = (
+				925317B8234A493800717E98 /* MagicBallShakeCounter.swift */,
+			);
+			path = ShakeCounter;
+			sourceTree = "<group>";
+		};
 		9261B9842338260C004A5F6D /* Generated */ = {
 			isa = PBXGroup;
 			children = (
 				9261B98523382E1D004A5F6D /* Assets.swift */,
-				92C8F70F23417E6700026AF3 /* StoryboardScene.swift */,
-				92C8F71023417E6700026AF3 /* StoryboardSegue.swift */,
 				92C8F715234351E200026AF3 /* Strings.swift */,
 			);
 			path = Generated;
@@ -287,6 +300,7 @@
 				9237673223146EEA0037F883 /* Sources */,
 				9237673323146EEA0037F883 /* Frameworks */,
 				9237673423146EEA0037F883 /* Resources */,
+				0554DB1A55BAA0E69334F1DE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -338,13 +352,29 @@
 				9237674423146EEB0037F883 /* LaunchScreen.storyboard in Resources */,
 				92C8F71423434D8600026AF3 /* Localizable.strings in Resources */,
 				9237674123146EEB0037F883 /* Assets.xcassets in Resources */,
-				9237673F23146EEA0037F883 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0554DB1A55BAA0E69334F1DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MagicBall/Pods-MagicBall-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MagicBall/Pods-MagicBall-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MagicBall/Pods-MagicBall-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2A3D9E05131609803B249E68 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,8 +443,6 @@
 				922FBA3F2341283B007428A8 /* MainModel.swift in Sources */,
 				92376756231472190037F883 /* NetworkManager.swift in Sources */,
 				922FBA4C2341579F007428A8 /* SettingsModel.swift in Sources */,
-				92C8F71123417E6700026AF3 /* StoryboardScene.swift in Sources */,
-				92C8F71223417E6700026AF3 /* StoryboardSegue.swift in Sources */,
 				923767682315AAE30037F883 /* MainViewController.swift in Sources */,
 				923767662315966A0037F883 /* BaseViewController.swift in Sources */,
 				9237675B2314727B0037F883 /* Decision.swift in Sources */,
@@ -428,10 +456,12 @@
 				92376750231471B90037F883 /* ApiRequest.swift in Sources */,
 				92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */,
 				922FBA4123412A52007428A8 /* PresentableDecision.swift in Sources */,
+				925320702347C3CD008DB960 /* SecureStorage.swift in Sources */,
 				9237675E2314739D0037F883 /* DecisionStorage.swift in Sources */,
 				9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */,
 				922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */,
 				922FBA4A23415784007428A8 /* SettingsViewModel.swift in Sources */,
+				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,
 				92C8F716234351E200026AF3 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,14 +469,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9237673D23146EEA0037F883 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9237673E23146EEA0037F883 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9237674223146EEB0037F883 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
