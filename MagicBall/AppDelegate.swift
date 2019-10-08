@@ -34,9 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Helpers
 
     private func prepareMainViewController() -> MainViewController {
-        let mainViewController = StoryboardScene.Main.mainViewController.instantiate()
         let mainViewModel = prepareMainViewModel()
-        mainViewController.setViewModel(mainViewModel)
+        let mainViewController = MainViewController(viewModel: mainViewModel)
 
         return mainViewController
     }

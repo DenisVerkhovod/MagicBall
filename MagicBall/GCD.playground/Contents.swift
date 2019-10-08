@@ -31,4 +31,3 @@ serialQueue.sync {
     }
     print("Deadlock. This code wont't be executed")
 }
-

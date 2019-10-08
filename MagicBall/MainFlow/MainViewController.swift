@@ -13,10 +13,12 @@ private extension MainViewController {
 
     enum Defaults {
         // Title label
+        static let titleLabelFontSize: CGFloat = 36.0
         static let titleLabelTopOffset: CGFloat = 10.0
         static let titleLabelLeadingTrailingOffset: CGFloat = 20.0
 
         // Total shakes label
+        static let totalShakesLabelFontSize: CGFloat = 17.0
         static let totalShakesLabelTopOffset: CGFloat = 10.0
 
         // Ball container
@@ -28,6 +30,7 @@ private extension MainViewController {
         static let answerContainerHeightMultiplier: CGFloat = 0.2
 
         // Answer label
+        static let answerLabelFontSize: CGFloat = 26.0
         static let answerLabelEdgeOffset: CGFloat = 5.0
     }
 
@@ -35,19 +38,92 @@ private extension MainViewController {
 
 final class MainViewController: BaseViewController {
 
-    // MARK: - Outlets
-
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var ballContainer: UIView!
-    @IBOutlet private weak var ballImageView: UIImageView!
-    @IBOutlet private weak var answerContainer: UIView!
-    @IBOutlet private weak var answerLabel: UILabel!
-    @IBOutlet private weak var settingsButton: UIBarButtonItem!
-    @IBOutlet private weak var totalShakesLabel: UILabel!
-
     // MARK: - Private properties
 
-    private var viewModel: MainViewModel!
+    private var viewModel: MainViewModel
+
+    // MARK: - Lazy properties
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
+        label.textColor = Asset.Colors.biege.color
+        label.text = L10n.Main.title
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        view.addSubview(label)
+
+        return label
+    }()
+
+    private lazy var totalShakesLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: Defaults.totalShakesLabelFontSize)
+        label.textColor = Asset.Colors.biege.color
+        label.text = L10n.Main.totalShakes
+        view.addSubview(label)
+
+        return label
+    }()
+
+    private lazy var ballImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.ball.image
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+
+        return imageView
+    }()
+
+    private lazy var answerContainer: UIView = {
+        let containerView = UIView()
+        containerView.layer.cornerRadius = Defaults.answerContainerCornerRadius
+        containerView.backgroundColor = Asset.Colors.mainBlue.color
+        ballImageView.addSubview(containerView)
+
+        return containerView
+    }()
+
+    private lazy var answerLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: Defaults.answerLabelFontSize)
+        label.textColor = Asset.Colors.turquoise.color
+        label.text = L10n.Main.answerLabelDefaultText
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        answerContainer.addSubview(label)
+
+        return label
+    }()
+
+    private lazy var settingsButton: UIBarButtonItem = {
+        let image = Asset.Images.settings.image
+        let barButton = UIBarButtonItem(
+            image: image,
+            style: .plain,
+            target: self,
+            action: #selector(settingsButtonDidTapped(_:))
+        )
+        barButton.tintColor = Asset.Colors.tintBlue.color
+
+        return barButton
+    }()
+
+    // MARK: - Inititalization
+
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Life cycle
 
@@ -58,56 +134,20 @@ final class MainViewController: BaseViewController {
         setupViews()
     }
 
-    // MARK: - Dependency injection
-
-    func setViewModel(_ viewModel: MainViewModel) {
-        self.viewModel = viewModel
-    }
-
     // MARK: - Configure
 
     private func configure() {
         configureView()
-        configureTitleLabel()
-        configureAnswerContainer()
-        configureAnswerLabel()
-        configureBallImageView()
-        configureSettingsButton()
-        configureTotalShakesLabel()
+        configureNavigationItem()
+        updateTotalShakesLabel()
     }
 
     private func configureView() {
         view.backgroundColor = Asset.Colors.mainBlue.color
     }
 
-    private func configureTitleLabel() {
-        titleLabel.text = L10n.Main.title
-        titleLabel.textColor = Asset.Colors.biege.color
-    }
-
-    private func configureAnswerContainer() {
-        answerContainer.layer.cornerRadius = Defaults.answerContainerCornerRadius
-        answerContainer.backgroundColor = Asset.Colors.mainBlue.color
-    }
-
-    private func configureAnswerLabel() {
-        answerLabel.text = L10n.Main.answerLabelDefaultText
-        answerLabel.textColor = Asset.Colors.turquoise.color
-    }
-
-    private func configureBallImageView() {
-        ballImageView.image = Asset.Images.ball.image
-    }
-
-    private func configureSettingsButton() {
-        let settingsImage = Asset.Images.settings.image
-        settingsButton.image = settingsImage
-        settingsButton.tintColor = Asset.Colors.tintBlue.color
-    }
-
-    private func configureTotalShakesLabel() {
-        totalShakesLabel.textColor = Asset.Colors.biege.color
-        updateTotalShakesLabel()
+    private func configureNavigationItem() {
+        navigationItem.rightBarButtonItem = settingsButton
     }
 
     // MARK: - Setup views
@@ -115,7 +155,6 @@ final class MainViewController: BaseViewController {
     private func setupViews() {
         setupTitleLabel()
         setupTotalShakesLabel()
-        setupBallContainer()
         setupBallImageView()
         setupAnswerContainer()
         setupAnswerLabel()
@@ -135,17 +174,11 @@ final class MainViewController: BaseViewController {
         }
     }
 
-    private func setupBallContainer() {
-        ballContainer.snp.makeConstraints { make in
+    private func setupBallImageView() {
+        ballImageView.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(totalShakesLabel.snp.bottom).offset(Defaults.ballContainerTopOffset)
             make.leading.trailing.equalTo(titleLabel)
             make.centerY.equalToSuperview().priority(.medium)
-        }
-    }
-
-    private func setupBallImageView() {
-        ballImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
             make.width.equalTo(ballImageView.snp.height).multipliedBy(1)
         }
     }
@@ -190,18 +223,13 @@ final class MainViewController: BaseViewController {
         animateAnswerAppearance(with: L10n.Main.answerLabelDefaultText)
     }
 
-    // MARK: - Navigation
+    // MARK: - Actions
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch StoryboardSegue.Main(segue) {
-        case .settingsSegue:
-            guard let settingsNavigationController = segue.destination as? UINavigationController else { return }
-            let settingsViewController = prepareSettingsViewController()
-            settingsNavigationController.setViewControllers([settingsViewController], animated: true)
-
-        default:
-            break
-        }
+    @objc private func settingsButtonDidTapped(_ sender: UIBarButtonItem) {
+        let settingsViewController = prepareSettingsViewController()
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+        navigationController.modalPresentationStyle = .overFullScreen
+        present(navigationController, animated: true, completion: nil)
     }
 
     // MARK: - Helpers
@@ -234,9 +262,8 @@ final class MainViewController: BaseViewController {
     // MARK: - Settings flow
 
     private func prepareSettingsViewController() -> SettingsViewController {
-        let settingsViewController = StoryboardScene.Main.settingsViewController.instantiate()
         let settingViewModel = prepareSettingsViewModel()
-        settingsViewController.setViewModel(settingViewModel)
+        let settingsViewController = SettingsViewController(viewModel: settingViewModel)
 
         return settingsViewController
     }
@@ -249,9 +276,9 @@ final class MainViewController: BaseViewController {
     }
 
     private func prepareSettingsModel() -> SettingsModel {
-         let decisionStorage = UserDefaults.standard
-         let settingsModel = SettingsModel(decisionStorage: decisionStorage)
+        let decisionStorage = UserDefaults.standard
+        let settingsModel = SettingsModel(decisionStorage: decisionStorage)
 
-         return settingsModel
-     }
+        return settingsModel
+    }
 }
