@@ -1,5 +1,5 @@
 //
-//  SettingsModel.swift
+//  AnswerListModel.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 9/30/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class SettingsModel {
+final class AnswerListModel {
 
     // MARK: Public properties
 

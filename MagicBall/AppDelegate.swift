@@ -22,16 +22,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let mainViewController = prepareMainViewController()
-        let initialNavigationController = UINavigationController(rootViewController: mainViewController)
+        let initialTabBar = prepareInitialTabBar()
 
-        window?.rootViewController = initialNavigationController
+        window?.rootViewController = initialTabBar
         window?.makeKeyAndVisible()
 
         return true
     }
 
-    // MARK: - Helpers
+    // MARK: - InitialTabBar
+
+    private func prepareInitialTabBar() -> UITabBarController {
+        let mainViewController = prepareMainViewController()
+        let mainTitle = L10n.Main.tabBarItemTitle
+        let mainImage = Asset.Images.ballIcon.image
+        let mainTabBarItem = UITabBarItem(title: mainTitle, image: mainImage, selectedImage: nil)
+        mainViewController.tabBarItem = mainTabBarItem
+
+        let answerListViewController = prepareAnswerListViewController()
+        let answerListTitle = L10n.AnswerList.tabBarItemTitle
+        let answerListImage = Asset.Images.listIcon.image
+        let answerListTabBarItem = UITabBarItem(title: answerListTitle, image: answerListImage, selectedImage: nil)
+        answerListViewController.tabBarItem = answerListTabBarItem
+
+        let inititalTabBar = UITabBarController()
+        inititalTabBar.viewControllers = [mainViewController, answerListViewController]
+
+        return inititalTabBar
+    }
+
+    // MARK: - Main flow
 
     private func prepareMainViewController() -> MainViewController {
         let mainViewModel = prepareMainViewModel()
@@ -59,4 +79,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return mainModel
     }
+
+     // MARK: - AnswerList flow
+
+       private func prepareAnswerListViewController() -> AnswerListViewController {
+           let answerListViewModel = prepareAnswerListViewModel()
+           let answerListViewController = AnswerListViewController(viewModel: answerListViewModel)
+
+           return answerListViewController
+       }
+
+       private func prepareAnswerListViewModel() -> AnswerListViewModel {
+           let answerListModel = prepareAnswerListModel()
+           let answerListViewModel = AnswerListViewModel(model: answerListModel)
+
+           return answerListViewModel
+       }
+
+       private func prepareAnswerListModel() -> AnswerListModel {
+           let decisionStorage = UserDefaults.standard
+           let answerListModel = AnswerListModel(decisionStorage: decisionStorage)
+
+           return answerListModel
+       }
 }

@@ -28,7 +28,9 @@ internal enum Asset {
   }
   internal enum Images {
 
+    internal static let ballIcon = ImageAsset(name: "Images/ball-icon")
     internal static let ball = ImageAsset(name: "Images/ball")
+    internal static let listIcon = ImageAsset(name: "Images/list-icon")
     internal static let settings = ImageAsset(name: "Images/settings")
   }
 }

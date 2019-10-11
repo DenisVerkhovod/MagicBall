@@ -1,5 +1,5 @@
 //
-//  SettingsViewModel.swift
+//  AnswerListViewModel.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 9/30/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class SettingsViewModel {
+final class AnswerListViewModel {
 
     // MARK: - Public properties
 
@@ -18,11 +18,11 @@ final class SettingsViewModel {
 
     // MARK: - Private properties
 
-    private let model: SettingsModel
+    private let model: AnswerListModel
 
     // MARK: - Inititalization
 
-    init(model: SettingsModel) {
+    init(model: AnswerListModel) {
         self.model = model
     }
 

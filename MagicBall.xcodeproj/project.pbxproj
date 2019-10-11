@@ -12,8 +12,8 @@
 		922FBA3F2341283B007428A8 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA3E2341283B007428A8 /* MainModel.swift */; };
 		922FBA4123412A52007428A8 /* PresentableDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4023412A52007428A8 /* PresentableDecision.swift */; };
 		922FBA4323413429007428A8 /* StorableDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4223413429007428A8 /* StorableDecision.swift */; };
-		922FBA4A23415784007428A8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4923415784007428A8 /* SettingsViewModel.swift */; };
-		922FBA4C2341579F007428A8 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4B2341579F007428A8 /* SettingsModel.swift */; };
+		922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4923415784007428A8 /* AnswerListViewModel.swift */; };
+		922FBA4C2341579F007428A8 /* AnswerListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA4B2341579F007428A8 /* AnswerListModel.swift */; };
 		9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237673923146EEA0037F883 /* AppDelegate.swift */; };
 		9237674123146EEB0037F883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9237674023146EEB0037F883 /* Assets.xcassets */; };
 		9237674423146EEB0037F883 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9237674223146EEB0037F883 /* LaunchScreen.storyboard */; };
@@ -24,9 +24,8 @@
 		9237675B2314727B0037F883 /* Decision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675A2314727B0037F883 /* Decision.swift */; };
 		9237675E2314739D0037F883 /* DecisionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237675D2314739D0037F883 /* DecisionStorage.swift */; };
 		92376763231474CE0037F883 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92376762231474CE0037F883 /* Constants.swift */; };
-		923767662315966A0037F883 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767652315966A0037F883 /* BaseViewController.swift */; };
 		923767682315AAE30037F883 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767672315AAE30037F883 /* MainViewController.swift */; };
-		9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767692315BB4D0037F883 /* SettingsViewController.swift */; };
+		9237676A2315BB4D0037F883 /* AnswerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767692315BB4D0037F883 /* AnswerListViewController.swift */; };
 		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
 		925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925317B8234A493800717E98 /* MagicBallShakeCounter.swift */; };
 		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
@@ -43,8 +42,8 @@
 		922FBA3E2341283B007428A8 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		922FBA4023412A52007428A8 /* PresentableDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableDecision.swift; sourceTree = "<group>"; };
 		922FBA4223413429007428A8 /* StorableDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorableDecision.swift; sourceTree = "<group>"; };
-		922FBA4923415784007428A8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		922FBA4B2341579F007428A8 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		922FBA4923415784007428A8 /* AnswerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListViewModel.swift; sourceTree = "<group>"; };
+		922FBA4B2341579F007428A8 /* AnswerListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListModel.swift; sourceTree = "<group>"; };
 		9237673623146EEA0037F883 /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9237673923146EEA0037F883 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9237674023146EEB0037F883 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,9 +56,8 @@
 		9237675A2314727B0037F883 /* Decision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decision.swift; sourceTree = "<group>"; };
 		9237675D2314739D0037F883 /* DecisionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecisionStorage.swift; sourceTree = "<group>"; };
 		92376762231474CE0037F883 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		923767652315966A0037F883 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		923767672315AAE30037F883 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		923767692315BB4D0037F883 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		923767692315BB4D0037F883 /* AnswerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListViewController.swift; sourceTree = "<group>"; };
 		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
 		925317B8234A493800717E98 /* MagicBallShakeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallShakeCounter.swift; sourceTree = "<group>"; };
 		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
@@ -125,14 +123,14 @@
 			path = MainFlow;
 			sourceTree = "<group>";
 		};
-		922FBA4823415731007428A8 /* SettingsFlow */ = {
+		922FBA4823415731007428A8 /* AnswerListFlow */ = {
 			isa = PBXGroup;
 			children = (
-				923767692315BB4D0037F883 /* SettingsViewController.swift */,
-				922FBA4923415784007428A8 /* SettingsViewModel.swift */,
-				922FBA4B2341579F007428A8 /* SettingsModel.swift */,
+				923767692315BB4D0037F883 /* AnswerListViewController.swift */,
+				922FBA4923415784007428A8 /* AnswerListViewModel.swift */,
+				922FBA4B2341579F007428A8 /* AnswerListModel.swift */,
 			);
-			path = SettingsFlow;
+			path = AnswerListFlow;
 			sourceTree = "<group>";
 		};
 		9237672D23146EEA0037F883 = {
@@ -162,8 +160,7 @@
 				9237674B2314717A0037F883 /* Services */,
 				9237675C231472900037F883 /* Entities */,
 				922FBA3B234125D8007428A8 /* MainFlow */,
-				922FBA4823415731007428A8 /* SettingsFlow */,
-				92376759231472520037F883 /* BaseViewController */,
+				922FBA4823415731007428A8 /* AnswerListFlow */,
 				92376757231472310037F883 /* Storyboards */,
 				92376758231472460037F883 /* Resources */,
 			);
@@ -226,14 +223,6 @@
 				92C8F71323434D8600026AF3 /* Localizable.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		92376759231472520037F883 /* BaseViewController */ = {
-			isa = PBXGroup;
-			children = (
-				923767652315966A0037F883 /* BaseViewController.swift */,
-			);
-			path = BaseViewController;
 			sourceTree = "<group>";
 		};
 		9237675C231472900037F883 /* Entities */ = {
@@ -442,9 +431,8 @@
 			files = (
 				922FBA3F2341283B007428A8 /* MainModel.swift in Sources */,
 				92376756231472190037F883 /* NetworkManager.swift in Sources */,
-				922FBA4C2341579F007428A8 /* SettingsModel.swift in Sources */,
+				922FBA4C2341579F007428A8 /* AnswerListModel.swift in Sources */,
 				923767682315AAE30037F883 /* MainViewController.swift in Sources */,
-				923767662315966A0037F883 /* BaseViewController.swift in Sources */,
 				9237675B2314727B0037F883 /* Decision.swift in Sources */,
 				92376754231471F90037F883 /* MagicBallApiSchema.swift in Sources */,
 				922FBA3D2341279C007428A8 /* MainViewModel.swift in Sources */,
@@ -458,9 +446,9 @@
 				922FBA4123412A52007428A8 /* PresentableDecision.swift in Sources */,
 				925320702347C3CD008DB960 /* SecureStorage.swift in Sources */,
 				9237675E2314739D0037F883 /* DecisionStorage.swift in Sources */,
-				9237676A2315BB4D0037F883 /* SettingsViewController.swift in Sources */,
+				9237676A2315BB4D0037F883 /* AnswerListViewController.swift in Sources */,
 				922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */,
-				922FBA4A23415784007428A8 /* SettingsViewModel.swift in Sources */,
+				922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */,
 				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,
 				92C8F716234351E200026AF3 /* Strings.swift in Sources */,
 			);

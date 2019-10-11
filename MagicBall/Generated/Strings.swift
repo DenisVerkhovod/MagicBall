@@ -23,26 +23,30 @@ internal enum L10n {
     internal static let preset4 = L10n.tr("Localizable", "answer.preset4")
   }
 
+  internal enum AnswerList {
+    /// Add
+    internal static let addButtonTitle = L10n.tr("Localizable", "answerList.addButtonTitle")
+    /// Delete
+    internal static let deleteActionTitle = L10n.tr("Localizable", "answerList.deleteActionTitle")
+    /// Answers
+    internal static let tabBarItemTitle = L10n.tr("Localizable", "answerList.tabBarItemTitle")
+    /// Type answer to add...
+    internal static let textFieldPlaceholderText = L10n.tr("Localizable", "answerList.textFieldPlaceholderText")
+    /// Help Magic Ball by adding your answers!
+    internal static let title = L10n.tr("Localizable", "answerList.title")
+  }
+
   internal enum Main {
     /// Try me!
     internal static let answerLabelDefaultText = L10n.tr("Localizable", "main.answerLabelDefaultText")
     /// Try again later!
     internal static let defaultAnswer = L10n.tr("Localizable", "main.defaultAnswer")
+    /// MagicBall
+    internal static let tabBarItemTitle = L10n.tr("Localizable", "main.tabBarItemTitle")
     /// Ask the Ball and shake!
     internal static let title = L10n.tr("Localizable", "main.title")
     /// Total shakes: 
     internal static let totalShakes = L10n.tr("Localizable", "main.totalShakes")
-  }
-
-  internal enum Settings {
-    /// Add
-    internal static let addButtonTitle = L10n.tr("Localizable", "settings.addButtonTitle")
-    /// Delete
-    internal static let deleteActionTitle = L10n.tr("Localizable", "settings.deleteActionTitle")
-    /// Type answer to add...
-    internal static let textFieldPlaceholderText = L10n.tr("Localizable", "settings.textFieldPlaceholderText")
-    /// Help Magic Ball by adding your answers!
-    internal static let title = L10n.tr("Localizable", "settings.title")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

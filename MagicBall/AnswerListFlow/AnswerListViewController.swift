@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  AnswersListViewController.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 8/27/19.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-private extension SettingsViewController {
+private extension AnswerListViewController {
 
     enum Defaults {
         // Cell
@@ -38,11 +38,11 @@ private extension SettingsViewController {
 
 }
 
-final class SettingsViewController: BaseViewController {
+final class AnswerListViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var viewModel: SettingsViewModel
+    private var viewModel: AnswerListViewModel
 
     // MARK: - Lazy properties
 
@@ -50,7 +50,7 @@ final class SettingsViewController: BaseViewController {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
         label.textColor = Asset.Colors.biege.color
-        label.text = L10n.Settings.title
+        label.text = L10n.AnswerList.title
         label.minimumScaleFactor = 0.5
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -65,7 +65,7 @@ final class SettingsViewController: BaseViewController {
         textField.minimumFontSize = Defaults.newAnswerTextFieldMinimiumFontSize
         textField.adjustsFontSizeToFitWidth = true
         textField.borderStyle = .roundedRect
-        textField.placeholder = L10n.Settings.textFieldPlaceholderText
+        textField.placeholder = L10n.AnswerList.textFieldPlaceholderText
         textField.backgroundColor = Asset.Colors.biege.color
 
         return textField
@@ -76,7 +76,7 @@ final class SettingsViewController: BaseViewController {
         button.backgroundColor = Asset.Colors.biege.color
         let titleColor = Asset.Colors.tintBlue.color
         button.setTitleColor(titleColor, for: .normal)
-        let title = L10n.Settings.addButtonTitle
+        let title = L10n.AnswerList.addButtonTitle
         button.setTitle(title, for: .normal)
         button.layer.cornerRadius = Defaults.addNewAnswerButtonCornerRadius
         button.addTarget(self, action: #selector(addNewAnswerTapped(_:)), for: .touchUpInside)
@@ -105,16 +105,9 @@ final class SettingsViewController: BaseViewController {
         return tableView
     }()
 
-    private lazy var doneBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped(_:)))
-        barButton.tintColor = Asset.Colors.tintBlue.color
-
-        return barButton
-    }()
-
     // MARK: - Inititalization
 
-    init(viewModel: SettingsViewModel) {
+    init(viewModel: AnswerListViewModel) {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
@@ -139,7 +132,6 @@ final class SettingsViewController: BaseViewController {
     private func configure() {
         configureView()
         configureTableView()
-        configureNavigationItem()
     }
 
     private func configureView() {
@@ -155,10 +147,6 @@ final class SettingsViewController: BaseViewController {
 
     private func configureNewAnswerTextField() {
         newAnswerTextField.delegate = self
-    }
-
-    private func configureNavigationItem() {
-        navigationItem.rightBarButtonItem = doneBarButton
     }
 
     // MARK: - Setup views
@@ -213,10 +201,6 @@ final class SettingsViewController: BaseViewController {
         newAnswerTextField.resignFirstResponder()
     }
 
-    @objc private func doneTapped(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-
     // MARK: - Helpers
 
     private func updateDataSource() {
@@ -226,7 +210,7 @@ final class SettingsViewController: BaseViewController {
 
 // MARK: - UITableViewDataSource
 
-extension SettingsViewController: UITableViewDataSource {
+extension AnswerListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfDecisions
@@ -247,7 +231,7 @@ extension SettingsViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension SettingsViewController: UITableViewDelegate {
+extension AnswerListViewController: UITableViewDelegate {
 
     func tableView(
         _ tableView: UITableView,
@@ -256,7 +240,7 @@ extension SettingsViewController: UITableViewDelegate {
 
         let deleteAction = UIContextualAction(
             style: .destructive,
-            title: L10n.Settings.deleteActionTitle
+            title: L10n.AnswerList.deleteActionTitle
         ) { [weak self] _, _, completion in
             let decision = self?.viewModel.decision(at: indexPath.row)
             decision?.removingHandler?()
@@ -274,7 +258,7 @@ extension SettingsViewController: UITableViewDelegate {
 
 // MARK: - UITextFieldDelegate
 
-extension SettingsViewController: UITextFieldDelegate {
+extension AnswerListViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         newAnswerTextField.resignFirstResponder()
