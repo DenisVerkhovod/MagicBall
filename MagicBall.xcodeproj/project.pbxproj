@@ -29,6 +29,8 @@
 		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
 		925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925317B8234A493800717E98 /* MagicBallShakeCounter.swift */; };
 		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
+		925B33902350DFCB000A84F9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B338F2350DFCB000A84F9 /* CoreDataStack.swift */; };
+		925B33932350ED43000A84F9 /* MagicBall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 925B33912350ED43000A84F9 /* MagicBall.xcdatamodeld */; };
 		9261B98623382E72004A5F6D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261B98523382E1D004A5F6D /* Assets.swift */; };
 		92C8F71423434D8600026AF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92C8F71323434D8600026AF3 /* Localizable.strings */; };
 		92C8F716234351E200026AF3 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C8F715234351E200026AF3 /* Strings.swift */; };
@@ -61,6 +63,8 @@
 		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
 		925317B8234A493800717E98 /* MagicBallShakeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallShakeCounter.swift; sourceTree = "<group>"; };
 		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
+		925B338F2350DFCB000A84F9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		925B33922350ED43000A84F9 /* MagicBall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagicBall.xcdatamodel; sourceTree = "<group>"; };
 		9261B98523382E1D004A5F6D /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		92C8F71323434D8600026AF3 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		92C8F715234351E200026AF3 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				9237673923146EEA0037F883 /* AppDelegate.swift */,
 				9261B9842338260C004A5F6D /* Generated */,
 				92376764231474D70037F883 /* Constants */,
+				925B338E2350DFA2000A84F9 /* CoreData */,
 				9237674B2314717A0037F883 /* Services */,
 				9237675C231472900037F883 /* Entities */,
 				922FBA3B234125D8007428A8 /* MainFlow */,
@@ -265,6 +270,15 @@
 				925317B8234A493800717E98 /* MagicBallShakeCounter.swift */,
 			);
 			path = ShakeCounter;
+			sourceTree = "<group>";
+		};
+		925B338E2350DFA2000A84F9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				925B338F2350DFCB000A84F9 /* CoreDataStack.swift */,
+				925B33912350ED43000A84F9 /* MagicBall.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		9261B9842338260C004A5F6D /* Generated */ = {
@@ -430,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				922FBA3F2341283B007428A8 /* MainModel.swift in Sources */,
+				925B33902350DFCB000A84F9 /* CoreDataStack.swift in Sources */,
 				92376756231472190037F883 /* NetworkManager.swift in Sources */,
 				922FBA4C2341579F007428A8 /* AnswerListModel.swift in Sources */,
 				923767682315AAE30037F883 /* MainViewController.swift in Sources */,
@@ -446,6 +461,7 @@
 				922FBA4123412A52007428A8 /* PresentableDecision.swift in Sources */,
 				925320702347C3CD008DB960 /* SecureStorage.swift in Sources */,
 				9237675E2314739D0037F883 /* DecisionStorage.swift in Sources */,
+				925B33932350ED43000A84F9 /* MagicBall.xcdatamodeld in Sources */,
 				9237676A2315BB4D0037F883 /* AnswerListViewController.swift in Sources */,
 				922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */,
 				922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */,
@@ -646,6 +662,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		925B33912350ED43000A84F9 /* MagicBall.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				925B33922350ED43000A84F9 /* MagicBall.xcdatamodel */,
+			);
+			currentVersion = 925B33922350ED43000A84F9 /* MagicBall.xcdatamodel */;
+			path = MagicBall.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9237672E23146EEA0037F883 /* Project object */;
 }
