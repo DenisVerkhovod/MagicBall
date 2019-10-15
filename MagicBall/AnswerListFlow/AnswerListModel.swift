@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import CoreData
 
 final class AnswerListModel {
 
     // MARK: Public properties
 
+    var dataBaseChangesHandler: ((ChangesSnapshot<Decision>) -> Void)?
     var numberOfDecisions: Int {
         return decisions.count
     }
@@ -20,18 +22,17 @@ final class AnswerListModel {
 
     private let decisionStorage: DecisionStorage
     private var decisions: [Decision] = []
+    private var decisionChangesObserver: DataBaseObserver<Decision>?
 
     // MARK: - Inititalization
 
     init(decisionStorage: DecisionStorage) {
         self.decisionStorage = decisionStorage
+
+        configureObservation()
     }
 
     // MARK: - Decision handlers
-
-    func fetchDecisions() {
-        decisions = decisionStorage.fetchDecisions()
-    }
 
     func decision(at index: Int) -> Decision {
         return decisions[index]
@@ -39,11 +40,31 @@ final class AnswerListModel {
 
     func saveDecisions(_ decisions: [Decision]) {
         decisionStorage.saveDecisions(decisions)
-        fetchDecisions()
     }
 
     func removeDecision(_ decision: Decision) {
         decisionStorage.removeDecision(decision)
-        fetchDecisions()
+    }
+
+    // MARK: - Configure observation
+
+    private func configureObservation() {
+        let createdDateSortDescriptor = NSSortDescriptor(key: Constants.createdAt, ascending: false)
+        let request = DataBaseRequest<Decision>(predicate: nil, sortDescriptors: [createdDateSortDescriptor])
+        let observer = decisionStorage.decisionObserver(for: request)
+        decisionChangesObserver = observer
+        observer.observe { [weak self] changes in
+            switch changes {
+            case let .initial(objects: decisions):
+                self?.decisions = decisions
+
+            case let .modify(changes: info):
+                self?.decisions = info.objects
+
+            default:
+                break
+            }
+            self?.dataBaseChangesHandler?(changes)
+        }
     }
 }

@@ -11,6 +11,8 @@ import Foundation
 struct Decision: Decodable {
 
     let answer: String
+    let createdAt: Date
+    let identifier: String
 
     enum CodingKeys: String, CodingKey {
         case answer
@@ -24,10 +26,14 @@ struct Decision: Decodable {
         let magicContainer = try decoder.container(keyedBy: MagicCodingKeys.self)
         let decisionContainer = try magicContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .magic)
         answer = try decisionContainer.decode(String.self, forKey: .answer)
+        createdAt = Date()
+        identifier = UUID().uuidString
     }
 
-    init(answer: String) {
+    init(answer: String, createdAt: Date = Date(), identifier: String = UUID().uuidString) {
         self.answer = answer
+        self.createdAt = createdAt
+        self.identifier = identifier
     }
 }
 
@@ -36,7 +42,10 @@ struct Decision: Decodable {
 extension Decision {
 
     func toPresentableDecision() -> PresentableDecision {
-        return PresentableDecision(answer: self.answer.uppercased())
+        let dateFormatter = DateFormatter.fullDateFormatter
+        let formattedDate = dateFormatter.string(from: createdAt)
+
+        return PresentableDecision(answer: self.answer.uppercased(), createdAt: formattedDate)
     }
 
 }

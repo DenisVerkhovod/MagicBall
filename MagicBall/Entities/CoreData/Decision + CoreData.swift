@@ -1,5 +1,5 @@
 //
-//  Decision + ManagedObjectConvertible.swift
+//  Decision + CoreData.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 13.10.2019.
@@ -8,6 +8,8 @@
 
 import Foundation
 import CoreData
+
+// MARK: - ManagedObjectConvertible
 
 extension Decision: ManagedObjectConvertible {
 
@@ -19,20 +21,26 @@ extension Decision: ManagedObjectConvertible {
         String(describing: self)
     }
 
-    static func toApplicationModel(_ object: NSManagedObject) -> Any {
+    static func toApplicationModel(_ object: NSManagedObject) -> StorableModel {
         guard
             let managedDecision = object as? ManagedDecision,
             let answer = managedDecision.answer,
-            let createdAt = managedDecision.createdAt
+            let createdAt = managedDecision.createdAt,
+            let uid = managedDecision.uid
             else {
                 fatalError("Unable to create Decision from object \(object)")
         }
 
-        return Decision(answer: answer, createdAt: createdAt)
+        return Decision(answer: answer, createdAt: createdAt, identifier: uid)
     }
 
+    @discardableResult
     func toManagedObject(in context: NSManagedObjectContext) -> NSManagedObject {
-        return ManagedDecision()
+        return ManagedDecision(uid: identifier, answer: answer, createdAt: createdAt, in: context)
     }
 
 }
+
+// MARK: - ApplicationLayerModel
+
+extension Decision: StorableModel {}

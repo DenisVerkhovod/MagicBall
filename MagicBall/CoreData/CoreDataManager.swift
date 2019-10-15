@@ -49,6 +49,11 @@ final class CoreDataManager {
 
 extension CoreDataManager: DataBaseManager {
 
+    func observer<T>(for request: DataBaseRequest<T>) -> DataBaseObserver<T> {
+
+        return CoreDataObserver(request: request, context: mainContext)
+    }
+
     func fetchObjects<T>(
         with request: DataBaseRequest<T>
     ) -> Result<[T], DataBaseError> where T: ManagedObjectConvertible {
@@ -85,7 +90,7 @@ extension CoreDataManager: DataBaseManager {
         performAndWaitInBackground { context in
             var savedObjects: [T] = []
             objects.forEach { object in
-                _ = object.toManagedObject(in: context)
+                object.toManagedObject(in: context)
                 savedObjects.append(object)
             }
 
@@ -124,6 +129,7 @@ extension CoreDataManager: DataBaseManager {
                     let convertedModel = modelType.toApplicationModel(object) as? T
                     deletedItems.append(convertedModel)
                 }
+                try context.saveIfNeeded()
                 resultToReturn = .success(deletedItems.compactMap({ $0 }))
 
             } catch let error {

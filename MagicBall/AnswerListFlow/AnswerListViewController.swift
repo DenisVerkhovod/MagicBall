@@ -124,7 +124,6 @@ final class AnswerListViewController: UIViewController {
 
         configure()
         setupViews()
-        updateDataSource()
     }
 
     // MARK: - Configure
@@ -132,6 +131,8 @@ final class AnswerListViewController: UIViewController {
     private func configure() {
         configureView()
         configureTableView()
+        configureNewAnswerTextField()
+        configureObservation()
     }
 
     private func configureView() {
@@ -147,6 +148,12 @@ final class AnswerListViewController: UIViewController {
 
     private func configureNewAnswerTextField() {
         newAnswerTextField.delegate = self
+    }
+
+    private func configureObservation() {
+        viewModel.tableViewChangesHandler = { [weak self] changes in
+            self?.updateTableView(with: changes)
+        }
     }
 
     // MARK: - Setup views
@@ -196,15 +203,32 @@ final class AnswerListViewController: UIViewController {
             else { return }
 
         viewModel.saveDecision(with: text)
-        tableView.reloadData()
         newAnswerTextField.text = ""
         newAnswerTextField.resignFirstResponder()
     }
 
-    // MARK: - Helpers
+    // MARK: - Observation
 
-    private func updateDataSource() {
-        viewModel.fetchDecisions()
+    private func updateTableView(with changes: TableViewChanges) {
+
+        switch changes {
+        case .initial:
+            tableView.reloadData()
+
+        case let .update(info):
+            tableView.beginUpdates()
+
+            let deletedIndexPaths = info.deletedIndexes.map({ IndexPath(row: $0, section: 0) })
+            tableView.deleteRows(at: deletedIndexPaths, with: .automatic)
+
+            let insertedIndexPaths = info.insertedIndexes.map({ IndexPath(row: $0, section: 0) })
+            tableView.insertRows(at: insertedIndexPaths, with: .automatic)
+
+            let updatedIndexPaths = info.updatedIndexes.map({ IndexPath(row: $0, section: 0) })
+            tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
+
+            tableView.endUpdates()
+        }
     }
 }
 
@@ -217,12 +241,17 @@ extension AnswerListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
+        guard var cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
             fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
+        cell = UITableViewCell(style: .subtitle, reuseIdentifier: Defaults.cellIdentifier)
+
         cell.backgroundColor = Asset.Colors.darkBlue.color
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = viewModel.decision(at: indexPath.row).answer
+
+        let decision = viewModel.decision(at: indexPath.row)
+        cell.textLabel?.text = decision.answer
+        cell.detailTextLabel?.text = decision.createdAt
 
         return cell
     }
@@ -244,7 +273,7 @@ extension AnswerListViewController: UITableViewDelegate {
         ) { [weak self] _, _, completion in
             let decision = self?.viewModel.decision(at: indexPath.row)
             decision?.removingHandler?()
-            self?.tableView.reloadData()
+            
             completion(true)
         }
 

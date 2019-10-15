@@ -21,6 +21,7 @@ final class MainModel {
     private let networkManager: NetworkManagerProtocol
     private let onDeviceMagicBall: AnswerGenerator
     private let shakeCounter: ShakeCounter
+    private let decisionStorage: DecisionStorage
     private var decision: Decision? {
         didSet {
             guard let decision = decision else { return }
@@ -35,11 +36,13 @@ final class MainModel {
     init(
         networkManager: NetworkManagerProtocol,
         onDeviceMagicBall: AnswerGenerator,
-        shakeCounter: ShakeCounter
+        shakeCounter: ShakeCounter,
+        decisionStorage: DecisionStorage
     ) {
         self.networkManager = networkManager
         self.onDeviceMagicBall = onDeviceMagicBall
         self.shakeCounter = shakeCounter
+        self.decisionStorage = decisionStorage
     }
 
     // MARK: - Answer handlers
@@ -50,6 +53,7 @@ final class MainModel {
             switch result {
             case let .success(decision):
                 self?.decision = decision
+                self?.decisionStorage.saveDecisions([decision])
 
             case .failure:
                 self?.decision = self?.onDeviceMagicBall.generateAnswer()

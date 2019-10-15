@@ -42,6 +42,14 @@ enum DataBaseError: Error {
 protocol DataBaseManager {
 
     /**
+     Creates DataBaseObserver with given request.
+
+     - Parameter request: DataBaseRequest to be observed.
+     - Returns: Observer with given request.
+     */
+    func observer<T>(for request: DataBaseRequest<T>) -> DataBaseObserver<T>
+
+    /**
      Retrieves objects from database with given request.
 
      - Parameter request: A request to database.
@@ -99,12 +107,13 @@ protocol ManagedObjectConvertible: StorableModel {
      - Returns: Application layer instance.
      */
     static func toApplicationModel(_ object: NSManagedObject) -> StorableModel
-    
+
     /**
      Returns NSManagedObject in given context.
 
      - Parameter context: Given context.
      */
+    @discardableResult
     func toManagedObject(in context: NSManagedObjectContext) -> NSManagedObject
 
 }

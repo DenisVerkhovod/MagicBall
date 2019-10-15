@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension ManagedDecision {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedDecision> {

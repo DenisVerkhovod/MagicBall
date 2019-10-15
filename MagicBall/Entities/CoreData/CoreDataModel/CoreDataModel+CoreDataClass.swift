@@ -12,4 +12,9 @@ import CoreData
 @objc(CoreDataModel)
 public class CoreDataModel: NSManagedObject {
 
+    // MARK: - Inititalization
+
+    required public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+    }
 }

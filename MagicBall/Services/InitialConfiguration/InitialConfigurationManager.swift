@@ -14,6 +14,11 @@ import Foundation
 protocol InitialConfigurator {
 
     /**
+     Indicates whether initial answers were setted.
+     */
+    var isInitialConfigured: Bool { get set }
+
+    /**
      Preset default answers on initial launch.
      */
     func presetAnswers()
@@ -22,16 +27,27 @@ protocol InitialConfigurator {
 
 final class InitialConfigurationManager: InitialConfigurator {
 
+    var isInitialConfigured: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: Constants.isInitialConfigured)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.isInitialConfigured)
+        }
+    }
+
     private var answerStorage: DecisionStorage
 
-    init(answerStorage: DecisionStorage = UserDefaults.standard) {
+    init(answerStorage: DecisionStorage) {
         self.answerStorage = answerStorage
     }
 
     func presetAnswers() {
-        guard !answerStorage.isInititalConfigured else { return }
-        let initialDecisions = Constants.presetAnswers.map({ Decision(answer: $0) })
+        guard !isInitialConfigured else { return }
+        let initialDecisions = Constants.presetAnswers.map({ answer in
+            Decision(answer: answer, createdAt: Date(), identifier: UUID().uuidString)
+        })
         answerStorage.saveDecisions(initialDecisions)
-        answerStorage.isInititalConfigured = true
+        isInitialConfigured = true
     }
 }

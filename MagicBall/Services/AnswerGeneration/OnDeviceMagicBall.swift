@@ -26,11 +26,15 @@ final class OnDeviceMagicBall: AnswerGenerator {
 
     private let answerStorage: DecisionStorage
 
-    init(answerStorage: DecisionStorage = UserDefaults.standard) {
+    init(answerStorage: DecisionStorage) {
         self.answerStorage = answerStorage
     }
 
     func generateAnswer() -> Decision {
-        return answerStorage.fetchDecisions().randomElement() ?? Decision(answer: L10n.Main.defaultAnswer)
+        let defaultDecision = Decision(answer: L10n.Main.defaultAnswer,
+                                       createdAt: Date(),
+                                       identifier: UUID().uuidString)
+
+        return answerStorage.fetchDecisions().randomElement() ?? defaultDecision
     }
 }
