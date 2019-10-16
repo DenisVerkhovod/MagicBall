@@ -97,7 +97,7 @@ final class AnswerListViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Defaults.cellIdentifier)
+        tableView.register(AnswerTableViewCell.self, forCellReuseIdentifier: Defaults.cellIdentifier)
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
@@ -126,13 +126,25 @@ final class AnswerListViewController: UIViewController {
         setupViews()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tableView.reloadData()
+        setObservationEnabled(true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        setObservationEnabled(false)
+    }
+
     // MARK: - Configure
 
     private func configure() {
         configureView()
         configureTableView()
         configureNewAnswerTextField()
-        configureObservation()
     }
 
     private func configureView() {
@@ -148,12 +160,6 @@ final class AnswerListViewController: UIViewController {
 
     private func configureNewAnswerTextField() {
         newAnswerTextField.delegate = self
-    }
-
-    private func configureObservation() {
-        viewModel.tableViewChangesHandler = { [weak self] changes in
-            self?.updateTableView(with: changes)
-        }
     }
 
     // MARK: - Setup views
@@ -209,6 +215,16 @@ final class AnswerListViewController: UIViewController {
 
     // MARK: - Observation
 
+    private func setObservationEnabled(_ enabled: Bool) {
+        if enabled {
+            viewModel.decisionsDidChange = { [weak self] changes in
+                self?.updateTableView(with: changes)
+            }
+        } else {
+            viewModel.decisionsDidChange = nil
+        }
+    }
+
     private func updateTableView(with changes: TableViewChanges) {
 
         switch changes {
@@ -216,6 +232,7 @@ final class AnswerListViewController: UIViewController {
             tableView.reloadData()
 
         case let .update(info):
+
             tableView.beginUpdates()
 
             let deletedIndexPaths = info.deletedIndexes.map({ IndexPath(row: $0, section: 0) })
@@ -241,17 +258,15 @@ extension AnswerListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard var cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
-            fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) as? AnswerTableViewCell
+            else {
+                fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
-        cell = UITableViewCell(style: .subtitle, reuseIdentifier: Defaults.cellIdentifier)
-
-        cell.backgroundColor = Asset.Colors.darkBlue.color
-        cell.textLabel?.numberOfLines = 0
 
         let decision = viewModel.decision(at: indexPath.row)
-        cell.textLabel?.text = decision.answer
-        cell.detailTextLabel?.text = decision.createdAt
+        cell.answerLabel.text = decision.answer
+        cell.dateLabel.text = decision.createdAt
 
         return cell
     }
@@ -273,7 +288,7 @@ extension AnswerListViewController: UITableViewDelegate {
         ) { [weak self] _, _, completion in
             let decision = self?.viewModel.decision(at: indexPath.row)
             decision?.removingHandler?()
-            
+
             completion(true)
         }
 

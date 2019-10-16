@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- Represents database changes.
+ Represents database change.
  */
 enum DataBaseChange {
     case insert(index: Int)

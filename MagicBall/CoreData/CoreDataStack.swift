@@ -56,7 +56,7 @@ final class CoreDataStack {
 
         container.loadPersistentStores { _, error in
             if let error = error {
-                print("Unable to load persistent store. Error: \(error.localizedDescription)")
+                fatalError("Unable to load persistent store. Error: \(error.localizedDescription)")
             }
         }
 

@@ -18,7 +18,7 @@ final class CoreDataObserver<T: StorableModel, U: NSManagedObject>: DataBaseObse
     // MARK: - Private properties
 
     private let context: NSManagedObjectContext
-    private let fetchedResultsControllerDelegate: FetchedResultsControllerDelegate<U>
+    private let fetchedResultsControllerDiffs: FetchedResultsControllerDelegate<U>
     private var modelType: ManagedObjectConvertible.Type {
         guard let type = T.self as? ManagedObjectConvertible.Type else {
             fatalError("Model type's must be conformed to ManagedObjectConvertible protocol")
@@ -40,7 +40,7 @@ final class CoreDataObserver<T: StorableModel, U: NSManagedObject>: DataBaseObse
                                                           managedObjectContext: context,
                                                           sectionNameKeyPath: nil,
                                                           cacheName: nil)
-        resultController.delegate = fetchedResultsControllerDelegate
+        resultController.delegate = fetchedResultsControllerDiffs
 
         return resultController
     }()
@@ -49,7 +49,7 @@ final class CoreDataObserver<T: StorableModel, U: NSManagedObject>: DataBaseObse
 
     init(request: DataBaseRequest<T>, context: NSManagedObjectContext) {
         self.context = context
-        self.fetchedResultsControllerDelegate = FetchedResultsControllerDelegate()
+        self.fetchedResultsControllerDiffs = FetchedResultsControllerDelegate()
 
         super.init(request: request)
 
@@ -63,7 +63,7 @@ final class CoreDataObserver<T: StorableModel, U: NSManagedObject>: DataBaseObse
         if let sortDescriptors = request.sortDescriptors {
             fetchRequest.sortDescriptors = sortDescriptors
         } else {
-            let defaultSortDescriptor = NSSortDescriptor(key: "\(Constants.uid)", ascending: true)
+            let defaultSortDescriptor = NSSortDescriptor(key: "\(#keyPath(CoreDataModel.uuid))", ascending: true)
             fetchRequest.sortDescriptors = [defaultSortDescriptor]
         }
     }
@@ -75,7 +75,7 @@ final class CoreDataObserver<T: StorableModel, U: NSManagedObject>: DataBaseObse
             action(.initial(objects: applicationModels))
             observer = action
 
-            fetchedResultsControllerDelegate.observer = { [unowned self] (changes: ChangesSnapshot<U>) in
+            fetchedResultsControllerDiffs.observer = { [unowned self] (changes: ChangesSnapshot<U>) in
                 guard case .modify(let info) = changes else { return }
 
                 let insertedIndexes = info.insertedIndexes
@@ -150,8 +150,4 @@ private class FetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, NS
     }
 }
 
-extension NSManagedObject: StorableModel {
-    var identifier: String {
-        return ""
-    }
-}
+extension NSManagedObject: StorableModel { }

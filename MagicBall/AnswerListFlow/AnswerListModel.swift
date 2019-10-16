@@ -13,7 +13,7 @@ final class AnswerListModel {
 
     // MARK: Public properties
 
-    var dataBaseChangesHandler: ((ChangesSnapshot<Decision>) -> Void)?
+    var decisionsDidChange: ((ChangesSnapshot<Decision>) -> Void)?
     var numberOfDecisions: Int {
         return decisions.count
     }
@@ -38,18 +38,21 @@ final class AnswerListModel {
         return decisions[index]
     }
 
-    func saveDecisions(_ decisions: [Decision]) {
+    func save(_ decisions: [Decision]) {
         decisionStorage.saveDecisions(decisions)
     }
 
-    func removeDecision(_ decision: Decision) {
+    func remove(_ decision: Decision) {
         decisionStorage.removeDecision(decision)
     }
 
     // MARK: - Configure observation
 
     private func configureObservation() {
-        let createdDateSortDescriptor = NSSortDescriptor(key: Constants.createdAt, ascending: false)
+        let createdDateSortDescriptor = NSSortDescriptor(
+            key: "\(#keyPath(ManagedDecision.createdAt))",
+            ascending: false
+        )
         let request = DataBaseRequest<Decision>(predicate: nil, sortDescriptors: [createdDateSortDescriptor])
         let observer = decisionStorage.decisionObserver(for: request)
         decisionChangesObserver = observer
@@ -64,7 +67,7 @@ final class AnswerListModel {
             default:
                 break
             }
-            self?.dataBaseChangesHandler?(changes)
+            self?.decisionsDidChange?(changes)
         }
     }
 }

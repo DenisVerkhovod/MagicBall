@@ -36,6 +36,8 @@
 		925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B33AA235379A7000A84F9 /* Decision + CoreData.swift */; };
 		9261B98623382E72004A5F6D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261B98523382E1D004A5F6D /* Assets.swift */; };
 		9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9271E27623545DF2003646BF /* CoreDataObserver.swift */; };
+		92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19823570E7D003A52DF /* TableViewChanges.swift */; };
+		92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */; };
 		92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C483182353B78500B2225F /* CoreDataModel+CoreDataClass.swift */; };
 		92C4831D2353B78500B2225F /* CoreDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C483192353B78500B2225F /* CoreDataModel+CoreDataProperties.swift */; };
 		92C4831E2353B78500B2225F /* ManagedDecision+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C4831A2353B78500B2225F /* ManagedDecision+CoreDataClass.swift */; };
@@ -80,6 +82,8 @@
 		925B33AA235379A7000A84F9 /* Decision + CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decision + CoreData.swift"; sourceTree = "<group>"; };
 		9261B98523382E1D004A5F6D /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		9271E27623545DF2003646BF /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
+		92ADD19823570E7D003A52DF /* TableViewChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewChanges.swift; sourceTree = "<group>"; };
+		92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
 		92C483182353B78500B2225F /* CoreDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92C483192353B78500B2225F /* CoreDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		92C4831A2353B78500B2225F /* ManagedDecision+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedDecision+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -150,9 +154,11 @@
 		922FBA4823415731007428A8 /* AnswerListFlow */ = {
 			isa = PBXGroup;
 			children = (
+				92ADD19A23570EBC003A52DF /* Views */,
 				923767692315BB4D0037F883 /* AnswerListViewController.swift */,
 				922FBA4923415784007428A8 /* AnswerListViewModel.swift */,
 				922FBA4B2341579F007428A8 /* AnswerListModel.swift */,
+				92ADD19823570E7D003A52DF /* TableViewChanges.swift */,
 			);
 			path = AnswerListFlow;
 			sourceTree = "<group>";
@@ -331,6 +337,14 @@
 				92C8F715234351E200026AF3 /* Strings.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		92ADD19A23570EBC003A52DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		92C483202353B79D00B2225F /* CoreDataModel */ = {
@@ -541,8 +555,10 @@
 				92C4831F2353B78500B2225F /* ManagedDecision+CoreDataProperties.swift in Sources */,
 				922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */,
 				925B33A62353552B000A84F9 /* CoreDataManager.swift in Sources */,
+				92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */,
 				92EDC5C123550DF5006C99CC /* DateFormatter + extension.swift in Sources */,
 				92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */,
+				92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */,
 				9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */,
 				925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */,
 				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,

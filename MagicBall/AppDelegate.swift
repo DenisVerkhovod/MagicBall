@@ -17,13 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        let answerStorage = prepareCoreDataManager()
+        let answerStorage = makeCoreDataManager()
         let initialConfigurator: InitialConfigurator = InitialConfigurationManager(answerStorage: answerStorage)
         initialConfigurator.presetAnswers()
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let initialTabBar = prepareInitialTabBar(with: answerStorage)
+        let initialTabBar = makeInitialTabBar(with: answerStorage)
 
         window?.rootViewController = initialTabBar
         window?.makeKeyAndVisible()
@@ -33,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - InitialTabBar
 
-    private func prepareInitialTabBar(with storage: DecisionStorage) -> UITabBarController {
-        let mainViewController = prepareMainViewController(with: storage)
+    private func makeInitialTabBar(with storage: DecisionStorage) -> UITabBarController {
+        let mainViewController = makeMainViewController(with: storage)
         let mainTitle = L10n.Main.tabBarItemTitle
         let mainImage = Asset.Images.ballIcon.image
         let mainTabBarItem = UITabBarItem(title: mainTitle, image: mainImage, selectedImage: nil)
         mainViewController.tabBarItem = mainTabBarItem
 
-        let answerListViewController = prepareAnswerListViewController(with: storage)
+        let answerListViewController = makeAnswerListViewController(with: storage)
         let answerListTitle = L10n.AnswerList.tabBarItemTitle
         let answerListImage = Asset.Images.listIcon.image
         let answerListTabBarItem = UITabBarItem(title: answerListTitle, image: answerListImage, selectedImage: nil)
@@ -54,21 +54,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Main flow
 
-    private func prepareMainViewController(with storage: DecisionStorage) -> MainViewController {
-        let mainViewModel = prepareMainViewModel(with: storage)
+    private func makeMainViewController(with storage: DecisionStorage) -> MainViewController {
+        let mainViewModel = makeMainViewModel(with: storage)
         let mainViewController = MainViewController(viewModel: mainViewModel)
 
         return mainViewController
     }
 
-    private func prepareMainViewModel(with storage: DecisionStorage) -> MainViewModel {
-        let mainModel = prepareMainModel(with: storage)
+    private func makeMainViewModel(with storage: DecisionStorage) -> MainViewModel {
+        let mainModel = makeMainModel(with: storage)
         let mainViewModel = MainViewModel(model: mainModel)
 
         return mainViewModel
     }
 
-    private func prepareMainModel(with storage: DecisionStorage) -> MainModel {
+    private func makeMainModel(with storage: DecisionStorage) -> MainModel {
         let networkManager = NetworkManager()
         let shakeCounter = MagicBallShakeCounter()
         let onDeviceMagicBall = OnDeviceMagicBall(answerStorage: storage)
@@ -85,21 +85,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
      // MARK: - AnswerList flow
 
-    private func prepareAnswerListViewController(with storage: DecisionStorage) -> AnswerListViewController {
-           let answerListViewModel = prepareAnswerListViewModel(with: storage)
+    private func makeAnswerListViewController(with storage: DecisionStorage) -> AnswerListViewController {
+           let answerListViewModel = makeAnswerListViewModel(with: storage)
            let answerListViewController = AnswerListViewController(viewModel: answerListViewModel)
 
            return answerListViewController
        }
 
-    private func prepareAnswerListViewModel(with storage: DecisionStorage) -> AnswerListViewModel {
-           let answerListModel = prepareAnswerListModel(with: storage)
+    private func makeAnswerListViewModel(with storage: DecisionStorage) -> AnswerListViewModel {
+           let answerListModel = makeAnswerListModel(with: storage)
            let answerListViewModel = AnswerListViewModel(model: answerListModel)
 
            return answerListViewModel
        }
 
-    private func prepareAnswerListModel(with storage: DecisionStorage) -> AnswerListModel {
+    private func makeAnswerListModel(with storage: DecisionStorage) -> AnswerListModel {
            let answerListModel = AnswerListModel(decisionStorage: storage)
 
            return answerListModel
@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Helpers
 
-    private func prepareCoreDataManager() -> CoreDataManager {
+    private func makeCoreDataManager() -> CoreDataManager {
         let coreDataStack = CoreDataStack(modelName: Constants.modelName)
 
         return CoreDataManager(coreDataStack: coreDataStack)

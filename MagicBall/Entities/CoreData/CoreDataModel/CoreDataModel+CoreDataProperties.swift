@@ -15,6 +15,6 @@ extension CoreDataModel {
         return NSFetchRequest<CoreDataModel>(entityName: "CoreDataModel")
     }
 
-    @NSManaged public var uid: String?
+    @NSManaged public var uuid: String?
 
 }

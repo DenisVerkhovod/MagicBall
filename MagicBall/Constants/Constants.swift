@@ -27,6 +27,4 @@ struct Constants {
 
     // CoreData constants
     static let modelName: String = "MagicBall"
-    static let uid: String = "uid"
-    static let createdAt: String = "createdAt"
 }

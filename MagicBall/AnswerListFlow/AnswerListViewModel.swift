@@ -8,22 +8,11 @@
 
 import Foundation
 
-enum TableViewChanges {
-    case initial
-    case update(info: Info)
-
-    struct Info {
-        let insertedIndexes: [Int]
-        let deletedIndexes: [Int]
-        let updatedIndexes: [Int]
-    }
-}
-
 final class AnswerListViewModel {
 
     // MARK: - Public properties
 
-    var tableViewChangesHandler: ((TableViewChanges) -> Void)?
+    var decisionsDidChange: ((TableViewChanges) -> Void)?
     var numberOfDecisions: Int {
         return model.numberOfDecisions
     }
@@ -46,7 +35,7 @@ final class AnswerListViewModel {
         let decision = model.decision(at: index)
         var presentableDecision = decision.toPresentableDecision()
         presentableDecision.removingHandler = { [weak self] in
-            self?.model.removeDecision(decision)
+            self?.model.remove(decision)
         }
 
         return presentableDecision
@@ -54,14 +43,14 @@ final class AnswerListViewModel {
 
     func saveDecision(with text: String) {
         let newDecision = Decision(answer: text)
-        model.saveDecisions([newDecision])
+        model.save([newDecision])
     }
 
     // MARK: - Configure observers
 
     private func configureObservers() {
-        model.dataBaseChangesHandler = { [weak self] dataBaseChanges in
-            self?.handleChanges(dataBaseChanges)
+        model.decisionsDidChange = { [weak self] decisionsChanges in
+            self?.handleChanges(decisionsChanges)
         }
     }
 
@@ -70,7 +59,7 @@ final class AnswerListViewModel {
     private func handleChanges(_ changes: ChangesSnapshot<Decision>) {
         switch changes {
         case .initial:
-            tableViewChangesHandler?(.initial)
+            decisionsDidChange?(.initial)
 
         case let .modify(changes: info):
             let tableViewChanges = TableViewChanges.update(info: TableViewChanges.Info(
@@ -78,7 +67,7 @@ final class AnswerListViewModel {
                 deletedIndexes: info.deletedIndexes,
                 updatedIndexes: info.modifiedIndexes)
             )
-            tableViewChangesHandler?(tableViewChanges)
+            decisionsDidChange?(tableViewChanges)
         case let .error(error):
             print("Updation error: \(String(describing: error))")
         }

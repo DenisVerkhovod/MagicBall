@@ -83,12 +83,7 @@ protocol DataBaseManager {
 /**
  Abstraction which represents application layer's model.
  */
-protocol StorableModel {
-
-    /// A unique identifier common to an object's representing on all layers.
-    var identifier: String { get }
-
-}
+protocol StorableModel { }
 
 /**
  To be able to be stored in CoreData, the model have to conform to ManagedObjectConvertible.
@@ -100,9 +95,12 @@ protocol ManagedObjectConvertible: StorableModel {
     /// Retruns entity name.
     static var entityName: String { get }
 
+    /// A unique identifier common to an object's representing on all layers.
+    var identifier: String { get }
+
     /**
      Convert object to application layer instance.
-
+     
      - Parameter object: An object to convert.
      - Returns: Application layer instance.
      */

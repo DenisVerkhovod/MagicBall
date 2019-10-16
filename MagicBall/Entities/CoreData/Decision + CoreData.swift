@@ -26,17 +26,17 @@ extension Decision: ManagedObjectConvertible {
             let managedDecision = object as? ManagedDecision,
             let answer = managedDecision.answer,
             let createdAt = managedDecision.createdAt,
-            let uid = managedDecision.uid
+            let uuid = managedDecision.uuid
             else {
                 fatalError("Unable to create Decision from object \(object)")
         }
 
-        return Decision(answer: answer, createdAt: createdAt, identifier: uid)
+        return Decision(answer: answer, createdAt: createdAt, identifier: uuid)
     }
 
     @discardableResult
     func toManagedObject(in context: NSManagedObjectContext) -> NSManagedObject {
-        return ManagedDecision(uid: identifier, answer: answer, createdAt: createdAt, in: context)
+        return ManagedDecision(uuid: identifier, answer: answer, createdAt: createdAt, in: context)
     }
 
 }

@@ -113,10 +113,10 @@ extension CoreDataManager: DataBaseManager {
         let modelType = T.self
 
         performAndWaitInBackground { context in
-            let uids = objects.map { $0.identifier }
+            let uuids = objects.map { $0.identifier }
 
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: T.entityName)
-            fetchRequest.predicate = NSPredicate(format: "uid IN %@", uids)
+            fetchRequest.predicate = NSPredicate(format: "\(#keyPath(CoreDataModel.uuid)) IN %@", uuids)
 
             do {
                 guard let results = try context.fetch(fetchRequest) as? [NSManagedObject] else {

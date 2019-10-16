@@ -14,14 +14,14 @@ public class ManagedDecision: CoreDataModel {
 
     // MARK: - Inititalization
 
-    convenience init(uid: String, answer: String, createdAt: Date, in context: NSManagedObjectContext) {
+    convenience init(uuid: String, answer: String, createdAt: Date, in context: NSManagedObjectContext) {
         let entityName = String(describing: Decision.self)
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context) else {
             fatalError("Failed to create entity description for \(entityName)")
         }
         self.init(entity: entity, insertInto: context)
 
-        self.uid = uid
+        self.uuid = uuid
         self.answer = answer
         self.createdAt = createdAt
     }
