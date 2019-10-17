@@ -24,4 +24,7 @@ struct Constants {
             L10n.Answer.preset3,
             L10n.Answer.preset4
     ]
+
+    // CoreData constants
+    static let modelName: String = "MagicBall"
 }

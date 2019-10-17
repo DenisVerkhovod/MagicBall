@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  AnswersListViewController.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 8/27/19.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-private extension SettingsViewController {
+private extension AnswerListViewController {
 
     enum Defaults {
         // Cell
@@ -38,11 +38,11 @@ private extension SettingsViewController {
 
 }
 
-final class SettingsViewController: BaseViewController {
+final class AnswerListViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var viewModel: SettingsViewModel
+    private var viewModel: AnswerListViewModel
 
     // MARK: - Lazy properties
 
@@ -50,7 +50,7 @@ final class SettingsViewController: BaseViewController {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
         label.textColor = Asset.Colors.biege.color
-        label.text = L10n.Settings.title
+        label.text = L10n.AnswerList.title
         label.minimumScaleFactor = 0.5
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -65,7 +65,7 @@ final class SettingsViewController: BaseViewController {
         textField.minimumFontSize = Defaults.newAnswerTextFieldMinimiumFontSize
         textField.adjustsFontSizeToFitWidth = true
         textField.borderStyle = .roundedRect
-        textField.placeholder = L10n.Settings.textFieldPlaceholderText
+        textField.placeholder = L10n.AnswerList.textFieldPlaceholderText
         textField.backgroundColor = Asset.Colors.biege.color
 
         return textField
@@ -76,7 +76,7 @@ final class SettingsViewController: BaseViewController {
         button.backgroundColor = Asset.Colors.biege.color
         let titleColor = Asset.Colors.tintBlue.color
         button.setTitleColor(titleColor, for: .normal)
-        let title = L10n.Settings.addButtonTitle
+        let title = L10n.AnswerList.addButtonTitle
         button.setTitle(title, for: .normal)
         button.layer.cornerRadius = Defaults.addNewAnswerButtonCornerRadius
         button.addTarget(self, action: #selector(addNewAnswerTapped(_:)), for: .touchUpInside)
@@ -97,7 +97,7 @@ final class SettingsViewController: BaseViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Defaults.cellIdentifier)
+        tableView.register(AnswerTableViewCell.self, forCellReuseIdentifier: Defaults.cellIdentifier)
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
@@ -105,16 +105,9 @@ final class SettingsViewController: BaseViewController {
         return tableView
     }()
 
-    private lazy var doneBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped(_:)))
-        barButton.tintColor = Asset.Colors.tintBlue.color
-
-        return barButton
-    }()
-
     // MARK: - Inititalization
 
-    init(viewModel: SettingsViewModel) {
+    init(viewModel: AnswerListViewModel) {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
@@ -131,7 +124,19 @@ final class SettingsViewController: BaseViewController {
 
         configure()
         setupViews()
-        updateDataSource()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tableView.reloadData()
+        setObservationEnabled(true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        setObservationEnabled(false)
     }
 
     // MARK: - Configure
@@ -139,7 +144,7 @@ final class SettingsViewController: BaseViewController {
     private func configure() {
         configureView()
         configureTableView()
-        configureNavigationItem()
+        configureNewAnswerTextField()
     }
 
     private func configureView() {
@@ -155,10 +160,6 @@ final class SettingsViewController: BaseViewController {
 
     private func configureNewAnswerTextField() {
         newAnswerTextField.delegate = self
-    }
-
-    private func configureNavigationItem() {
-        navigationItem.rightBarButtonItem = doneBarButton
     }
 
     // MARK: - Setup views
@@ -208,37 +209,64 @@ final class SettingsViewController: BaseViewController {
             else { return }
 
         viewModel.saveDecision(with: text)
-        tableView.reloadData()
         newAnswerTextField.text = ""
         newAnswerTextField.resignFirstResponder()
     }
 
-    @objc private func doneTapped(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    // MARK: - Observation
+
+    private func setObservationEnabled(_ enabled: Bool) {
+        if enabled {
+            viewModel.decisionsDidChange = { [weak self] changes in
+                self?.updateTableView(with: changes)
+            }
+        } else {
+            viewModel.decisionsDidChange = nil
+        }
     }
 
-    // MARK: - Helpers
+    private func updateTableView(with changes: TableViewChanges) {
 
-    private func updateDataSource() {
-        viewModel.fetchDecisions()
+        switch changes {
+        case .initial:
+            tableView.reloadData()
+
+        case let .update(info):
+
+            tableView.beginUpdates()
+
+            let deletedIndexPaths = info.deletedIndexes.map({ IndexPath(row: $0, section: 0) })
+            tableView.deleteRows(at: deletedIndexPaths, with: .automatic)
+
+            let insertedIndexPaths = info.insertedIndexes.map({ IndexPath(row: $0, section: 0) })
+            tableView.insertRows(at: insertedIndexPaths, with: .automatic)
+
+            let updatedIndexPaths = info.updatedIndexes.map({ IndexPath(row: $0, section: 0) })
+            tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
+
+            tableView.endUpdates()
+        }
     }
 }
 
 // MARK: - UITableViewDataSource
 
-extension SettingsViewController: UITableViewDataSource {
+extension AnswerListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfDecisions
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) else {
-            fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) as? AnswerTableViewCell
+            else {
+                fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
         }
-        cell.backgroundColor = Asset.Colors.darkBlue.color
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = viewModel.decision(at: indexPath.row).answer
+
+        let decision = viewModel.decision(at: indexPath.row)
+        cell.answerLabel.text = decision.answer
+        cell.dateLabel.text = decision.createdAt
 
         return cell
     }
@@ -247,7 +275,7 @@ extension SettingsViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension SettingsViewController: UITableViewDelegate {
+extension AnswerListViewController: UITableViewDelegate {
 
     func tableView(
         _ tableView: UITableView,
@@ -256,11 +284,11 @@ extension SettingsViewController: UITableViewDelegate {
 
         let deleteAction = UIContextualAction(
             style: .destructive,
-            title: L10n.Settings.deleteActionTitle
+            title: L10n.AnswerList.deleteActionTitle
         ) { [weak self] _, _, completion in
             let decision = self?.viewModel.decision(at: indexPath.row)
             decision?.removingHandler?()
-            self?.tableView.reloadData()
+
             completion(true)
         }
 
@@ -274,7 +302,7 @@ extension SettingsViewController: UITableViewDelegate {
 
 // MARK: - UITextFieldDelegate
 
-extension SettingsViewController: UITextFieldDelegate {
+extension AnswerListViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         newAnswerTextField.resignFirstResponder()

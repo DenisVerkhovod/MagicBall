@@ -36,7 +36,7 @@ private extension MainViewController {
 
 }
 
-final class MainViewController: BaseViewController {
+final class MainViewController: UIViewController {
 
     // MARK: - Private properties
 
@@ -100,19 +100,6 @@ final class MainViewController: BaseViewController {
         return label
     }()
 
-    private lazy var settingsButton: UIBarButtonItem = {
-        let image = Asset.Images.settings.image
-        let barButton = UIBarButtonItem(
-            image: image,
-            style: .plain,
-            target: self,
-            action: #selector(settingsButtonDidTapped(_:))
-        )
-        barButton.tintColor = Asset.Colors.tintBlue.color
-
-        return barButton
-    }()
-
     // MARK: - Inititalization
 
     init(viewModel: MainViewModel) {
@@ -138,16 +125,11 @@ final class MainViewController: BaseViewController {
 
     private func configure() {
         configureView()
-        configureNavigationItem()
         updateTotalShakesLabel()
     }
 
     private func configureView() {
         view.backgroundColor = Asset.Colors.mainBlue.color
-    }
-
-    private func configureNavigationItem() {
-        navigationItem.rightBarButtonItem = settingsButton
     }
 
     // MARK: - Setup views
@@ -223,15 +205,6 @@ final class MainViewController: BaseViewController {
         animateAnswerAppearance(with: L10n.Main.answerLabelDefaultText)
     }
 
-    // MARK: - Actions
-
-    @objc private func settingsButtonDidTapped(_ sender: UIBarButtonItem) {
-        let settingsViewController = prepareSettingsViewController()
-        let navigationController = UINavigationController(rootViewController: settingsViewController)
-        navigationController.modalPresentationStyle = .overFullScreen
-        present(navigationController, animated: true, completion: nil)
-    }
-
     // MARK: - Helpers
 
     /**
@@ -257,28 +230,5 @@ final class MainViewController: BaseViewController {
 
     private func updateTotalShakesLabel() {
         totalShakesLabel.text = L10n.Main.totalShakes + "\(viewModel.totalShakes)"
-    }
-
-    // MARK: - Settings flow
-
-    private func prepareSettingsViewController() -> SettingsViewController {
-        let settingViewModel = prepareSettingsViewModel()
-        let settingsViewController = SettingsViewController(viewModel: settingViewModel)
-
-        return settingsViewController
-    }
-
-    private func prepareSettingsViewModel() -> SettingsViewModel {
-        let settingsModel = prepareSettingsModel()
-        let settingsViewModel = SettingsViewModel(model: settingsModel)
-
-        return settingsViewModel
-    }
-
-    private func prepareSettingsModel() -> SettingsModel {
-        let decisionStorage = UserDefaults.standard
-        let settingsModel = SettingsModel(decisionStorage: decisionStorage)
-
-        return settingsModel
     }
 }
