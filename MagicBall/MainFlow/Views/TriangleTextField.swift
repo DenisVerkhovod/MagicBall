@@ -10,6 +10,11 @@ import UIKit
 
 final class TriangleTextView: UITextView {
 
+    // MARK: - Public properties
+
+    var preferredFontSize: CGFloat?
+    var minimumFontSize: CGFloat?
+
     // MARK: - Private properties
 
     private var mainColor = UIColor.white
@@ -54,6 +59,7 @@ final class TriangleTextView: UITextView {
 
         triangleShape.path = trianglePath().cgPath
         gradientLayer.frame = bounds
+        adjustFontSizeToFit()
 
         textContainer.exclusionPaths = [exclusionPath()]
     }
@@ -65,7 +71,7 @@ final class TriangleTextView: UITextView {
     }
     func setSecondaryColor(_ color: UIColor) {
         secondaryColor = color
-       }
+    }
 
     // MARK: - Configure
 
@@ -100,5 +106,26 @@ final class TriangleTextView: UITextView {
         path.close()
 
         return path
+    }
+
+    /// Scales font size to fit text into top half of bounds.
+    private func adjustFontSizeToFit() {
+        guard
+            let minimumFontSize = minimumFontSize,
+            let preferredFontSize = preferredFontSize
+            else { return }
+        font = font?.withSize(preferredFontSize)
+
+        while
+            sizeThatFits(CGSize(width: bounds.width,
+                                height: .greatestFiniteMagnitude)).height >= bounds.size.height / 2 {
+                guard
+                    let fontSize = font?.pointSize,
+                    fontSize >= minimumFontSize
+                    else { break }
+
+                let newFontSize = fontSize - 0.5
+                font = font?.withSize(newFontSize)
+        }
     }
 }

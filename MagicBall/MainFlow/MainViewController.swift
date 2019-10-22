@@ -26,9 +26,14 @@ private extension MainViewController {
 
         // Ball background view
         static let ballBackgroundSizeDivider: CGFloat = 2.0
+        static let ballBackgroundViewZPosition: CGFloat = -1000.0
+
+        // Ball image view
+        static let ballImageViewZPosition: CGFloat = 1000.0
 
         // Answer text view
-        static let answerTextViewFontSize: CGFloat = 15.0
+        static let answerTextViewPreferredFontSize: CGFloat = 21.0
+        static let answerTextViewMinimumFontSize: CGFloat = 12.0
         static let answerTextViewHeightMultiplier: CGFloat = 0.35
     }
 
@@ -78,6 +83,7 @@ final class MainViewController: UIViewController {
     private lazy var ballBackgroundView: UIView = {
         let backgroundView = UIView()
         backgroundView.backgroundColor = Asset.Colors.black.color
+        backgroundView.layer.zPosition = Defaults.ballBackgroundViewZPosition
         ballContainer.insertSubview(backgroundView, at: 0)
 
         return backgroundView
@@ -85,7 +91,8 @@ final class MainViewController: UIViewController {
 
     private lazy var answerTextView: TriangleTextView = {
         let answerView = TriangleTextView()
-        answerView.font = .systemFont(ofSize: Defaults.answerTextViewFontSize)
+        answerView.minimumFontSize = Defaults.answerTextViewMinimumFontSize
+        answerView.preferredFontSize = Defaults.answerTextViewPreferredFontSize
         answerView.setMainColor(Asset.Colors.gradientBlue.color)
         answerView.textColor = Asset.Colors.turquoise.color
         answerView.text = L10n.Main.answerLabelDefaultText
@@ -98,6 +105,7 @@ final class MainViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = Asset.Images.ball.image
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.zPosition = Defaults.ballImageViewZPosition
         ballContainer.insertSubview(imageView, aboveSubview: answerTextView)
 
         return imageView
@@ -196,10 +204,8 @@ final class MainViewController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
-        animateAnswerDismissing()
         startAnswerWaitingAnimation()
         viewModel.handleShake()
-
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -234,15 +240,11 @@ final class MainViewController: UIViewController {
         animator.answerPresentingAnimation(in: answerTextView, with: text)
     }
 
-    private func animateAnswerDismissing() {
-        animator.answerDismissingAnimation(in: answerTextView)
-    }
-
     private func startAnswerWaitingAnimation() {
-        animator.startPulsation(for: ballImageView)
+        animator.startPulsation(for: ballContainer)
     }
 
     private func stopAnswerWaitingAnimation(completion: @escaping () -> Void) {
-        animator.stopPulsation(for: ballImageView, completion: completion)
+        animator.stopPulsation(for: ballContainer, completion: completion)
     }
 }

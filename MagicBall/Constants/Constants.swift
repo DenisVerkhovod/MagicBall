@@ -41,6 +41,8 @@ struct Constants {
 
     struct Animation {
         static let borderColor: String = "borderColor"
+        static let transform: String = "transform"
+        static let presentAnswer: String = "presentAnswer"
         static let successInput: String = "successInput"
         static let failedInput: String = "failedInput"
     }

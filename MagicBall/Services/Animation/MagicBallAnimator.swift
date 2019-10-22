@@ -29,16 +29,9 @@ protocol MagicBallAnimator {
      Animates presenting view with given text.
      
      - Parameter view: View to present.
-     - Parameter text: Text to assign to label.
+     - Parameter text: Text to assign to view.
      */
     func answerPresentingAnimation(in view: UITextView, with text: String)
-
-    /**
-     Animates dismissing view.
-     
-     - Parameter view: View to dismiss.
-     */
-    func answerDismissingAnimation(in view: UITextView)
 
     /**
      Performs animation which indicates failed input for given text field.
@@ -101,16 +94,24 @@ final class Animator: MagicBallAnimator {
     // MARK: - Answer presenting
 
     func answerPresentingAnimation(in view: UITextView, with text: String) {
-        view.text = text
-        UIView.animate(withDuration: 0.3) {
-            view.alpha = 1.0
-        }
-    }
+        let direction = Direction.allCases.randomElement() ?? .fromLeft
+        var initialTransform: CATransform3D
 
-    func answerDismissingAnimation(in view: UITextView) {
-        UIView.animate(withDuration: 0.3) {
-            view.alpha = 0.0
+        switch direction {
+        case .fromLeft:
+            initialTransform = CATransform3DMakeRotation(-.pi / 2, 1.0, 2.0, 1.0)
+
+        case .fromRight:
+            initialTransform = CATransform3DMakeRotation(.pi / 2, 1.0, -2.0, 1.0)
         }
+
+        let transformAnimation = CASpringAnimation(keyPath: Constants.Animation.transform)
+        transformAnimation.fromValue = initialTransform
+        transformAnimation.toValue = CATransform3DIdentity
+        transformAnimation.duration = transformAnimation.settlingDuration
+        view.layer.add(transformAnimation, forKey: Constants.Animation.presentAnswer)
+
+        view.text = text
     }
 
     // MARK: - TextField animation
@@ -143,4 +144,13 @@ final class Animator: MagicBallAnimator {
 
         return flashBorder
     }
+}
+
+private extension Animator {
+
+    enum Direction: CaseIterable {
+        case fromLeft
+        case fromRight
+    }
+
 }
