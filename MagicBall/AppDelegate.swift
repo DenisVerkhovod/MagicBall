@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let initialTabBar = makeInitialTabBar(with: answerStorage)
+        let animator = Animator()
+        let initialTabBar = makeInitialTabBar(with: answerStorage, animator: animator)
 
         window?.rootViewController = initialTabBar
         window?.makeKeyAndVisible()
@@ -33,14 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - InitialTabBar
 
-    private func makeInitialTabBar(with storage: DecisionStorage) -> UITabBarController {
-        let mainViewController = makeMainViewController(with: storage)
+    private func makeInitialTabBar(with storage: DecisionStorage, animator: MagicBallAnimator) -> UITabBarController {
+        let mainViewController = makeMainViewController(with: storage, animator: animator)
         let mainTitle = L10n.Main.tabBarItemTitle
         let mainImage = Asset.Images.ballIcon.image
         let mainTabBarItem = UITabBarItem(title: mainTitle, image: mainImage, selectedImage: nil)
         mainViewController.tabBarItem = mainTabBarItem
 
-        let answerListViewController = makeAnswerListViewController(with: storage)
+        let answerListViewController = makeAnswerListViewController(with: storage, animator: animator)
         let answerListTitle = L10n.AnswerList.tabBarItemTitle
         let answerListImage = Asset.Images.listIcon.image
         let answerListTabBarItem = UITabBarItem(title: answerListTitle, image: answerListImage, selectedImage: nil)
@@ -54,9 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Main flow
 
-    private func makeMainViewController(with storage: DecisionStorage) -> MainViewController {
+    private func makeMainViewController(
+        with storage: DecisionStorage,
+        animator: MagicBallAnimator
+    ) -> MainViewController {
         let mainViewModel = makeMainViewModel(with: storage)
-        let mainViewController = MainViewController(viewModel: mainViewModel)
+        let mainViewController = MainViewController(viewModel: mainViewModel, animator: animator)
 
         return mainViewController
     }
@@ -83,32 +87,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return mainModel
     }
 
-     // MARK: - AnswerList flow
+    // MARK: - AnswerList flow
 
-    private func makeAnswerListViewController(with storage: DecisionStorage) -> AnswerListViewController {
-           let answerListViewModel = makeAnswerListViewModel(with: storage)
-           let answerListViewController = AnswerListViewController(viewModel: answerListViewModel)
+    private func makeAnswerListViewController(
+        with storage: DecisionStorage,
+        animator: MagicBallAnimator
+    ) -> AnswerListViewController {
+        let answerListViewModel = makeAnswerListViewModel(with: storage)
+        let answerListViewController = AnswerListViewController(viewModel: answerListViewModel, animator: animator)
 
-           return answerListViewController
-       }
+        return answerListViewController
+    }
 
     private func makeAnswerListViewModel(with storage: DecisionStorage) -> AnswerListViewModel {
-           let answerListModel = makeAnswerListModel(with: storage)
-           let answerListViewModel = AnswerListViewModel(model: answerListModel)
+        let answerListModel = makeAnswerListModel(with: storage)
+        let answerListViewModel = AnswerListViewModel(model: answerListModel)
 
-           return answerListViewModel
-       }
+        return answerListViewModel
+    }
 
     private func makeAnswerListModel(with storage: DecisionStorage) -> AnswerListModel {
-           let answerListModel = AnswerListModel(decisionStorage: storage)
+        let answerListModel = AnswerListModel(decisionStorage: storage)
 
-           return answerListModel
-       }
+        return answerListModel
+    }
 
     // MARK: - Helpers
 
     private func makeCoreDataManager() -> CoreDataManager {
-        let coreDataStack = CoreDataStack(modelName: Constants.modelName)
+        let coreDataStack = CoreDataStack(modelName: Constants.CoreData.modelName)
 
         return CoreDataManager(coreDataStack: coreDataStack)
     }

@@ -40,7 +40,8 @@ final class MainViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var viewModel: MainViewModel
+    private let viewModel: MainViewModel
+    private let animator: MagicBallAnimator
 
     // MARK: - Lazy properties
 
@@ -102,8 +103,9 @@ final class MainViewController: UIViewController {
 
     // MARK: - Inititalization
 
-    init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModel, animator: MagicBallAnimator) {
         self.viewModel = viewModel
+        self.animator = animator
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -185,15 +187,20 @@ final class MainViewController: UIViewController {
         guard motion == .motionShake else { return }
 
         animateAnswerDismissing()
+        startAnswerWaitingAnimation()
         viewModel.handleShake()
+
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
         viewModel.getAnswer { [weak self] presentableDecision in
-            self?.animateAnswerAppearance(with: presentableDecision.answer)
+            self?.stopAnswerWaitingAnimation(completion: { [weak self] in
+                self?.animateAnswerPresenting(with: presentableDecision.answer)
+            })
         }
+
         viewModel.increaseShakesCounter()
         updateTotalShakesLabel()
     }
@@ -202,33 +209,30 @@ final class MainViewController: UIViewController {
         guard motion == .motionShake else { return }
 
         viewModel.handleShakeCancelling()
-        animateAnswerAppearance(with: L10n.Main.answerLabelDefaultText)
+        animateAnswerPresenting(with: L10n.Main.answerLabelDefaultText)
     }
 
     // MARK: - Helpers
 
-    /**
-     Animate answerLabel appearance with given text.
-     
-     - Parameter text: Text to assign to label.
-     */
-    private func animateAnswerAppearance(with text: String) {
-        answerLabel.text = text
-        UIView.animate(withDuration: Constants.animationDuration) {
-            self.answerLabel.alpha = 1.0
-        }
-    }
-
-    /**
-     Animate answerLabel dismissing
-     */
-    private func animateAnswerDismissing() {
-        UIView.animate(withDuration: Constants.animationDuration) {
-            self.answerLabel.alpha = 0.0
-        }
-    }
-
     private func updateTotalShakesLabel() {
         totalShakesLabel.text = L10n.Main.totalShakes + "\(viewModel.totalShakes)"
+    }
+
+    // MARK: - Animation
+
+    private func animateAnswerPresenting(with text: String) {
+        animator.answerPresentingAnimation(in: answerLabel, with: text)
+    }
+
+    private func animateAnswerDismissing() {
+        animator.answerDismissingAnimation(in: answerLabel)
+    }
+
+    private func startAnswerWaitingAnimation() {
+        animator.startPulsation(for: ballImageView)
+    }
+
+    private func stopAnswerWaitingAnimation(completion: @escaping () -> Void) {
+        animator.stopPulsation(for: ballImageView, completion: completion)
     }
 }

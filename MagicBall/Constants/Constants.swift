@@ -9,14 +9,7 @@
 import Foundation
 
 struct Constants {
-    static let animationDuration: TimeInterval = 1.0
 
-    // Keychain constants
-    static let totalShakes: String = "totalShakes"
-
-    // User defaults constants
-    static let answers: String = "answers"
-    static let isInitialConfigured: String = "isInitialConfigured"
     static let presetAnswers: [String] =
         [
             L10n.Answer.preset1,
@@ -25,6 +18,30 @@ struct Constants {
             L10n.Answer.preset4
     ]
 
-    // CoreData constants
-    static let modelName: String = "MagicBall"
+    // MARK: - Keychain constants
+
+    struct Keychain {
+        static let totalShakes: String = "totalShakes"
+    }
+
+    // MARK: - User defaults constants
+
+    struct UserDefaults {
+        static let answers: String = "answers"
+        static let isInitialConfigured: String = "isInitialConfigured"
+    }
+
+    // MARK: - CoreData constants
+
+    struct CoreData {
+        static let modelName: String = "MagicBall"
+    }
+
+    // MARK: - Animation constants
+
+    struct Animation {
+        static let borderColor: String = "borderColor"
+        static let successInput: String = "successInput"
+        static let failedInput: String = "failedInput"
+    }
 }
