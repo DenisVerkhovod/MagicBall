@@ -29,7 +29,7 @@ protocol ShakeCounter {
 final class MagicBallShakeCounter: ShakeCounter {
 
     var numberOfShakes: Int {
-        let totalShakes = secureStorage.value(forKey: Constants.totalShakes) ?? ""
+        let totalShakes = secureStorage.value(forKey: Constants.Keychain.totalShakes) ?? ""
 
         return Int(totalShakes) ?? 0
     }
@@ -42,6 +42,6 @@ final class MagicBallShakeCounter: ShakeCounter {
 
     func increaseCounter() {
         let updatedNumberOfShakes = numberOfShakes + 1
-        secureStorage.set("\(updatedNumberOfShakes)", forKey: Constants.totalShakes)
+        secureStorage.set("\(updatedNumberOfShakes)", forKey: Constants.Keychain.totalShakes)
     }
 }

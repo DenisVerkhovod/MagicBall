@@ -21,7 +21,12 @@ internal enum Asset {
   internal enum Colors {
 
     internal static let biege = ColorAsset(name: "Colors/Biege")
+    internal static let black = ColorAsset(name: "Colors/Black")
+    internal static let borderGreen = ColorAsset(name: "Colors/BorderGreen")
+    internal static let borderRed = ColorAsset(name: "Colors/BorderRed")
+    internal static let borderWhite = ColorAsset(name: "Colors/BorderWhite")
     internal static let darkBlue = ColorAsset(name: "Colors/DarkBlue")
+    internal static let gradientBlue = ColorAsset(name: "Colors/GradientBlue")
     internal static let mainBlue = ColorAsset(name: "Colors/MainBlue")
     internal static let subtitleGray = ColorAsset(name: "Colors/SubtitleGray")
     internal static let tintBlue = ColorAsset(name: "Colors/TintBlue")
@@ -31,6 +36,7 @@ internal enum Asset {
 
     internal static let ballIcon = ImageAsset(name: "Images/ball-icon")
     internal static let ball = ImageAsset(name: "Images/ball")
+    internal static let ball1 = ImageAsset(name: "Images/ball1")
     internal static let listIcon = ImageAsset(name: "Images/list-icon")
     internal static let settings = ImageAsset(name: "Images/settings")
   }

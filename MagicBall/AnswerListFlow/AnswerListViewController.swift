@@ -27,6 +27,8 @@ private extension AnswerListViewController {
         // NewAnswerTextField
         static let newAnswerTextFieldFontSize: CGFloat = 17.0
         static let newAnswerTextFieldMinimiumFontSize: CGFloat = 12.0
+        static let newAnswerTextFieldBorderWidth: CGFloat = 2.0
+        static let newAnswerTextFieldCornerRadius: CGFloat = 5.0
 
         // AddNewAnswer buttom
         static let addNewAnswerButtonCornerRadius: CGFloat = 5.0
@@ -42,7 +44,8 @@ final class AnswerListViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var viewModel: AnswerListViewModel
+    private let viewModel: AnswerListViewModel
+    private let animator: TextFieldAnimator = AnswerTextFieldAnimator()
 
     // MARK: - Lazy properties
 
@@ -65,6 +68,9 @@ final class AnswerListViewController: UIViewController {
         textField.minimumFontSize = Defaults.newAnswerTextFieldMinimiumFontSize
         textField.adjustsFontSizeToFitWidth = true
         textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = Defaults.newAnswerTextFieldBorderWidth
+        textField.layer.borderColor = Asset.Colors.borderWhite.color.cgColor
+        textField.layer.cornerRadius = Defaults.newAnswerTextFieldCornerRadius
         textField.placeholder = L10n.AnswerList.textFieldPlaceholderText
         textField.backgroundColor = Asset.Colors.biege.color
 
@@ -206,11 +212,15 @@ final class AnswerListViewController: UIViewController {
         guard
             let text = newAnswerTextField.text,
             !text.isEmpty
-            else { return }
+            else {
+                animator.failedInputAnimation(newAnswerTextField)
+                return
+        }
 
         viewModel.saveDecision(with: text)
         newAnswerTextField.text = ""
         newAnswerTextField.resignFirstResponder()
+        animator.successInputAnimation(newAnswerTextField)
     }
 
     // MARK: - Observation

@@ -83,32 +83,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return mainModel
     }
 
-     // MARK: - AnswerList flow
+    // MARK: - AnswerList flow
 
     private func makeAnswerListViewController(with storage: DecisionStorage) -> AnswerListViewController {
-           let answerListViewModel = makeAnswerListViewModel(with: storage)
-           let answerListViewController = AnswerListViewController(viewModel: answerListViewModel)
+        let answerListViewModel = makeAnswerListViewModel(with: storage)
+        let answerListViewController = AnswerListViewController(viewModel: answerListViewModel)
 
-           return answerListViewController
-       }
+        return answerListViewController
+    }
 
     private func makeAnswerListViewModel(with storage: DecisionStorage) -> AnswerListViewModel {
-           let answerListModel = makeAnswerListModel(with: storage)
-           let answerListViewModel = AnswerListViewModel(model: answerListModel)
+        let answerListModel = makeAnswerListModel(with: storage)
+        let answerListViewModel = AnswerListViewModel(model: answerListModel)
 
-           return answerListViewModel
-       }
+        return answerListViewModel
+    }
 
     private func makeAnswerListModel(with storage: DecisionStorage) -> AnswerListModel {
-           let answerListModel = AnswerListModel(decisionStorage: storage)
+        let answerListModel = AnswerListModel(decisionStorage: storage)
 
-           return answerListModel
-       }
+        return answerListModel
+    }
 
     // MARK: - Helpers
 
     private func makeCoreDataManager() -> CoreDataManager {
-        let coreDataStack = CoreDataStack(modelName: Constants.modelName)
+        let coreDataStack = CoreDataStack(modelName: Constants.CoreData.modelName)
 
         return CoreDataManager(coreDataStack: coreDataStack)
     }

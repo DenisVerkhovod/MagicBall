@@ -29,10 +29,10 @@ final class InitialConfigurationManager: InitialConfigurator {
 
     var isInitialConfigured: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: Constants.isInitialConfigured)
+            return UserDefaults.standard.bool(forKey: Constants.UserDefaults.isInitialConfigured)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Constants.isInitialConfigured)
+            UserDefaults.standard.set(newValue, forKey: Constants.UserDefaults.isInitialConfigured)
         }
     }
 
