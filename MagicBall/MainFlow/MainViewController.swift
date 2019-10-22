@@ -24,14 +24,12 @@ private extension MainViewController {
         // Ball container
         static let ballContainerTopOffset: CGFloat = 10.0
 
-        // Answer container
-        static let answerContainerCornerRadius: CGFloat = 10.0
-        static let answerContainerWidthMultiplier: CGFloat = 0.6
-        static let answerContainerHeightMultiplier: CGFloat = 0.2
+        // Ball background view
+        static let ballBackgroundSizeDivider: CGFloat = 2.0
 
-        // Answer label
-        static let answerLabelFontSize: CGFloat = 26.0
-        static let answerLabelEdgeOffset: CGFloat = 5.0
+        // Answer text view
+        static let answerTextViewFontSize: CGFloat = 15.0
+        static let answerTextViewHeightMultiplier: CGFloat = 0.35
     }
 
 }
@@ -69,36 +67,40 @@ final class MainViewController: UIViewController {
         return label
     }()
 
+    private lazy var ballContainer: UIView = {
+        let container = UIView()
+        container.backgroundColor = .clear
+        view.addSubview(container)
+
+        return container
+    }()
+
+    private lazy var ballBackgroundView: UIView = {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Asset.Colors.black.color
+        ballContainer.insertSubview(backgroundView, at: 0)
+
+        return backgroundView
+    }()
+
+    private lazy var answerTextView: TriangleTextView = {
+        let answerView = TriangleTextView()
+        answerView.font = .systemFont(ofSize: Defaults.answerTextViewFontSize)
+        answerView.setMainColor(Asset.Colors.gradientBlue.color)
+        answerView.textColor = Asset.Colors.turquoise.color
+        answerView.text = L10n.Main.answerLabelDefaultText
+        ballContainer.insertSubview(answerView, aboveSubview: ballBackgroundView)
+
+        return answerView
+    }()
+
     private lazy var ballImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.ball.image
         imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
+        ballContainer.insertSubview(imageView, aboveSubview: answerTextView)
 
         return imageView
-    }()
-
-    private lazy var answerContainer: UIView = {
-        let containerView = UIView()
-        containerView.layer.cornerRadius = Defaults.answerContainerCornerRadius
-        containerView.backgroundColor = Asset.Colors.mainBlue.color
-        ballImageView.addSubview(containerView)
-
-        return containerView
-    }()
-
-    private lazy var answerLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: Defaults.answerLabelFontSize)
-        label.textColor = Asset.Colors.turquoise.color
-        label.text = L10n.Main.answerLabelDefaultText
-        label.minimumScaleFactor = 0.5
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        answerContainer.addSubview(label)
-
-        return label
     }()
 
     // MARK: - Inititalization
@@ -139,9 +141,10 @@ final class MainViewController: UIViewController {
     private func setupViews() {
         setupTitleLabel()
         setupTotalShakesLabel()
+        setupBallContainer()
+        setupBallBackgroundView()
         setupBallImageView()
-        setupAnswerContainer()
-        setupAnswerLabel()
+        setupAnswerTextView()
     }
 
     private func setupTitleLabel() {
@@ -158,8 +161,8 @@ final class MainViewController: UIViewController {
         }
     }
 
-    private func setupBallImageView() {
-        ballImageView.snp.makeConstraints { make in
+    private func setupBallContainer() {
+        ballContainer.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(totalShakesLabel.snp.bottom).offset(Defaults.ballContainerTopOffset)
             make.leading.trailing.equalTo(titleLabel)
             make.centerY.equalToSuperview().priority(.medium)
@@ -167,17 +170,24 @@ final class MainViewController: UIViewController {
         }
     }
 
-    private func setupAnswerContainer() {
-        answerContainer.snp.makeConstraints { make in
+    private func setupBallBackgroundView() {
+        ballBackgroundView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(Defaults.answerContainerWidthMultiplier)
-            make.height.equalToSuperview().multipliedBy(Defaults.answerContainerHeightMultiplier)
+            make.size.equalToSuperview().dividedBy(Defaults.ballBackgroundSizeDivider)
         }
     }
 
-    private func setupAnswerLabel() {
-        answerLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Defaults.answerLabelEdgeOffset)
+    private func setupBallImageView() {
+        ballImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+
+    private func setupAnswerTextView() {
+        answerTextView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(answerTextView.snp.height)
+            make.height.equalToSuperview().multipliedBy(Defaults.answerTextViewHeightMultiplier)
         }
     }
 
@@ -221,11 +231,11 @@ final class MainViewController: UIViewController {
     // MARK: - Animation
 
     private func animateAnswerPresenting(with text: String) {
-        animator.answerPresentingAnimation(in: answerLabel, with: text)
+        animator.answerPresentingAnimation(in: answerTextView, with: text)
     }
 
     private func animateAnswerDismissing() {
-        animator.answerDismissingAnimation(in: answerLabel)
+        animator.answerDismissingAnimation(in: answerTextView)
     }
 
     private func startAnswerWaitingAnimation() {

@@ -36,6 +36,7 @@
 		925B33A92353777E000A84F9 /* NSManagedContext + Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B33A82353777E000A84F9 /* NSManagedContext + Save.swift */; };
 		925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B33AA235379A7000A84F9 /* Decision + CoreData.swift */; };
 		9261B98623382E72004A5F6D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261B98523382E1D004A5F6D /* Assets.swift */; };
+		92702B31235EAA3C00AB9B6F /* TriangleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */; };
 		9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9271E27623545DF2003646BF /* CoreDataObserver.swift */; };
 		92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19823570E7D003A52DF /* TableViewChanges.swift */; };
 		92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */; };
@@ -83,6 +84,7 @@
 		925B33A82353777E000A84F9 /* NSManagedContext + Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedContext + Save.swift"; sourceTree = "<group>"; };
 		925B33AA235379A7000A84F9 /* Decision + CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decision + CoreData.swift"; sourceTree = "<group>"; };
 		9261B98523382E1D004A5F6D /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleTextField.swift; sourceTree = "<group>"; };
 		9271E27623545DF2003646BF /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
 		92ADD19823570E7D003A52DF /* TableViewChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewChanges.swift; sourceTree = "<group>"; };
 		92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		922FBA3B234125D8007428A8 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
+				92702B2F235EA9F900AB9B6F /* Views */,
 				923767672315AAE30037F883 /* MainViewController.swift */,
 				922FBA3C2341279C007428A8 /* MainViewModel.swift */,
 				922FBA3E2341283B007428A8 /* MainModel.swift */,
@@ -348,6 +351,14 @@
 				92C8F715234351E200026AF3 /* Strings.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		92702B2F235EA9F900AB9B6F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		92ADD19A23570EBC003A52DF /* Views */ = {
@@ -553,6 +564,7 @@
 				925B339723533730000A84F9 /* DataBaseManager.swift in Sources */,
 				9261B98623382E72004A5F6D /* Assets.swift in Sources */,
 				9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */,
+				92702B31235EAA3C00AB9B6F /* TriangleTextField.swift in Sources */,
 				92376750231471B90037F883 /* ApiRequest.swift in Sources */,
 				92376752231471E10037F883 /* ApiSchemaProtocol.swift in Sources */,
 				922FBA4123412A52007428A8 /* PresentableDecision.swift in Sources */,

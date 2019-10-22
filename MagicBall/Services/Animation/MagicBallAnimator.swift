@@ -26,19 +26,19 @@ protocol MagicBallAnimator {
     func stopPulsation(for view: UIView, completion: @escaping () -> Void)
 
     /**
-     Animates presenting label with given text.
+     Animates presenting view with given text.
      
-     - Parameter label: Label to present.
+     - Parameter view: View to present.
      - Parameter text: Text to assign to label.
      */
-    func answerPresentingAnimation(in label: UILabel, with text: String)
+    func answerPresentingAnimation(in view: UITextView, with text: String)
 
     /**
-     Animates dismissing label.
+     Animates dismissing view.
      
-     - Parameter label: Label to dismiss.
+     - Parameter view: View to dismiss.
      */
-    func answerDismissingAnimation(in label: UILabel)
+    func answerDismissingAnimation(in view: UITextView)
 
     /**
      Performs animation which indicates failed input for given text field.
@@ -100,16 +100,16 @@ final class Animator: MagicBallAnimator {
 
     // MARK: - Answer presenting
 
-    func answerPresentingAnimation(in label: UILabel, with text: String) {
-        label.text = text
+    func answerPresentingAnimation(in view: UITextView, with text: String) {
+        view.text = text
         UIView.animate(withDuration: 0.3) {
-            label.alpha = 1.0
+            view.alpha = 1.0
         }
     }
 
-    func answerDismissingAnimation(in label: UILabel) {
+    func answerDismissingAnimation(in view: UITextView) {
         UIView.animate(withDuration: 0.3) {
-            label.alpha = 0.0
+            view.alpha = 0.0
         }
     }
 
