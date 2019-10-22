@@ -23,8 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let animator = Animator()
-        let initialTabBar = makeInitialTabBar(with: answerStorage, animator: animator)
+        let initialTabBar = makeInitialTabBar(with: answerStorage)
 
         window?.rootViewController = initialTabBar
         window?.makeKeyAndVisible()
@@ -34,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - InitialTabBar
 
-    private func makeInitialTabBar(with storage: DecisionStorage, animator: MagicBallAnimator) -> UITabBarController {
-        let mainViewController = makeMainViewController(with: storage, animator: animator)
+    private func makeInitialTabBar(with storage: DecisionStorage) -> UITabBarController {
+        let mainViewController = makeMainViewController(with: storage)
         let mainTitle = L10n.Main.tabBarItemTitle
         let mainImage = Asset.Images.ballIcon.image
         let mainTabBarItem = UITabBarItem(title: mainTitle, image: mainImage, selectedImage: nil)
         mainViewController.tabBarItem = mainTabBarItem
 
-        let answerListViewController = makeAnswerListViewController(with: storage, animator: animator)
+        let answerListViewController = makeAnswerListViewController(with: storage)
         let answerListTitle = L10n.AnswerList.tabBarItemTitle
         let answerListImage = Asset.Images.listIcon.image
         let answerListTabBarItem = UITabBarItem(title: answerListTitle, image: answerListImage, selectedImage: nil)
@@ -55,12 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Main flow
 
-    private func makeMainViewController(
-        with storage: DecisionStorage,
-        animator: MagicBallAnimator
-    ) -> MainViewController {
+    private func makeMainViewController(with storage: DecisionStorage) -> MainViewController {
         let mainViewModel = makeMainViewModel(with: storage)
-        let mainViewController = MainViewController(viewModel: mainViewModel, animator: animator)
+        let mainViewController = MainViewController(viewModel: mainViewModel)
 
         return mainViewController
     }
@@ -89,12 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - AnswerList flow
 
-    private func makeAnswerListViewController(
-        with storage: DecisionStorage,
-        animator: MagicBallAnimator
-    ) -> AnswerListViewController {
+    private func makeAnswerListViewController(with storage: DecisionStorage) -> AnswerListViewController {
         let answerListViewModel = makeAnswerListViewModel(with: storage)
-        let answerListViewController = AnswerListViewController(viewModel: answerListViewModel, animator: animator)
+        let answerListViewController = AnswerListViewController(viewModel: answerListViewModel)
 
         return answerListViewController
     }

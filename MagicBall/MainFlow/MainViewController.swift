@@ -44,7 +44,7 @@ final class MainViewController: UIViewController {
     // MARK: - Private properties
 
     private let viewModel: MainViewModel
-    private let animator: MagicBallAnimator
+    private let animator: BallAnimator = MagicBallAnimator()
 
     // MARK: - Lazy properties
 
@@ -113,9 +113,8 @@ final class MainViewController: UIViewController {
 
     // MARK: - Inititalization
 
-    init(viewModel: MainViewModel, animator: MagicBallAnimator) {
+    init(viewModel: MainViewModel) {
         self.viewModel = viewModel
-        self.animator = animator
 
         super.init(nibName: nil, bundle: nil)
     }

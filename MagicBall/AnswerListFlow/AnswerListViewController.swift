@@ -45,7 +45,7 @@ final class AnswerListViewController: UIViewController {
     // MARK: - Private properties
 
     private let viewModel: AnswerListViewModel
-    private let animator: MagicBallAnimator
+    private let animator: TextFieldAnimator = AnswerTextFieldAnimator()
 
     // MARK: - Lazy properties
 
@@ -113,9 +113,8 @@ final class AnswerListViewController: UIViewController {
 
     // MARK: - Inititalization
 
-    init(viewModel: AnswerListViewModel, animator: MagicBallAnimator) {
+    init(viewModel: AnswerListViewModel) {
         self.viewModel = viewModel
-        self.animator = animator
 
         super.init(nibName: nil, bundle: nil)
     }

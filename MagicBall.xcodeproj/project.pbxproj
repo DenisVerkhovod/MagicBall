@@ -26,7 +26,6 @@
 		923767682315AAE30037F883 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767672315AAE30037F883 /* MainViewController.swift */; };
 		9237676A2315BB4D0037F883 /* AnswerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923767692315BB4D0037F883 /* AnswerListViewController.swift */; };
 		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
-		924D1CFA235CCDA300297548 /* MagicBallAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D1CF9235CCDA300297548 /* MagicBallAnimator.swift */; };
 		925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925317B8234A493800717E98 /* MagicBallShakeCounter.swift */; };
 		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
 		925B33902350DFCB000A84F9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B338F2350DFCB000A84F9 /* CoreDataStack.swift */; };
@@ -37,6 +36,8 @@
 		925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B33AA235379A7000A84F9 /* Decision + CoreData.swift */; };
 		9261B98623382E72004A5F6D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261B98523382E1D004A5F6D /* Assets.swift */; };
 		92702B31235EAA3C00AB9B6F /* TriangleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */; };
+		92702B36235F229400AB9B6F /* BallAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92702B35235F229000AB9B6F /* BallAnimator.swift */; };
+		92702B38235F239600AB9B6F /* TextFieldAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92702B37235F239600AB9B6F /* TextFieldAnimator.swift */; };
 		9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9271E27623545DF2003646BF /* CoreDataObserver.swift */; };
 		92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19823570E7D003A52DF /* TableViewChanges.swift */; };
 		92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */; };
@@ -74,7 +75,6 @@
 		923767672315AAE30037F883 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		923767692315BB4D0037F883 /* AnswerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListViewController.swift; sourceTree = "<group>"; };
 		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
-		924D1CF9235CCDA300297548 /* MagicBallAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallAnimator.swift; sourceTree = "<group>"; };
 		925317B8234A493800717E98 /* MagicBallShakeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallShakeCounter.swift; sourceTree = "<group>"; };
 		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		925B338F2350DFCB000A84F9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -85,6 +85,8 @@
 		925B33AA235379A7000A84F9 /* Decision + CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decision + CoreData.swift"; sourceTree = "<group>"; };
 		9261B98523382E1D004A5F6D /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleTextField.swift; sourceTree = "<group>"; };
+		92702B35235F229000AB9B6F /* BallAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallAnimator.swift; sourceTree = "<group>"; };
+		92702B37235F239600AB9B6F /* TextFieldAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAnimator.swift; sourceTree = "<group>"; };
 		9271E27623545DF2003646BF /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
 		92ADD19823570E7D003A52DF /* TableViewChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewChanges.swift; sourceTree = "<group>"; };
 		92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
@@ -292,7 +294,8 @@
 		924D1CF8235CCD8E00297548 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				924D1CF9235CCDA300297548 /* MagicBallAnimator.swift */,
+				92702B34235F213900AB9B6F /* BallAnimator */,
+				92702B32235F210700AB9B6F /* TextFieldAnimator */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -359,6 +362,22 @@
 				92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		92702B32235F210700AB9B6F /* TextFieldAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				92702B37235F239600AB9B6F /* TextFieldAnimator.swift */,
+			);
+			path = TextFieldAnimator;
+			sourceTree = "<group>";
+		};
+		92702B34235F213900AB9B6F /* BallAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				92702B35235F229000AB9B6F /* BallAnimator.swift */,
+			);
+			path = BallAnimator;
 			sourceTree = "<group>";
 		};
 		92ADD19A23570EBC003A52DF /* Views */ = {
@@ -573,6 +592,7 @@
 				9237675E2314739D0037F883 /* DecisionStorage.swift in Sources */,
 				925B33932350ED43000A84F9 /* MagicBall.xcdatamodeld in Sources */,
 				9237676A2315BB4D0037F883 /* AnswerListViewController.swift in Sources */,
+				92702B36235F229400AB9B6F /* BallAnimator.swift in Sources */,
 				925B33A92353777E000A84F9 /* NSManagedContext + Save.swift in Sources */,
 				922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */,
 				92C4831F2353B78500B2225F /* ManagedDecision+CoreDataProperties.swift in Sources */,
@@ -583,9 +603,9 @@
 				92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */,
 				92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */,
 				9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */,
-				924D1CFA235CCDA300297548 /* MagicBallAnimator.swift in Sources */,
 				925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */,
 				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,
+				92702B38235F239600AB9B6F /* TextFieldAnimator.swift in Sources */,
 				92C8F716234351E200026AF3 /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
