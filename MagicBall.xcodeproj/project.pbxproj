@@ -30,6 +30,7 @@
 		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
 		9258B1232363116A00523A52 /* MainViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258B1222363116A00523A52 /* MainViewControllerView.swift */; };
 		9258B126236311B700523A52 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258B125236311B700523A52 /* BaseViewController.swift */; };
+		9258B1282363189E00523A52 /* AnswerListViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258B1272363189E00523A52 /* AnswerListViewControllerView.swift */; };
 		925B33902350DFCB000A84F9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B338F2350DFCB000A84F9 /* CoreDataStack.swift */; };
 		925B33932350ED43000A84F9 /* MagicBall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 925B33912350ED43000A84F9 /* MagicBall.xcdatamodeld */; };
 		925B339723533730000A84F9 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B339623533730000A84F9 /* DataBaseManager.swift */; };
@@ -81,6 +82,7 @@
 		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		9258B1222363116A00523A52 /* MainViewControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerView.swift; sourceTree = "<group>"; };
 		9258B125236311B700523A52 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		9258B1272363189E00523A52 /* AnswerListViewControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListViewControllerView.swift; sourceTree = "<group>"; };
 		925B338F2350DFCB000A84F9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		925B33922350ED43000A84F9 /* MagicBall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagicBall.xcdatamodel; sourceTree = "<group>"; };
 		925B339623533730000A84F9 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */,
+				9258B1272363189E00523A52 /* AnswerListViewControllerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */,
 				925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */,
 				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,
+				9258B1282363189E00523A52 /* AnswerListViewControllerView.swift in Sources */,
 				92702B38235F239600AB9B6F /* TextFieldAnimator.swift in Sources */,
 				92C8F716234351E200026AF3 /* Strings.swift in Sources */,
 			);

@@ -12,6 +12,7 @@ import SnapKit
 private extension MainViewControllerView {
 
     enum Defaults {
+        
         // Title label
         static let titleLabelFontSize: CGFloat = 36.0
         static let titleLabelTopOffset: CGFloat = 10.0
@@ -43,6 +44,36 @@ final class MainViewControllerView: UIView {
 
    // MARK: - Lazy properties
 
+    lazy var totalShakesLabel: UILabel = {
+           let label = UILabel()
+           label.font = .systemFont(ofSize: Defaults.totalShakesLabelFontSize)
+           label.textColor = Asset.Colors.biege.color
+           label.text = L10n.Main.totalShakes
+           addSubview(label)
+
+           return label
+       }()
+
+      lazy var ballContainer: UIView = {
+           let container = UIView()
+           container.backgroundColor = .clear
+           addSubview(container)
+
+           return container
+       }()
+
+    lazy var answerTextView: TriangleTextView = {
+          let answerView = TriangleTextView()
+          answerView.minimumFontSize = Defaults.answerTextViewMinimumFontSize
+          answerView.preferredFontSize = Defaults.answerTextViewPreferredFontSize
+          answerView.setMainColor(Asset.Colors.gradientBlue.color)
+          answerView.textColor = Asset.Colors.turquoise.color
+          answerView.text = L10n.Main.answerLabelDefaultText
+          ballContainer.insertSubview(answerView, aboveSubview: ballBackgroundView)
+
+          return answerView
+      }()
+
      private lazy var titleLabel: UILabel = {
          let label = UILabel()
          label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
@@ -57,24 +88,6 @@ final class MainViewControllerView: UIView {
          return label
      }()
 
-    lazy var totalShakesLabel: UILabel = {
-         let label = UILabel()
-         label.font = .systemFont(ofSize: Defaults.totalShakesLabelFontSize)
-         label.textColor = Asset.Colors.biege.color
-         label.text = L10n.Main.totalShakes
-         addSubview(label)
-
-         return label
-     }()
-
-    lazy var ballContainer: UIView = {
-         let container = UIView()
-         container.backgroundColor = .clear
-         addSubview(container)
-
-         return container
-     }()
-
      private lazy var ballBackgroundView: UIView = {
          let backgroundView = UIView()
          backgroundView.backgroundColor = Asset.Colors.black.color
@@ -82,18 +95,6 @@ final class MainViewControllerView: UIView {
          ballContainer.insertSubview(backgroundView, at: 0)
 
          return backgroundView
-     }()
-
-    lazy var answerTextView: TriangleTextView = {
-         let answerView = TriangleTextView()
-         answerView.minimumFontSize = Defaults.answerTextViewMinimumFontSize
-         answerView.preferredFontSize = Defaults.answerTextViewPreferredFontSize
-         answerView.setMainColor(Asset.Colors.gradientBlue.color)
-         answerView.textColor = Asset.Colors.turquoise.color
-         answerView.text = L10n.Main.answerLabelDefaultText
-         ballContainer.insertSubview(answerView, aboveSubview: ballBackgroundView)
-
-         return answerView
      }()
 
      private lazy var ballImageView: UIImageView = {
