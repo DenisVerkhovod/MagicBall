@@ -28,6 +28,8 @@
 		9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */; };
 		925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925317B8234A493800717E98 /* MagicBallShakeCounter.swift */; };
 		925320702347C3CD008DB960 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253206F2347C3CD008DB960 /* SecureStorage.swift */; };
+		9258B1232363116A00523A52 /* MainViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258B1222363116A00523A52 /* MainViewControllerView.swift */; };
+		9258B126236311B700523A52 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258B125236311B700523A52 /* BaseViewController.swift */; };
 		925B33902350DFCB000A84F9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B338F2350DFCB000A84F9 /* CoreDataStack.swift */; };
 		925B33932350ED43000A84F9 /* MagicBall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 925B33912350ED43000A84F9 /* MagicBall.xcdatamodeld */; };
 		925B339723533730000A84F9 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B339623533730000A84F9 /* DataBaseManager.swift */; };
@@ -77,6 +79,8 @@
 		9237676B2315BDC50037F883 /* InitialConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialConfigurationManager.swift; sourceTree = "<group>"; };
 		925317B8234A493800717E98 /* MagicBallShakeCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBallShakeCounter.swift; sourceTree = "<group>"; };
 		9253206F2347C3CD008DB960 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
+		9258B1222363116A00523A52 /* MainViewControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerView.swift; sourceTree = "<group>"; };
+		9258B125236311B700523A52 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		925B338F2350DFCB000A84F9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		925B33922350ED43000A84F9 /* MagicBall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagicBall.xcdatamodel; sourceTree = "<group>"; };
 		925B339623533730000A84F9 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				925B338E2350DFA2000A84F9 /* CoreData */,
 				9237674B2314717A0037F883 /* Services */,
 				9237675C231472900037F883 /* Entities */,
+				9258B1242363119900523A52 /* Base */,
 				922FBA3B234125D8007428A8 /* MainFlow */,
 				922FBA4823415731007428A8 /* AnswerListFlow */,
 				92376757231472310037F883 /* Storyboards */,
@@ -316,6 +321,14 @@
 			path = ShakeCounter;
 			sourceTree = "<group>";
 		};
+		9258B1242363119900523A52 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				9258B125236311B700523A52 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		925B338E2350DFA2000A84F9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				92702B30235EAA3C00AB9B6F /* TriangleTextField.swift */,
+				9258B1222363116A00523A52 /* MainViewControllerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -577,6 +591,7 @@
 				92EDC5BF235503D2006C99CC /* DataBaseObserver.swift in Sources */,
 				9237675B2314727B0037F883 /* Decision.swift in Sources */,
 				92376754231471F90037F883 /* MagicBallApiSchema.swift in Sources */,
+				9258B126236311B700523A52 /* BaseViewController.swift in Sources */,
 				922FBA3D2341279C007428A8 /* MainViewModel.swift in Sources */,
 				92376763231474CE0037F883 /* Constants.swift in Sources */,
 				9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */,
@@ -598,6 +613,7 @@
 				92C4831F2353B78500B2225F /* ManagedDecision+CoreDataProperties.swift in Sources */,
 				922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */,
 				925B33A62353552B000A84F9 /* CoreDataManager.swift in Sources */,
+				9258B1232363116A00523A52 /* MainViewControllerView.swift in Sources */,
 				92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */,
 				92EDC5C123550DF5006C99CC /* DateFormatter + extension.swift in Sources */,
 				92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */,
