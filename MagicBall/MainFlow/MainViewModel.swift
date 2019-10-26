@@ -7,42 +7,78 @@
 //
 
 import Foundation
+import RxSwift
 
 final class MainViewModel {
 
     // MARK: - Public properties
 
-    var totalShakes: Int {
-        return model.totalShakes
+    var shakeEventWasStarted = PublishSubject<Void>()
+    var shakeEventWasFinished = PublishSubject<Void>()
+    var shakeEventWasCanceled = PublishSubject<Void>()
+
+    var presentableDecision: Observable<PresentableDecision> {
+        return model
+            .decisionToCommit
+            .asObservable()
+            .filter({ $0 != nil })
+            .map({ $0!.toPresentableDecision() })
+    }
+
+    var totalShakes: Observable<String> {
+        return model
+            .totalShakes
+            .asObservable()
+            .map(String.init)
+            .map({ L10n.Main.totalShakes + $0 })
     }
 
     // MARK: - Private properties
 
     private let model: MainModel
+    private let disposeBag = DisposeBag()
 
-    // MARK: - Inititalization
+    // MARK: - Initialization
 
     init(model: MainModel) {
         self.model = model
+
+        configureObservables()
+    }
+
+    private func configureObservables() {
+        shakeEventWasStarted
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.handleShake()
+            })
+            .disposed(by: disposeBag)
+
+        shakeEventWasFinished
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.handleShakeEnding() })
+            .disposed(by: disposeBag)
+
+        shakeEventWasCanceled
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.handleShakeCancelling() })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Event handlers
 
-    func handleShake() {
+    private func handleShake() {
         model.loadAnswer()
-    }
-
-    func handleShakeCancelling() {
-        model.cancelLoading()
-    }
-
-    func getAnswer(_ completion: @escaping (PresentableDecision) -> Void) {
-        model.getAnswer { decision in
-            completion(decision.toPresentableDecision())
-        }
-    }
-
-    func increaseShakesCounter() {
         model.increaseShakesCounter()
+    }
+
+    private func handleShakeEnding() {
+        model.commitAnswer()
+    }
+
+    private func handleShakeCancelling() {
+        model.cancelLoading()
     }
 }

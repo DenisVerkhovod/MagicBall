@@ -12,7 +12,7 @@ import SnapKit
 private extension MainViewControllerView {
 
     enum Defaults {
-        
+
         // Title label
         static let titleLabelFontSize: CGFloat = 36.0
         static let titleLabelTopOffset: CGFloat = 10.0

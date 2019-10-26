@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class MainViewController: BaseViewController<MainViewControllerView> {
 
@@ -14,6 +16,7 @@ final class MainViewController: BaseViewController<MainViewControllerView> {
 
     private let viewModel: MainViewModel
     private let animator: BallAnimator = MagicBallAnimator()
+    private let disposeBag = DisposeBag()
 
     // MARK: - Lifecycle
 
@@ -30,13 +33,27 @@ final class MainViewController: BaseViewController<MainViewControllerView> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configure()
+        setupBindings()
     }
 
     // MARK: - Configure
 
-    private func configure() {
-        updateTotalShakesLabel()
+    private func setupBindings() {
+        viewModel
+            .presentableDecision
+            .map({ $0.answer })
+            .subscribe(onNext: { [weak self] answer in
+                self?.stopAnswerWaitingAnimation(completion: {
+                    self?.animateAnswerPresenting(with: answer)
+                })
+            })
+            .disposed(by: disposeBag)
+
+        viewModel
+            .totalShakes
+            .bind(to: rootView.totalShakesLabel.rx.text )
+            .disposed(by: disposeBag)
+
     }
 
     // MARK: - Shake handlers
@@ -44,34 +61,23 @@ final class MainViewController: BaseViewController<MainViewControllerView> {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
+        viewModel.shakeEventWasStarted.onNext(())
         startAnswerWaitingAnimation()
-        viewModel.handleShake()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
-        viewModel.getAnswer { [weak self] presentableDecision in
-            self?.stopAnswerWaitingAnimation(completion: { [weak self] in
-                self?.animateAnswerPresenting(with: presentableDecision.answer)
-            })
-        }
-
-        viewModel.increaseShakesCounter()
-        updateTotalShakesLabel()
+        viewModel.shakeEventWasFinished.onNext(())
     }
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
-        viewModel.handleShakeCancelling()
-        animateAnswerPresenting(with: L10n.Main.answerLabelDefaultText)
-    }
-
-    // MARK: - Helpers
-
-    private func updateTotalShakesLabel() {
-        rootView.totalShakesLabel.text = L10n.Main.totalShakes + "\(viewModel.totalShakes)"
+        viewModel.shakeEventWasCanceled.onNext(())
+        stopAnswerWaitingAnimation { [weak self] in
+            self?.animateAnswerPresenting(with: L10n.Main.answerLabelDefaultText)
+        }
     }
 
     // MARK: - Animation

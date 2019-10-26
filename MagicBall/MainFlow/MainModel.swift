@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 final class MainModel {
 
     // MARK: - Public properties
 
-    var totalShakes: Int {
-        return shakeCounter.numberOfShakes
-    }
+    var decisionToCommit: BehaviorRelay<Decision?>
+    var totalShakes: BehaviorRelay<Int>
 
     // MARK: - Private properties
 
@@ -22,16 +23,12 @@ final class MainModel {
     private let onDeviceMagicBall: AnswerGenerator
     private let shakeCounter: ShakeCounter
     private let decisionStorage: DecisionStorage
-    private var decision: Decision? {
-        didSet {
-            guard let decision = decision else { return }
-            onGettingDecision?(decision)
-        }
-    }
-    private var onGettingDecision: ((Decision) -> Void)?
     private var dataTask: URLSessionDataTask?
+    private var decision: BehaviorRelay<Decision?>
+    private var canCommitDecision: BehaviorRelay<Bool>
+    private let disposeBag = DisposeBag()
 
-    // MARK: - Inititalization
+    // MARK: - Initialization
 
     init(
         networkManager: NetworkManagerProtocol,
@@ -43,6 +40,12 @@ final class MainModel {
         self.onDeviceMagicBall = onDeviceMagicBall
         self.shakeCounter = shakeCounter
         self.decisionStorage = decisionStorage
+        self.totalShakes = BehaviorRelay(value: shakeCounter.numberOfShakes)
+        self.decision = BehaviorRelay(value: nil)
+        self.canCommitDecision = BehaviorRelay(value: false)
+        self.decisionToCommit = BehaviorRelay(value: nil)
+
+        configureObservables()
     }
 
     // MARK: - Answer handlers
@@ -50,23 +53,21 @@ final class MainModel {
     func loadAnswer() {
         invalidateDecision()
         dataTask = networkManager.getAnswer { [weak self] result in
+            var newDecision: Decision?
             switch result {
             case let .success(decision):
-                self?.decision = decision
+                newDecision = decision
                 self?.decisionStorage.saveDecisions([decision])
 
             case .failure:
-                self?.decision = self?.onDeviceMagicBall.generateAnswer()
+                newDecision = self?.onDeviceMagicBall.generateAnswer()
             }
+            self?.decision.accept(newDecision)
         }
     }
 
-    func getAnswer(_ completion: @escaping (Decision) -> Void) {
-        if let decision = decision {
-            completion(decision)
-        } else {
-            onGettingDecision = completion
-        }
+    func commitAnswer() {
+        canCommitDecision.accept(true)
     }
 
     func cancelLoading() {
@@ -78,13 +79,28 @@ final class MainModel {
 
     func increaseShakesCounter() {
         shakeCounter.increaseCounter()
+        totalShakes.accept(shakeCounter.numberOfShakes)
+    }
+
+    // MARK: - Configure
+
+    private func configureObservables() {
+        Observable.combineLatest(decision, canCommitDecision)
+                .filter({ $0 != nil && $1 })
+                .flatMap { decision, _ -> Observable<Decision?> in
+                    return Observable.just(decision)
+            }
+            .subscribe(onNext: { [weak self] decision in
+                self?.decisionToCommit.accept(decision)
+            })
+                .disposed(by: disposeBag)
     }
 
     // MARK: - Helpers
 
     private func invalidateDecision() {
         cancelLoading()
-        decision = nil
-        onGettingDecision = nil
+        decision.accept(nil)
+        canCommitDecision.accept(false)
     }
 }

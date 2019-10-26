@@ -10,4 +10,6 @@ target 'MagicBall' do
   pod 'SwiftGen', '~> 6.0' 
   pod 'SnapKit', '~> 5.0'
   pod 'KeychainSwift', '~> 17.0'
+  pod 'RxSwift', '~> 5.0'
+  pod 'RxCocoa', '~> 5.0'
 end
