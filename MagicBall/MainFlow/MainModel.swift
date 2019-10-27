@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import RxRelay
 
 final class MainModel {
 
@@ -23,10 +22,10 @@ final class MainModel {
     private let onDeviceMagicBall: AnswerGenerator
     private let shakeCounter: ShakeCounter
     private let decisionStorage: DecisionStorage
+    private let disposeBag = DisposeBag()
     private var dataTask: URLSessionDataTask?
     private var decision: BehaviorRelay<Decision?>
     private var canCommitDecision: BehaviorRelay<Bool>
-    private let disposeBag = DisposeBag()
 
     // MARK: - Initialization
 
@@ -45,7 +44,12 @@ final class MainModel {
         self.canCommitDecision = BehaviorRelay(value: false)
         self.decisionToCommit = BehaviorRelay(value: nil)
 
-        configureObservables()
+        Observable.combineLatest(decision, canCommitDecision)
+            .filter({ $0 != nil && $1 })
+            .subscribe(onNext: { [weak self] decision, _ in
+                self?.decisionToCommit.accept(decision)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Answer handlers
@@ -66,7 +70,7 @@ final class MainModel {
         }
     }
 
-    func commitAnswer() {
+    func commitDecision() {
         canCommitDecision.accept(true)
     }
 
@@ -80,20 +84,6 @@ final class MainModel {
     func increaseShakesCounter() {
         shakeCounter.increaseCounter()
         totalShakes.accept(shakeCounter.numberOfShakes)
-    }
-
-    // MARK: - Configure
-
-    private func configureObservables() {
-        Observable.combineLatest(decision, canCommitDecision)
-                .filter({ $0 != nil && $1 })
-                .flatMap { decision, _ -> Observable<Decision?> in
-                    return Observable.just(decision)
-            }
-            .subscribe(onNext: { [weak self] decision in
-                self?.decisionToCommit.accept(decision)
-            })
-                .disposed(by: disposeBag)
     }
 
     // MARK: - Helpers

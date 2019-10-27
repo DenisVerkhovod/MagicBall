@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import RxSwift
 
 final class AnswerListViewModel {
 
     // MARK: - Public properties
 
-    var decisionsDidChange: ((TableViewChanges) -> Void)?
+    var decisionsChanges: Observable<TableViewChanges> {
+        return model
+            .decisionsChanges
+            .asObservable()
+            .map({ $0.toTableViewChanges() })
+    }
+
+    var newAnswer = PublishSubject<String>()
     var numberOfDecisions: Int {
         return model.numberOfDecisions
     }
@@ -20,13 +28,20 @@ final class AnswerListViewModel {
     // MARK: - Private properties
 
     private let model: AnswerListModel
+    private let disposeBag = DisposeBag()
 
-    // MARK: - Inititalization
+    // MARK: - Initialization
 
     init(model: AnswerListModel) {
         self.model = model
 
-        configureObservers()
+        newAnswer
+            .asObservable()
+            .flatMap({ Observable<Decision>.just(Decision(answer: $0)) })
+            .subscribe(onNext: { [weak self] decision in
+                self?.saveDecision(decision)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Decision handlers
@@ -41,35 +56,7 @@ final class AnswerListViewModel {
         return presentableDecision
     }
 
-    func saveDecision(with text: String) {
-        let newDecision = Decision(answer: text)
-        model.save([newDecision])
-    }
-
-    // MARK: - Configure observers
-
-    private func configureObservers() {
-        model.decisionsDidChange = { [weak self] decisionsChanges in
-            self?.handleChanges(decisionsChanges)
-        }
-    }
-
-    // MARK: - Helpers
-
-    private func handleChanges(_ changes: ChangesSnapshot<Decision>) {
-        switch changes {
-        case .initial:
-            decisionsDidChange?(.initial)
-
-        case let .modify(changes: info):
-            let tableViewChanges = TableViewChanges.update(info: TableViewChanges.Info(
-                insertedIndexes: info.insertedIndexes,
-                deletedIndexes: info.deletedIndexes,
-                updatedIndexes: info.modifiedIndexes)
-            )
-            decisionsDidChange?(tableViewChanges)
-        case let .error(error):
-            print("Updation error: \(String(describing: error))")
-        }
+    private func saveDecision(_ decision: Decision) {
+        model.save([decision])
     }
 }

@@ -43,10 +43,6 @@ final class MainViewModel {
     init(model: MainModel) {
         self.model = model
 
-        configureObservables()
-    }
-
-    private func configureObservables() {
         shakeEventWasStarted
             .asObservable()
             .subscribe(onNext: { [weak self] in
@@ -75,7 +71,7 @@ final class MainViewModel {
     }
 
     private func handleShakeEnding() {
-        model.commitAnswer()
+        model.commitDecision()
     }
 
     private func handleShakeCancelling() {

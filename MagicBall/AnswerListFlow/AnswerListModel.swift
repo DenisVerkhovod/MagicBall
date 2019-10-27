@@ -8,12 +8,13 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
 final class AnswerListModel {
 
     // MARK: Public properties
 
-    var decisionsDidChange: ((ChangesSnapshot<Decision>) -> Void)?
+    var decisionsChanges: PublishRelay<ChangesSnapshot<Decision>>
     var numberOfDecisions: Int {
         return decisions.count
     }
@@ -28,6 +29,7 @@ final class AnswerListModel {
 
     init(decisionStorage: DecisionStorage) {
         self.decisionStorage = decisionStorage
+        self.decisionsChanges = PublishRelay<ChangesSnapshot<Decision>>()
 
         configureObservation()
     }
@@ -67,7 +69,7 @@ final class AnswerListModel {
             default:
                 break
             }
-            self?.decisionsDidChange?(changes)
+            self?.decisionsChanges.accept(changes)
         }
     }
 }

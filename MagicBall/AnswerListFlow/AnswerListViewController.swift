@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 private extension AnswerListViewController {
 
@@ -23,6 +25,7 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
 
     private let viewModel: AnswerListViewModel
     private let animator: TextFieldAnimator = AnswerTextFieldAnimator()
+    private let disposeBag = DisposeBag()
 
     // MARK: - Lifecycle
 
@@ -40,19 +43,13 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
         super.viewDidLoad()
 
         configure()
+        setupBindings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         rootView.tableView.reloadData()
-        setObservationEnabled(true)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        setObservationEnabled(false)
     }
 
     // MARK: - Configure
@@ -60,7 +57,6 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
     private func configure() {
         configureTableView()
         configureNewAnswerTextField()
-        configureAddNewAnswerButton()
     }
 
     private func configureTableView() {
@@ -73,40 +69,39 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
         rootView.newAnswerTextField.delegate = self
     }
 
-    private func configureAddNewAnswerButton() {
-        rootView.addNewAnswerButton.addTarget(self, action: #selector(addNewAnswerTapped(_:)), for: .touchUpInside)
+    private func setupBindings() {
+        rootView.addNewAnswerButton.rx.tap
+            .withLatestFrom(rootView.newAnswerTextField.rx.text.orEmpty)
+            .subscribe(onNext: { [weak self] text in
+                self?.handleTextFieldInput(text)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel
+            .decisionsChanges
+            .subscribe(onNext: { [weak self] changes in
+                self?.updateTableView(with: changes)
+            })
+            .disposed(by: disposeBag
+        )
     }
 
-    // MARK: - Actions
+    // MARK: - Helpers
 
-    @objc private func addNewAnswerTapped(_ sender: UIButton) {
-        guard
-            let text = rootView.newAnswerTextField.text,
-            !text.isEmpty
-            else {
-                animator.failedInputAnimation(rootView.newAnswerTextField)
-                return
+    private func handleTextFieldInput(_ text: String) {
+        guard !text.isEmpty else {
+            animator.failedInputAnimation(rootView.newAnswerTextField)
+            return
         }
 
-        viewModel.saveDecision(with: text)
+        viewModel.newAnswer.onNext(text)
         rootView.newAnswerTextField.text = ""
         rootView.newAnswerTextField.resignFirstResponder()
         animator.successInputAnimation(rootView.newAnswerTextField)
     }
 
-    // MARK: - Observation
-
-    private func setObservationEnabled(_ enabled: Bool) {
-        if enabled {
-            viewModel.decisionsDidChange = { [weak self] changes in
-                self?.updateTableView(with: changes)
-            }
-        } else {
-            viewModel.decisionsDidChange = nil
-        }
-    }
-
     private func updateTableView(with changes: TableViewChanges) {
+        guard rootView.tableView.window != nil else { return }
 
         switch changes {
         case .initial:
@@ -126,6 +121,9 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
             rootView.tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
 
             rootView.tableView.endUpdates()
+
+        case .none:
+            break
         }
     }
 }
