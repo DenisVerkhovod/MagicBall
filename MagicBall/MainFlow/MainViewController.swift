@@ -17,6 +17,9 @@ final class MainViewController: BaseViewController<MainViewControllerView> {
     private let viewModel: MainViewModel
     private let animator: BallAnimator = MagicBallAnimator()
     private let disposeBag = DisposeBag()
+    private let shakeEventWasStarted = PublishSubject<Void>()
+    private let shakeEventWasFinished = PublishSubject<Void>()
+    private let shakeEventWasCanceled = PublishSubject<Void>()
 
     // MARK: - Lifecycle
 
@@ -54,6 +57,18 @@ final class MainViewController: BaseViewController<MainViewControllerView> {
             .bind(to: rootView.totalShakesLabel.rx.text )
             .disposed(by: disposeBag)
 
+        shakeEventWasStarted
+            .bind(to: viewModel.shakeEventWasStarted)
+            .disposed(by: disposeBag)
+
+        shakeEventWasFinished
+            .bind(to: viewModel.shakeEventWasFinished)
+            .disposed(by: disposeBag)
+
+        shakeEventWasCanceled
+            .bind(to: viewModel.shakeEventWasCanceled)
+            .disposed(by: disposeBag)
+
     }
 
     // MARK: - Shake handlers
@@ -61,20 +76,20 @@ final class MainViewController: BaseViewController<MainViewControllerView> {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
-        viewModel.shakeEventWasStarted.onNext(())
+        shakeEventWasStarted.onNext(())
         startAnswerWaitingAnimation()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
-        viewModel.shakeEventWasFinished.onNext(())
+        shakeEventWasFinished.onNext(())
     }
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
 
-        viewModel.shakeEventWasCanceled.onNext(())
+        shakeEventWasCanceled.onNext(())
         stopAnswerWaitingAnimation { [weak self] in
             self?.animateAnswerPresenting(with: L10n.Main.answerLabelDefaultText)
         }

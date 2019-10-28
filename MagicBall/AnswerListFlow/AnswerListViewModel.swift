@@ -13,16 +13,14 @@ final class AnswerListViewModel {
 
     // MARK: - Public properties
 
-    var decisionsChanges: Observable<TableViewChanges> {
-        return model
-            .decisionsChanges
-            .asObservable()
-            .map({ $0.toTableViewChanges() })
-    }
-
     var newAnswer = PublishSubject<String>()
-    var numberOfDecisions: Int {
-        return model.numberOfDecisions
+    var removeDecision = PublishRelay<Int>()
+    var decisionsSections: Observable<[DecisionsSection]> {
+        return model
+            .decisions
+            .asObservable()
+            .map({ $0.map({ $0.toPresentableDecision() }) })
+            .map({ [DecisionsSection(header: L10n.AnswerList.sectionTitle, items: $0)] })
     }
 
     // MARK: - Private properties
@@ -39,7 +37,14 @@ final class AnswerListViewModel {
             .asObservable()
             .flatMap({ Observable<Decision>.just(Decision(answer: $0)) })
             .subscribe(onNext: { [weak self] decision in
-                self?.saveDecision(decision)
+                self?.model.save([decision])
+            })
+            .disposed(by: disposeBag)
+
+        removeDecision
+            .asObservable()
+            .subscribe(onNext: { [weak self] index in
+                self?.model.removeDecision(at: index)
             })
             .disposed(by: disposeBag)
     }
@@ -48,15 +53,7 @@ final class AnswerListViewModel {
 
     func decision(at index: Int) -> PresentableDecision {
         let decision = model.decision(at: index)
-        var presentableDecision = decision.toPresentableDecision()
-        presentableDecision.removingHandler = { [weak self] in
-            self?.model.remove(decision)
-        }
 
-        return presentableDecision
-    }
-
-    private func saveDecision(_ decision: Decision) {
-        model.save([decision])
+        return decision.toPresentableDecision()
     }
 }

@@ -45,7 +45,7 @@ extension Decision {
         let dateFormatter = DateFormatter.fullDateFormatter
         let formattedDate = dateFormatter.string(from: createdAt)
 
-        return PresentableDecision(answer: self.answer.uppercased(), createdAt: formattedDate)
+        return PresentableDecision(identifier: identifier, answer: self.answer.uppercased(), createdAt: formattedDate)
     }
 
 }

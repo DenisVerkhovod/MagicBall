@@ -13,9 +13,9 @@ final class MainViewModel {
 
     // MARK: - Public properties
 
-    var shakeEventWasStarted = PublishSubject<Void>()
-    var shakeEventWasFinished = PublishSubject<Void>()
-    var shakeEventWasCanceled = PublishSubject<Void>()
+    let shakeEventWasStarted = PublishSubject<Void>()
+    let shakeEventWasFinished = PublishSubject<Void>()
+    let shakeEventWasCanceled = PublishSubject<Void>()
 
     var presentableDecision: Observable<PresentableDecision> {
         return model
@@ -46,35 +46,23 @@ final class MainViewModel {
         shakeEventWasStarted
             .asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.handleShake()
+                self?.model.loadAnswer()
+                self?.model.increaseShakesCounter()
             })
             .disposed(by: disposeBag)
 
         shakeEventWasFinished
             .asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.handleShakeEnding() })
+                self?.model.commitDecision()
+            })
             .disposed(by: disposeBag)
 
         shakeEventWasCanceled
             .asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.handleShakeCancelling() })
+                self?.model.cancelLoading()
+            })
             .disposed(by: disposeBag)
-    }
-
-    // MARK: - Event handlers
-
-    private func handleShake() {
-        model.loadAnswer()
-        model.increaseShakesCounter()
-    }
-
-    private func handleShakeEnding() {
-        model.commitDecision()
-    }
-
-    private func handleShakeCancelling() {
-        model.cancelLoading()
     }
 }

@@ -29,6 +29,8 @@ internal enum L10n {
     /// Delete
     internal static let deleteActionTitle = L10n.tr("Localizable", "answerList.deleteActionTitle")
     /// Answers
+    internal static let sectionTitle = L10n.tr("Localizable", "answerList.sectionTitle")
+    /// Answers
     internal static let tabBarItemTitle = L10n.tr("Localizable", "answerList.tabBarItemTitle")
     /// Type answer to add...
     internal static let textFieldPlaceholderText = L10n.tr("Localizable", "answerList.textFieldPlaceholderText")

@@ -135,8 +135,9 @@ final class AnswerListViewControllerView: UIView {
 
     private func setupTitleLabel() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(Defaults.titleLabelTopOffset)
-            make.leading.trailing.equalToSuperview().inset(Defaults.titleLabelLeadingTrailingOffset)
+            make.top.equalTo(safeAreaLayoutGuide).offset(Defaults.titleLabelTopOffset).priority(999)
+            make.leading.trailing.equalToSuperview().inset(Defaults.titleLabelLeadingTrailingOffset).priority(999)
+
         }
     }
 

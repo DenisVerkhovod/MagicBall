@@ -14,22 +14,18 @@ final class AnswerListModel {
 
     // MARK: Public properties
 
-    var decisionsChanges: PublishRelay<ChangesSnapshot<Decision>>
-    var numberOfDecisions: Int {
-        return decisions.count
-    }
+    var decisions: BehaviorRelay<[Decision]>
 
     // MARK: - Private properties
 
     private let decisionStorage: DecisionStorage
-    private var decisions: [Decision] = []
     private var decisionChangesObserver: DataBaseObserver<Decision>?
 
     // MARK: - Inititalization
 
     init(decisionStorage: DecisionStorage) {
         self.decisionStorage = decisionStorage
-        self.decisionsChanges = PublishRelay<ChangesSnapshot<Decision>>()
+        self.decisions = BehaviorRelay(value: [])
 
         configureObservation()
     }
@@ -37,15 +33,17 @@ final class AnswerListModel {
     // MARK: - Decision handlers
 
     func decision(at index: Int) -> Decision {
-        return decisions[index]
+        return decisions.value[index]
     }
 
     func save(_ decisions: [Decision]) {
         decisionStorage.saveDecisions(decisions)
     }
 
-    func remove(_ decision: Decision) {
-        decisionStorage.removeDecision(decision)
+    func removeDecision(at index: Int) {
+        let decisionToRemove = decision(at: index)
+
+        decisionStorage.removeDecision(decisionToRemove)
     }
 
     // MARK: - Configure observation
@@ -61,15 +59,14 @@ final class AnswerListModel {
         observer.observe { [weak self] changes in
             switch changes {
             case let .initial(objects: decisions):
-                self?.decisions = decisions
+                self?.decisions.accept(decisions)
 
             case let .modify(changes: info):
-                self?.decisions = info.objects
+                self?.decisions.accept(info.objects)
 
             default:
                 break
             }
-            self?.decisionsChanges.accept(changes)
         }
     }
 }

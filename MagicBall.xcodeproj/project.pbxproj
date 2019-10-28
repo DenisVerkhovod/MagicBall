@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9226926E23664AF200730F74 /* DecisionsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226926D23664AF200730F74 /* DecisionsSection.swift */; };
 		922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA37233CDAA4007428A8 /* OnDeviceMagicBall.swift */; };
 		922FBA3D2341279C007428A8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA3C2341279C007428A8 /* MainViewModel.swift */; };
 		922FBA3F2341283B007428A8 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA3E2341283B007428A8 /* MainModel.swift */; };
@@ -43,7 +44,6 @@
 		92702B38235F239600AB9B6F /* TextFieldAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92702B37235F239600AB9B6F /* TextFieldAnimator.swift */; };
 		9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9271E27623545DF2003646BF /* CoreDataObserver.swift */; };
 		927564232365A469004712E3 /* Relay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927564222365A469004712E3 /* Relay.swift */; };
-		92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19823570E7D003A52DF /* TableViewChanges.swift */; };
 		92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */; };
 		92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C483182353B78500B2225F /* CoreDataModel+CoreDataClass.swift */; };
 		92C4831D2353B78500B2225F /* CoreDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C483192353B78500B2225F /* CoreDataModel+CoreDataProperties.swift */; };
@@ -58,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		7420581BE45D90B3FCCE03DF /* Pods_MagicBall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicBall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9226926D23664AF200730F74 /* DecisionsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecisionsSection.swift; sourceTree = "<group>"; };
 		922FBA37233CDAA4007428A8 /* OnDeviceMagicBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeviceMagicBall.swift; sourceTree = "<group>"; };
 		922FBA3C2341279C007428A8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		922FBA3E2341283B007428A8 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
@@ -96,7 +97,6 @@
 		92702B37235F239600AB9B6F /* TextFieldAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAnimator.swift; sourceTree = "<group>"; };
 		9271E27623545DF2003646BF /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
 		927564222365A469004712E3 /* Relay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relay.swift; sourceTree = "<group>"; };
-		92ADD19823570E7D003A52DF /* TableViewChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewChanges.swift; sourceTree = "<group>"; };
 		92ADD19D23570FD1003A52DF /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
 		92C483182353B78500B2225F /* CoreDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92C483192353B78500B2225F /* CoreDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -139,6 +139,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9226926F23664CFD00730F74 /* DecisionsSection */ = {
+			isa = PBXGroup;
+			children = (
+				9226926D23664AF200730F74 /* DecisionsSection.swift */,
+			);
+			path = DecisionsSection;
+			sourceTree = "<group>";
+		};
 		922FBA35233CD28D007428A8 /* InitialConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,11 +177,11 @@
 		922FBA4823415731007428A8 /* AnswerListFlow */ = {
 			isa = PBXGroup;
 			children = (
-				92ADD19A23570EBC003A52DF /* Views */,
 				923767692315BB4D0037F883 /* AnswerListViewController.swift */,
 				922FBA4923415784007428A8 /* AnswerListViewModel.swift */,
 				922FBA4B2341579F007428A8 /* AnswerListModel.swift */,
-				92ADD19823570E7D003A52DF /* TableViewChanges.swift */,
+				92ADD19A23570EBC003A52DF /* Views */,
+				9226926F23664CFD00730F74 /* DecisionsSection */,
 			);
 			path = AnswerListFlow;
 			sourceTree = "<group>";
@@ -627,9 +635,9 @@
 				922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */,
 				92C4831F2353B78500B2225F /* ManagedDecision+CoreDataProperties.swift in Sources */,
 				922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */,
+				9226926E23664AF200730F74 /* DecisionsSection.swift in Sources */,
 				925B33A62353552B000A84F9 /* CoreDataManager.swift in Sources */,
 				9258B1232363116A00523A52 /* MainViewControllerView.swift in Sources */,
-				92ADD19923570E7D003A52DF /* TableViewChanges.swift in Sources */,
 				92EDC5C123550DF5006C99CC /* DateFormatter + extension.swift in Sources */,
 				92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */,
 				92ADD19E23570FD1003A52DF /* AnswerTableViewCell.swift in Sources */,

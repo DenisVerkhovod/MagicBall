@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 private extension AnswerListViewController {
 
@@ -25,12 +26,40 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
 
     private let viewModel: AnswerListViewModel
     private let animator: TextFieldAnimator = AnswerTextFieldAnimator()
+    private let removeDecision: PublishRelay<Int>
     private let disposeBag = DisposeBag()
+
+    // MARK: - Lazy properties
+
+    private lazy var dataSource: RxTableViewSectionedAnimatedDataSource<DecisionsSection> = {
+        let dataSource = RxTableViewSectionedAnimatedDataSource<DecisionsSection>(
+            configureCell: { (_, tableView, indexPath, presentableDecision) -> UITableViewCell in
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: Defaults.cellIdentifier,
+                    for: indexPath
+                    ) as? AnswerTableViewCell
+                    else {
+                        fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
+                }
+
+                cell.answerLabel.text = presentableDecision.answer
+                cell.dateLabel.text = presentableDecision.createdAt
+
+                return cell
+        })
+
+        dataSource.canEditRowAtIndexPath = { _, _ in
+            return true
+        }
+
+        return dataSource
+    }()
 
     // MARK: - Lifecycle
 
     init(viewModel: AnswerListViewModel) {
         self.viewModel = viewModel
+        self.removeDecision = PublishRelay()
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -46,12 +75,6 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
         setupBindings()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        rootView.tableView.reloadData()
-    }
-
     // MARK: - Configure
 
     private func configure() {
@@ -61,8 +84,6 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
 
     private func configureTableView() {
         rootView.tableView.register(AnswerTableViewCell.self, forCellReuseIdentifier: Defaults.cellIdentifier)
-        rootView.tableView.delegate = self
-        rootView.tableView.dataSource = self
     }
 
     private func configureNewAnswerTextField() {
@@ -77,13 +98,17 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
             })
             .disposed(by: disposeBag)
 
+        rootView.tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+
         viewModel
-            .decisionsChanges
-            .subscribe(onNext: { [weak self] changes in
-                self?.updateTableView(with: changes)
-            })
-            .disposed(by: disposeBag
-        )
+            .decisionsSections
+            .bind(to: rootView.tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+
+        removeDecision
+            .bind(to: viewModel.removeDecision)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Helpers
@@ -99,57 +124,6 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
         rootView.newAnswerTextField.resignFirstResponder()
         animator.successInputAnimation(rootView.newAnswerTextField)
     }
-
-    private func updateTableView(with changes: TableViewChanges) {
-        guard rootView.tableView.window != nil else { return }
-
-        switch changes {
-        case .initial:
-            rootView.tableView.reloadData()
-
-        case let .update(info):
-
-            rootView.tableView.beginUpdates()
-
-            let deletedIndexPaths = info.deletedIndexes.map({ IndexPath(row: $0, section: 0) })
-            rootView.tableView.deleteRows(at: deletedIndexPaths, with: .automatic)
-
-            let insertedIndexPaths = info.insertedIndexes.map({ IndexPath(row: $0, section: 0) })
-            rootView.tableView.insertRows(at: insertedIndexPaths, with: .automatic)
-
-            let updatedIndexPaths = info.updatedIndexes.map({ IndexPath(row: $0, section: 0) })
-            rootView.tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
-
-            rootView.tableView.endUpdates()
-
-        case .none:
-            break
-        }
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension AnswerListViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfDecisions
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: Defaults.cellIdentifier) as? AnswerTableViewCell
-            else {
-                fatalError("Failed to dequeue cell with identifier: \(Defaults.cellIdentifier)")
-        }
-
-        let decision = viewModel.decision(at: indexPath.row)
-        cell.answerLabel.text = decision.answer
-        cell.dateLabel.text = decision.createdAt
-
-        return cell
-    }
-
 }
 
 // MARK: - UITableViewDelegate
@@ -165,8 +139,7 @@ extension AnswerListViewController: UITableViewDelegate {
             style: .destructive,
             title: L10n.AnswerList.deleteActionTitle
         ) { [weak self] _, _, completion in
-            let decision = self?.viewModel.decision(at: indexPath.row)
-            decision?.removingHandler?()
+            self?.removeDecision.accept(indexPath.row)
 
             completion(true)
         }

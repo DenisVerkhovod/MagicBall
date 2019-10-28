@@ -10,7 +10,16 @@ import Foundation
 
 struct PresentableDecision {
 
+    let identifier: String
     let answer: String
     let createdAt: String
     var removingHandler: (() -> Void)?
+}
+
+extension PresentableDecision: Equatable {
+
+    static func == (lhs: PresentableDecision, rhs: PresentableDecision) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+
 }
