@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-final class MainModel {
+final class MainModel: NavigationNode {
 
     // MARK: - Public properties
 
@@ -30,6 +30,7 @@ final class MainModel {
     // MARK: - Initialization
 
     init(
+        parent: NavigationNode,
         networkManager: NetworkManagerProtocol,
         onDeviceMagicBall: AnswerGenerator,
         shakeCounter: ShakeCounter,
@@ -43,6 +44,8 @@ final class MainModel {
         self.decision = BehaviorRelay(value: nil)
         self.canCommitDecision = BehaviorRelay(value: false)
         self.decisionToCommit = BehaviorRelay(value: nil)
+
+        super.init(parent: parent)
 
         Observable.combineLatest(decision, canCommitDecision)
             .filter({ $0 != nil && $1 })

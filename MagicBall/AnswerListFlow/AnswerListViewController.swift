@@ -51,6 +51,9 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
         dataSource.canEditRowAtIndexPath = { _, _ in
             return true
         }
+        dataSource.titleForHeaderInSection = { dataSource, index in
+            dataSource.sectionModels[index].header
+        }
 
         return dataSource
     }()

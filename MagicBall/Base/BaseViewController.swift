@@ -18,4 +18,17 @@ class BaseViewController<T>: UIViewController where T: UIView {
     override func loadView() {
         view = T()
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureNavigationBar()
+    }
+
+    private func configureNavigationBar() {
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.setBackgroundImage(UIImage(), for: .default)
+        navigationBar?.shadowImage = UIImage()
+        navigationBar?.isTranslucent = true
+    }
 }

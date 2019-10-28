@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		9226926E23664AF200730F74 /* DecisionsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226926D23664AF200730F74 /* DecisionsSection.swift */; };
+		922692792366D5AF00730F74 /* NavigationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922692782366D5AF00730F74 /* NavigationNode.swift */; };
+		9226927B2366D87D00730F74 /* AnswerListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226927A2366D87D00730F74 /* AnswerListFlowCoordinator.swift */; };
+		9226927D2366D89E00730F74 /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226927C2366D89E00730F74 /* FlowCoordinator.swift */; };
+		9226927F2366D8C800730F74 /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226927E2366D8C800730F74 /* MainFlowCoordinator.swift */; };
+		922692812366D8EC00730F74 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922692802366D8EC00730F74 /* AppCoordinator.swift */; };
+		922692852366F85C00730F74 /* Array + toDecisionsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922692842366F85C00730F74 /* Array + toDecisionsSection.swift */; };
 		922FBA38233CDAA4007428A8 /* OnDeviceMagicBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA37233CDAA4007428A8 /* OnDeviceMagicBall.swift */; };
 		922FBA3D2341279C007428A8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA3C2341279C007428A8 /* MainViewModel.swift */; };
 		922FBA3F2341283B007428A8 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922FBA3E2341283B007428A8 /* MainModel.swift */; };
@@ -59,6 +65,12 @@
 /* Begin PBXFileReference section */
 		7420581BE45D90B3FCCE03DF /* Pods_MagicBall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicBall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9226926D23664AF200730F74 /* DecisionsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecisionsSection.swift; sourceTree = "<group>"; };
+		922692782366D5AF00730F74 /* NavigationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationNode.swift; sourceTree = "<group>"; };
+		9226927A2366D87D00730F74 /* AnswerListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerListFlowCoordinator.swift; sourceTree = "<group>"; };
+		9226927C2366D89E00730F74 /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
+		9226927E2366D8C800730F74 /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinator.swift; sourceTree = "<group>"; };
+		922692802366D8EC00730F74 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		922692842366F85C00730F74 /* Array + toDecisionsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + toDecisionsSection.swift"; sourceTree = "<group>"; };
 		922FBA37233CDAA4007428A8 /* OnDeviceMagicBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeviceMagicBall.swift; sourceTree = "<group>"; };
 		922FBA3C2341279C007428A8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		922FBA3E2341283B007428A8 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
@@ -147,6 +159,24 @@
 			path = DecisionsSection;
 			sourceTree = "<group>";
 		};
+		922692822366D95900730F74 /* NavigationNode */ = {
+			isa = PBXGroup;
+			children = (
+				922692782366D5AF00730F74 /* NavigationNode.swift */,
+			);
+			path = NavigationNode;
+			sourceTree = "<group>";
+		};
+		922692832366E1E000730F74 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9237673923146EEA0037F883 /* AppDelegate.swift */,
+				922692802366D8EC00730F74 /* AppCoordinator.swift */,
+				9226927C2366D89E00730F74 /* FlowCoordinator.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		922FBA35233CD28D007428A8 /* InitialConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +200,7 @@
 				923767672315AAE30037F883 /* MainViewController.swift */,
 				922FBA3C2341279C007428A8 /* MainViewModel.swift */,
 				922FBA3E2341283B007428A8 /* MainModel.swift */,
+				9226927E2366D8C800730F74 /* MainFlowCoordinator.swift */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -180,6 +211,7 @@
 				923767692315BB4D0037F883 /* AnswerListViewController.swift */,
 				922FBA4923415784007428A8 /* AnswerListViewModel.swift */,
 				922FBA4B2341579F007428A8 /* AnswerListModel.swift */,
+				9226927A2366D87D00730F74 /* AnswerListFlowCoordinator.swift */,
 				92ADD19A23570EBC003A52DF /* Views */,
 				9226926F23664CFD00730F74 /* DecisionsSection */,
 			);
@@ -207,7 +239,7 @@
 		9237673823146EEA0037F883 /* MagicBall */ = {
 			isa = PBXGroup;
 			children = (
-				9237673923146EEA0037F883 /* AppDelegate.swift */,
+				922692832366E1E000730F74 /* App */,
 				925B33A72353775C000A84F9 /* Extensions */,
 				9261B9842338260C004A5F6D /* Generated */,
 				92376764231474D70037F883 /* Constants */,
@@ -220,6 +252,7 @@
 				927564212365A443004712E3 /* Helpers */,
 				92376757231472310037F883 /* Storyboards */,
 				92376758231472460037F883 /* Resources */,
+				922692822366D95900730F74 /* NavigationNode */,
 			);
 			path = MagicBall;
 			sourceTree = "<group>";
@@ -369,6 +402,7 @@
 			children = (
 				925B33A82353777E000A84F9 /* NSManagedContext + Save.swift */,
 				92EDC5C023550DF5006C99CC /* DateFormatter + extension.swift */,
+				922692842366F85C00730F74 /* Array + toDecisionsSection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -606,8 +640,10 @@
 			files = (
 				92C4831E2353B78500B2225F /* ManagedDecision+CoreDataClass.swift in Sources */,
 				922FBA3F2341283B007428A8 /* MainModel.swift in Sources */,
+				9226927B2366D87D00730F74 /* AnswerListFlowCoordinator.swift in Sources */,
 				925B33902350DFCB000A84F9 /* CoreDataStack.swift in Sources */,
 				92376756231472190037F883 /* NetworkManager.swift in Sources */,
+				9226927F2366D8C800730F74 /* MainFlowCoordinator.swift in Sources */,
 				922FBA4C2341579F007428A8 /* AnswerListModel.swift in Sources */,
 				923767682315AAE30037F883 /* MainViewController.swift in Sources */,
 				92EDC5BF235503D2006C99CC /* DataBaseObserver.swift in Sources */,
@@ -618,6 +654,7 @@
 				922FBA3D2341279C007428A8 /* MainViewModel.swift in Sources */,
 				92376763231474CE0037F883 /* Constants.swift in Sources */,
 				9237673A23146EEA0037F883 /* AppDelegate.swift in Sources */,
+				922692852366F85C00730F74 /* Array + toDecisionsSection.swift in Sources */,
 				925B339723533730000A84F9 /* DataBaseManager.swift in Sources */,
 				9261B98623382E72004A5F6D /* Assets.swift in Sources */,
 				9237676C2315BDC50037F883 /* InitialConfigurationManager.swift in Sources */,
@@ -637,6 +674,8 @@
 				922FBA4A23415784007428A8 /* AnswerListViewModel.swift in Sources */,
 				9226926E23664AF200730F74 /* DecisionsSection.swift in Sources */,
 				925B33A62353552B000A84F9 /* CoreDataManager.swift in Sources */,
+				922692792366D5AF00730F74 /* NavigationNode.swift in Sources */,
+				922692812366D8EC00730F74 /* AppCoordinator.swift in Sources */,
 				9258B1232363116A00523A52 /* MainViewControllerView.swift in Sources */,
 				92EDC5C123550DF5006C99CC /* DateFormatter + extension.swift in Sources */,
 				92C4831C2353B78500B2225F /* CoreDataModel+CoreDataClass.swift in Sources */,
@@ -644,6 +683,7 @@
 				9271E27723545DF2003646BF /* CoreDataObserver.swift in Sources */,
 				925B33AB235379A7000A84F9 /* Decision + CoreData.swift in Sources */,
 				925317B9234A493800717E98 /* MagicBallShakeCounter.swift in Sources */,
+				9226927D2366D89E00730F74 /* FlowCoordinator.swift in Sources */,
 				9258B1282363189E00523A52 /* AnswerListViewControllerView.swift in Sources */,
 				92702B38235F239600AB9B6F /* TextFieldAnimator.swift in Sources */,
 				92C8F716234351E200026AF3 /* Strings.swift in Sources */,

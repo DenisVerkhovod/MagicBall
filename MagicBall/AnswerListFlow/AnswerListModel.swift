@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import RxSwift
 
-final class AnswerListModel {
+final class AnswerListModel: NavigationNode {
 
     // MARK: Public properties
 
@@ -23,9 +23,11 @@ final class AnswerListModel {
 
     // MARK: - Inititalization
 
-    init(decisionStorage: DecisionStorage) {
+    init(parent: NavigationNode, decisionStorage: DecisionStorage) {
         self.decisionStorage = decisionStorage
         self.decisions = BehaviorRelay(value: [])
+
+        super.init(parent: parent)
 
         configureObservation()
     }

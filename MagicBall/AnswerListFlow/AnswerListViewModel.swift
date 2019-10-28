@@ -19,8 +19,7 @@ final class AnswerListViewModel {
         return model
             .decisions
             .asObservable()
-            .map({ $0.map({ $0.toPresentableDecision() }) })
-            .map({ [DecisionsSection(header: L10n.AnswerList.sectionTitle, items: $0)] })
+            .map({ $0.toDecisionsSections() })
     }
 
     // MARK: - Private properties
