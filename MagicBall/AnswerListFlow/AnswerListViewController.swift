@@ -26,7 +26,8 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
 
     private let viewModel: AnswerListViewModel
     private let animator: TextFieldAnimator = AnswerTextFieldAnimator()
-    private let removeDecision: PublishRelay<Int>
+    private let newAnswer = PublishRelay<String>()
+    private let removeDecision = PublishRelay<String>()
     private let disposeBag = DisposeBag()
 
     // MARK: - Lazy properties
@@ -62,7 +63,6 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
 
     init(viewModel: AnswerListViewModel) {
         self.viewModel = viewModel
-        self.removeDecision = PublishRelay()
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -109,6 +109,10 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
             .bind(to: rootView.tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
+        newAnswer
+            .bind(to: viewModel.newAnswer)
+            .disposed(by: disposeBag)
+
         removeDecision
             .bind(to: viewModel.removeDecision)
             .disposed(by: disposeBag)
@@ -122,7 +126,7 @@ final class AnswerListViewController: BaseViewController<AnswerListViewControlle
             return
         }
 
-        viewModel.newAnswer.onNext(text)
+        newAnswer.accept(text)
         rootView.newAnswerTextField.text = ""
         rootView.newAnswerTextField.resignFirstResponder()
         animator.successInputAnimation(rootView.newAnswerTextField)
@@ -142,7 +146,12 @@ extension AnswerListViewController: UITableViewDelegate {
             style: .destructive,
             title: L10n.AnswerList.deleteActionTitle
         ) { [weak self] _, _, completion in
-            self?.removeDecision.accept(indexPath.row)
+            guard let identifier = self?.dataSource[indexPath].identifier else {
+                completion(false)
+                return
+            }
+
+            self?.removeDecision.accept(identifier)
 
             completion(true)
         }

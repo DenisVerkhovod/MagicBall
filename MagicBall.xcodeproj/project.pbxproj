@@ -240,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				922692832366E1E000730F74 /* App */,
+				922692822366D95900730F74 /* NavigationNode */,
 				925B33A72353775C000A84F9 /* Extensions */,
 				9261B9842338260C004A5F6D /* Generated */,
 				92376764231474D70037F883 /* Constants */,
@@ -252,7 +253,6 @@
 				927564212365A443004712E3 /* Helpers */,
 				92376757231472310037F883 /* Storyboards */,
 				92376758231472460037F883 /* Resources */,
-				922692822366D95900730F74 /* NavigationNode */,
 			);
 			path = MagicBall;
 			sourceTree = "<group>";

@@ -34,16 +34,12 @@ final class AnswerListModel: NavigationNode {
 
     // MARK: - Decision handlers
 
-    func decision(at index: Int) -> Decision {
-        return decisions.value[index]
-    }
-
     func save(_ decisions: [Decision]) {
         decisionStorage.saveDecisions(decisions)
     }
 
-    func removeDecision(at index: Int) {
-        let decisionToRemove = decision(at: index)
+    func removeDecision(with identifier: String) {
+        guard let decisionToRemove = decisions.value.first(where: { $0.identifier == identifier }) else { return }
 
         decisionStorage.removeDecision(decisionToRemove)
     }

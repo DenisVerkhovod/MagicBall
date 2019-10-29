@@ -13,8 +13,8 @@ final class AnswerListViewModel {
 
     // MARK: - Public properties
 
-    var newAnswer = PublishSubject<String>()
-    var removeDecision = PublishRelay<Int>()
+    let newAnswer = PublishRelay<String>()
+    let removeDecision = PublishRelay<String>()
     var decisionsSections: Observable<[DecisionsSection]> {
         return model
             .decisions
@@ -42,17 +42,9 @@ final class AnswerListViewModel {
 
         removeDecision
             .asObservable()
-            .subscribe(onNext: { [weak self] index in
-                self?.model.removeDecision(at: index)
+            .subscribe(onNext: { [weak self] identifier in
+                self?.model.removeDecision(with: identifier)
             })
             .disposed(by: disposeBag)
-    }
-
-    // MARK: - Decision handlers
-
-    func decision(at index: Int) -> PresentableDecision {
-        let decision = model.decision(at: index)
-
-        return decision.toPresentableDecision()
     }
 }

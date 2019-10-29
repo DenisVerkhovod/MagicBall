@@ -30,7 +30,6 @@ private extension AnswerListViewControllerView {
 
         // AddNewAnswer buttom
         static let addNewAnswerButtonCornerRadius: CGFloat = 5.0
-        static let addNewAnswerButtonSize: CGFloat = 30.0
 
         // TableView
         static let tableViewTopOffset: CGFloat = 20.0
@@ -82,17 +81,17 @@ final class AnswerListViewControllerView: UIView {
     }()
 
     private lazy var titleLabel: UILabel = {
-         let label = UILabel()
-         label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
-         label.textColor = Asset.Colors.biege.color
-         label.text = L10n.AnswerList.title
-         label.minimumScaleFactor = 0.5
-         label.textAlignment = .center
-         label.numberOfLines = 0
-         addSubview(label)
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: Defaults.titleLabelFontSize)
+        label.textColor = Asset.Colors.biege.color
+        label.text = L10n.AnswerList.title
+        label.minimumScaleFactor = 0.5
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        addSubview(label)
 
-         return label
-     }()
+        return label
+    }()
 
     private lazy var inputStackView: UIStackView = {
         let stackView = UIStackView()
@@ -137,7 +136,6 @@ final class AnswerListViewControllerView: UIView {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(Defaults.titleLabelTopOffset).priority(999)
             make.leading.trailing.equalToSuperview().inset(Defaults.titleLabelLeadingTrailingOffset).priority(999)
-
         }
     }
 
@@ -150,7 +148,7 @@ final class AnswerListViewControllerView: UIView {
 
     private func setupAddNewAnswerButton() {
         addNewAnswerButton.snp.makeConstraints { make in
-            make.size.greaterThanOrEqualTo(Defaults.addNewAnswerButtonSize)
+            make.height.equalTo(inputStackView)
             make.width.equalTo(addNewAnswerButton.snp.height).multipliedBy(1)
         }
     }
@@ -158,8 +156,7 @@ final class AnswerListViewControllerView: UIView {
     private func setupTableView() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(inputStackView.snp.bottom).offset(Defaults.tableViewTopOffset)
-            make.trailing.leading.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
