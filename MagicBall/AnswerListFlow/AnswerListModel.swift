@@ -8,42 +8,39 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
-final class AnswerListModel {
+final class AnswerListModel: NavigationNode {
 
     // MARK: Public properties
 
-    var decisionsDidChange: ((ChangesSnapshot<Decision>) -> Void)?
-    var numberOfDecisions: Int {
-        return decisions.count
-    }
+    let decisions = BehaviorRelay<[Decision]>(value: [])
 
     // MARK: - Private properties
 
     private let decisionStorage: DecisionStorage
-    private var decisions: [Decision] = []
     private var decisionChangesObserver: DataBaseObserver<Decision>?
 
     // MARK: - Inititalization
 
-    init(decisionStorage: DecisionStorage) {
+    init(parent: NavigationNode, decisionStorage: DecisionStorage) {
         self.decisionStorage = decisionStorage
+
+        super.init(parent: parent)
 
         configureObservation()
     }
 
     // MARK: - Decision handlers
 
-    func decision(at index: Int) -> Decision {
-        return decisions[index]
-    }
-
     func save(_ decisions: [Decision]) {
         decisionStorage.saveDecisions(decisions)
     }
 
-    func remove(_ decision: Decision) {
-        decisionStorage.removeDecision(decision)
+    func removeDecision(with identifier: String) {
+        guard let decisionToRemove = decisions.value.first(where: { $0.identifier == identifier }) else { return }
+
+        decisionStorage.removeDecision(decisionToRemove)
     }
 
     // MARK: - Configure observation
@@ -59,15 +56,14 @@ final class AnswerListModel {
         observer.observe { [weak self] changes in
             switch changes {
             case let .initial(objects: decisions):
-                self?.decisions = decisions
+                self?.decisions.accept(decisions)
 
             case let .modify(changes: info):
-                self?.decisions = info.objects
+                self?.decisions.accept(info.objects)
 
             default:
                 break
             }
-            self?.decisionsDidChange?(changes)
         }
     }
 }

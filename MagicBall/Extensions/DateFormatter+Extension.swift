@@ -1,5 +1,5 @@
 //
-//  DateFormatter + extension.swift
+//  DateFormatter+Extension.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 14.10.2019.
@@ -13,6 +13,13 @@ extension DateFormatter {
     static var fullDateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, HH:mm"
+
+        return formatter
+    }
+
+    static var monthYearDateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
 
         return formatter
     }

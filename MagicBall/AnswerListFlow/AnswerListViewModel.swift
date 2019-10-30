@@ -7,69 +7,80 @@
 //
 
 import Foundation
+import RxSwift
 
 final class AnswerListViewModel {
 
     // MARK: - Public properties
 
-    var decisionsDidChange: ((TableViewChanges) -> Void)?
-    var numberOfDecisions: Int {
-        return model.numberOfDecisions
+    let newAnswer = PublishRelay<String>()
+    let removeDecision = PublishRelay<String>()
+    var decisionsSections: Observable<[DecisionsSection]> {
+        return model
+            .decisions
+            .asObservable()
+            .map({ $0.toDecisionsSections() })
     }
 
     // MARK: - Private properties
 
     private let model: AnswerListModel
+    private let disposeBag = DisposeBag()
 
-    // MARK: - Inititalization
+    // MARK: - Initialization
 
     init(model: AnswerListModel) {
         self.model = model
 
-        configureObservers()
+        newAnswer
+            .asObservable()
+            .map({ Decision(answer: $0) })
+            .subscribe(onNext: { [weak self] decision in
+                self?.model.save([decision])
+            })
+            .disposed(by: disposeBag)
+
+        removeDecision
+            .asObservable()
+            .subscribe(onNext: { [weak self] identifier in
+                self?.model.removeDecision(with: identifier)
+            })
+            .disposed(by: disposeBag)
     }
+}
 
-    // MARK: - Decision handlers
+private extension Array where Element == Decision {
 
-    func decision(at index: Int) -> PresentableDecision {
-        let decision = model.decision(at: index)
-        var presentableDecision = decision.toPresentableDecision()
-        presentableDecision.removingHandler = { [weak self] in
-            self?.model.remove(decision)
+    /// Map an array of decisions into array of DecisionsSection
+    /// which is appropriate for using with RxTableViewSectionedAnimatedDataSource.
+    func toDecisionsSections(ascending: Bool = false) -> [DecisionsSection] {
+        var sectionsDictionary: [String: [PresentableDecision]] = [:]
+        forEach {
+            let date = DateFormatter.monthYearDateFormatter.string(for: $0.createdAt) ?? ""
+            if let sectionItems = sectionsDictionary[date] {
+                sectionsDictionary[date] = sectionItems + [$0.toPresentableDecision()]
+            } else {
+                sectionsDictionary[date] = [$0.toPresentableDecision()]
+            }
+
+        }
+        var sections: [DecisionsSection] = []
+        sectionsDictionary.forEach {
+            sections.append(DecisionsSection(header: $0, items: $1))
         }
 
-        return presentableDecision
-    }
+        return sections
+            .sorted { firstSection, secondSection in
+                let formatter = DateFormatter.monthYearDateFormatter
+                guard
+                    let firstDate = formatter.date(from: firstSection.header),
+                    let secondDate = formatter.date(from: secondSection.header)
+                    else { return false }
 
-    func saveDecision(with text: String) {
-        let newDecision = Decision(answer: text)
-        model.save([newDecision])
-    }
-
-    // MARK: - Configure observers
-
-    private func configureObservers() {
-        model.decisionsDidChange = { [weak self] decisionsChanges in
-            self?.handleChanges(decisionsChanges)
+                return ascending
+                    ? firstDate < secondDate
+                    : firstDate > secondDate
         }
     }
 
-    // MARK: - Helpers
-
-    private func handleChanges(_ changes: ChangesSnapshot<Decision>) {
-        switch changes {
-        case .initial:
-            decisionsDidChange?(.initial)
-
-        case let .modify(changes: info):
-            let tableViewChanges = TableViewChanges.update(info: TableViewChanges.Info(
-                insertedIndexes: info.insertedIndexes,
-                deletedIndexes: info.deletedIndexes,
-                updatedIndexes: info.modifiedIndexes)
-            )
-            decisionsDidChange?(tableViewChanges)
-        case let .error(error):
-            print("Updation error: \(String(describing: error))")
-        }
-    }
 }
