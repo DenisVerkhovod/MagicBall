@@ -14,7 +14,7 @@ final class AnswerListModel: NavigationNode {
 
     // MARK: Public properties
 
-    var decisions: BehaviorRelay<[Decision]>
+    let decisions = BehaviorRelay<[Decision]>(value: [])
 
     // MARK: - Private properties
 
@@ -25,7 +25,6 @@ final class AnswerListModel: NavigationNode {
 
     init(parent: NavigationNode, decisionStorage: DecisionStorage) {
         self.decisionStorage = decisionStorage
-        self.decisions = BehaviorRelay(value: [])
 
         super.init(parent: parent)
 

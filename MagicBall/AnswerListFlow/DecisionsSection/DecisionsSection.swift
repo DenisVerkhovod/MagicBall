@@ -10,7 +10,7 @@ import Foundation
 import RxDataSources
 
 struct DecisionsSection {
-    var header: String
+    let header: String
     var items: [PresentableDecision]
 }
 

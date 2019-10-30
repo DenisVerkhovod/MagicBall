@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var coordinator: FlowCoordinator?
 
     func application(
         _ application: UIApplication,
@@ -32,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             decisionStorage: answerStorage
         )
 
-        coordinator = appCoordinator
         let controller = appCoordinator.createFlow()
         appCoordinator.containerViewController = controller
 

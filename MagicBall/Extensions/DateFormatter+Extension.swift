@@ -1,5 +1,5 @@
 //
-//  DateFormatter + extension.swift
+//  DateFormatter+Extension.swift
 //  MagicBall
 //
 //  Created by Denis Verkhovod on 14.10.2019.

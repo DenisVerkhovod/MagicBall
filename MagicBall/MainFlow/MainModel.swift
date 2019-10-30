@@ -13,8 +13,8 @@ final class MainModel: NavigationNode {
 
     // MARK: - Public properties
 
-    var decisionToCommit: BehaviorRelay<Decision?>
-    var totalShakes: BehaviorRelay<Int>
+    let decisionToCommit = BehaviorRelay<Decision?>(value: nil)
+    let totalShakes: BehaviorRelay<Int>
 
     // MARK: - Private properties
 
@@ -23,9 +23,9 @@ final class MainModel: NavigationNode {
     private let shakeCounter: ShakeCounter
     private let decisionStorage: DecisionStorage
     private let disposeBag = DisposeBag()
+    private let decision = BehaviorRelay<Decision?>(value: nil)
+    private let canCommitDecision = BehaviorRelay(value: false)
     private var dataTask: URLSessionDataTask?
-    private var decision: BehaviorRelay<Decision?>
-    private var canCommitDecision: BehaviorRelay<Bool>
 
     // MARK: - Initialization
 
@@ -41,17 +41,16 @@ final class MainModel: NavigationNode {
         self.shakeCounter = shakeCounter
         self.decisionStorage = decisionStorage
         self.totalShakes = BehaviorRelay(value: shakeCounter.numberOfShakes)
-        self.decision = BehaviorRelay(value: nil)
-        self.canCommitDecision = BehaviorRelay(value: false)
-        self.decisionToCommit = BehaviorRelay(value: nil)
 
         super.init(parent: parent)
 
-        Observable.combineLatest(decision, canCommitDecision)
+        Observable
+            .combineLatest(decision, canCommitDecision)
             .filter({ $0 != nil && $1 })
-            .subscribe(onNext: { [weak self] decision, _ in
-                self?.decisionToCommit.accept(decision)
+            .map({ decision, _  in
+                 decision
             })
+            .bind(to: decisionToCommit)
             .disposed(by: disposeBag)
     }
 

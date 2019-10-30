@@ -34,7 +34,7 @@ final class AnswerListViewModel {
 
         newAnswer
             .asObservable()
-            .flatMap({ Observable<Decision>.just(Decision(answer: $0)) })
+            .map({ Decision(answer: $0) })
             .subscribe(onNext: { [weak self] decision in
                 self?.model.save([decision])
             })
@@ -47,4 +47,40 @@ final class AnswerListViewModel {
             })
             .disposed(by: disposeBag)
     }
+}
+
+private extension Array where Element == Decision {
+
+    /// Map an array of decisions into array of DecisionsSection
+    /// which is appropriate for using with RxTableViewSectionedAnimatedDataSource.
+    func toDecisionsSections(ascending: Bool = false) -> [DecisionsSection] {
+        var sectionsDictionary: [String: [PresentableDecision]] = [:]
+        forEach {
+            let date = DateFormatter.monthYearDateFormatter.string(for: $0.createdAt) ?? ""
+            if let sectionItems = sectionsDictionary[date] {
+                sectionsDictionary[date] = sectionItems + [$0.toPresentableDecision()]
+            } else {
+                sectionsDictionary[date] = [$0.toPresentableDecision()]
+            }
+
+        }
+        var sections: [DecisionsSection] = []
+        sectionsDictionary.forEach {
+            sections.append(DecisionsSection(header: $0, items: $1))
+        }
+
+        return sections
+            .sorted { firstSection, secondSection in
+                let formatter = DateFormatter.monthYearDateFormatter
+                guard
+                    let firstDate = formatter.date(from: firstSection.header),
+                    let secondDate = formatter.date(from: secondSection.header)
+                    else { return false }
+
+                return ascending
+                    ? firstDate < secondDate
+                    : firstDate > secondDate
+        }
+    }
+
 }
