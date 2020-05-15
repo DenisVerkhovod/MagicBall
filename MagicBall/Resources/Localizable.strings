@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  MagicBall
+
+  Created by Denis Verkhovod on 10/1/19.
+  Copyright © 2019 Denis Verkhovod. All rights reserved.
+*/
+
+// Main
+
+"main.title" = "Ask the Ball and shake!";
+"main.answerLabelDefaultText" = "Try me!";
+"main.defaultAnswer" = "Try again later!";
+"main.totalShakes" = "Total shakes: ";
+"main.tabBarItemTitle" = "MagicBall";
+
+// AnswerList
+
+"answerList.title" = "Help Magic Ball by adding your answers!";
+"answerList.textFieldPlaceholderText" = "Type answer to add...";
+"answerList.addButtonTitle" = "Add";
+"answerList.deleteActionTitle" = "Delete";
+"answerList.tabBarItemTitle" = "Answers";
+
+// Answers
+
+"answer.preset1" = "Great idea!";
+"answer.preset2" = "Let's do it!";
+"answer.preset3" = "Not now";
+"answer.preset4" = "Maybe next time";
